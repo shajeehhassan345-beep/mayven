@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#fbfbfd">
   <title>Mayven & Co. ® — Intelligent Growth & Autonomous Systems</title>
 
-  <!-- Favicon -->
+  <!-- Favicon (Browser Tab Icon) -->
   <link rel="icon" type="image/png" href="erasebg-transformed.png">
   <link rel="apple-touch-icon" href="erasebg-transformed.png">
 
@@ -443,12 +443,12 @@
     <header class="fixed top-0 inset-x-0 w-full z-50 bg-[#fbfbfd]/80 backdrop-blur-md border-b border-black/[0.05] pointer-events-auto">
       <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-3">
         
+        <!-- Navbar Logo: uses erasebg-transformed (1).png -->
         <a href="#" onclick="switchView('home'); return false;" class="flex items-center space-x-2.5 sm:space-x-3 shrink-0">
           <img 
-            src="erasebg-transformed.png" 
+            src="erasebg-transformed (1).png" 
             alt="Mayven & Co. Logo" 
-            class="nav-logo-img" 
-            onerror="this.onerror=null; this.src='logo.png';"
+            class="nav-logo-img"
           >
           <span class="font-display font-semibold text-sm sm:text-base tracking-tight text-appleInk">Mayven & Co.</span>
         </a>
@@ -478,14 +478,13 @@
         <section id="view-home" class="view-section active w-full max-w-5xl mx-auto text-center">
           <div class="flex flex-col items-center">
 
-            <!-- Monolith Logo -->
+            <!-- Hero Monolith Logo: uses erasebg-transformed (1).png -->
             <div class="hero-logo-container group focus-target">
               <div class="hero-logo-halo"></div>
               <img 
-                src="erasebg-transformed.png" 
+                src="erasebg-transformed (1).png" 
                 alt="Mayven & Co. Emblem" 
-                class="hero-logo-img" 
-                onerror="this.onerror=null; this.src='logo.png';"
+                class="hero-logo-img"
               >
             </div>
 
@@ -731,7 +730,7 @@
           </div>
         </section>
 
-        <!-- ================= VIEW 3: PROTOCOL & METHODOLOGY (Consolidated Solutions + About) ================= -->
+        <!-- ================= VIEW 3: PROTOCOL & METHODOLOGY ================= -->
         <section id="view-solutions" class="view-section w-full max-w-5xl mx-auto">
           <div class="focus-target text-center mb-10 sm:mb-14">
             <p class="text-xs font-mono uppercase tracking-widest text-appleBlue font-semibold mb-2">Protocol</p>
@@ -1264,7 +1263,6 @@
           label.textContent = "Session Requested ✓";
           document.getElementById('contact-form').reset();
         } else {
-          // Graceful fallback for preview / static environments
           label.textContent = "Inquiry Recorded ✓";
           document.getElementById('contact-form').reset();
         }
