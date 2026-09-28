@@ -1,8 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" class="overflow-x-hidden">
+<html lang="en" class="overflow-x-hidden w-full">
 <head>
   <meta charset="UTF-8">
-  <!-- Viewport fixed to eliminate unintended mobile auto-zooming -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <meta name="theme-color" content="#fbfbfd">
   <title>Mayven & Co. ® — Intelligent Growth & Autonomous Systems</title>
@@ -62,7 +61,8 @@
     }
 
     html, body {
-      max-width: 100%;
+      width: 100%;
+      max-width: 100vw;
       overflow-x: hidden;
       touch-action: pan-y;
     }
@@ -121,7 +121,7 @@
       background: rgba(255, 255, 255, 0.88);
       backdrop-filter: blur(28px) saturate(180%);
       -webkit-backdrop-filter: blur(28px) saturate(180%);
-      border: 1px solid rgba(0, 0, 0, 0.07);
+      border: 1px solid rgba(0, 0, 0, 0.08);
       box-shadow: 0 18px 45px -10px rgba(0, 0, 0, 0.05),
                   inset 0 1px 0 0 rgba(255, 255, 255, 0.95);
     }
@@ -233,15 +233,15 @@
 
     /* Elevated & Enlarged Mobile Floating Thumb Dock */
     .dock-pill-mobile {
-      font-size: 0.82rem;
+      font-size: 0.8rem;
       letter-spacing: -0.015em;
       font-weight: 600;
-      padding-top: 0.7rem;
-      padding-bottom: 0.7rem;
+      padding-top: 0.65rem;
+      padding-bottom: 0.65rem;
       border-radius: 9999px;
       color: #6e6e73;
       border: 1px solid transparent;
-      transition: all 0.22s ease;
+      transition: all 0.2s ease;
       touch-action: manipulation;
       text-align: center;
       width: 100%;
@@ -253,7 +253,7 @@
       color: #0071e3;
       background: #ffffff;
       border-color: rgba(0, 113, 227, 0.15);
-      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
     }
     .dock-pill-mobile.active .pill-text {
       font-family: "Times New Roman", Times, Baskerville, Georgia, serif;
@@ -279,32 +279,32 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      margin-bottom: 1.75rem;
+      margin-bottom: 1.5rem;
       transform-style: preserve-3d;
       will-change: transform;
     }
 
     .hero-logo-halo {
       position: absolute;
-      inset: -45%;
+      inset: -35%;
       background: radial-gradient(circle, rgba(0, 113, 227, 0.15) 0%, rgba(0, 0, 0, 0.04) 45%, transparent 70%);
-      filter: blur(45px);
+      filter: blur(35px);
       pointer-events: none;
     }
 
     .hero-logo-img {
       position: relative;
       z-index: 1;
-      height: 160px;
+      height: 140px;
       width: auto;
-      max-width: 80vw;
+      max-width: 75vw;
       object-fit: contain;
-      filter: invert(1) contrast(1.15) drop-shadow(0 16px 32px rgba(0, 0, 0, 0.12));
+      filter: invert(1) contrast(1.15) drop-shadow(0 14px 28px rgba(0, 0, 0, 0.12));
       transition: transform 0.4s ease;
     }
 
     @media (min-width: 640px) {
-      .hero-logo-img { height: 220px; }
+      .hero-logo-img { height: 210px; }
       .hero-logo-container { margin-bottom: 2.25rem; }
     }
     @media (min-width: 1024px) {
@@ -312,7 +312,7 @@
     }
 
     .nav-logo-img {
-      height: 26px;
+      height: 24px;
       width: auto;
       object-fit: contain;
       filter: invert(1) contrast(1.15);
@@ -413,9 +413,9 @@
     <path id="portal-rim" d="M 0 0 Q 50 0 100 0" fill="none" stroke="url(#viscousRim)" stroke-width="1.2" opacity="0" />
   </svg>
 
-  <!-- ELEVATED, ENLARGED MOBILE FLOATING THUMB DOCK (Never Disappears / Clears Home Bar) -->
-  <div class="md:hidden fixed inset-x-0 mx-auto w-full z-[9999] flex justify-center pointer-events-none px-4" style="bottom: calc(1.75rem + env(safe-area-inset-bottom, 0px));">
-    <nav class="pointer-events-auto grid grid-cols-4 gap-1.5 items-center w-full max-w-[370px] apple-glass p-1.5 rounded-full shadow-2xl border border-black/10 backdrop-blur-xl">
+  <!-- ELEVATED MOBILE FLOATING THUMB DOCK (Positioned comfortably high off the bottom edge) -->
+  <div class="md:hidden fixed inset-x-0 mx-auto w-full z-[99999] flex justify-center pointer-events-none px-4" style="bottom: max(1.75rem, env(safe-area-inset-bottom, 1.75rem));">
+    <nav class="pointer-events-auto grid grid-cols-4 gap-1.5 items-center w-full max-w-[340px] apple-glass p-1 rounded-full shadow-2xl border border-black/10 backdrop-blur-xl">
       <button onclick="switchView('home')" class="dock-pill-mobile view-pill active" data-target="home"><span class="pill-text">Home</span></button>
       <button onclick="switchView('services')" class="dock-pill-mobile view-pill" data-target="services"><span class="pill-text">Services</span></button>
       <button onclick="switchView('solutions')" class="dock-pill-mobile view-pill" data-target="solutions"><span class="pill-text">Protocol</span></button>
@@ -425,19 +425,19 @@
 
   <div class="relative z-20 flex flex-col min-h-[100dvh] pointer-events-none w-full max-w-full overflow-hidden">
 
-    <!-- Header Navigation -->
-    <header class="fixed top-0 inset-x-0 w-full z-50 bg-[#fbfbfd]/80 backdrop-blur-md border-b border-black/[0.05] pointer-events-auto">
-      <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-3">
+    <!-- Header Navigation (Fully constrained to viewport width) -->
+    <header class="fixed top-0 inset-x-0 w-full z-50 bg-[#fbfbfd]/85 backdrop-blur-md border-b border-black/[0.05] pointer-events-auto">
+      <div class="w-full max-w-5xl mx-auto px-4 sm:px-6 h-14 sm:h-16 flex items-center justify-between">
         
         <!-- Navbar Logo -->
-        <a href="#" onclick="switchView('home'); return false;" class="flex items-center space-x-2.5 sm:space-x-3 shrink-0">
+        <a href="#" onclick="switchView('home'); return false;" class="flex items-center space-x-2 sm:space-x-3 shrink-0">
           <img 
             src="erasebg-transformed (1).png" 
             alt="Mayven & Co. Logo" 
             class="nav-logo-img" 
             onerror="this.onerror=null; this.src='erasebg-transformed.png';"
           >
-          <span class="font-display font-semibold text-sm sm:text-base tracking-tight text-appleInk">Mayven & Co.</span>
+          <span class="font-display font-semibold text-xs sm:text-base tracking-tight text-appleInk">Mayven & Co.</span>
         </a>
 
         <!-- Desktop Dock -->
@@ -449,8 +449,8 @@
         </div>
 
         <div class="shrink-0">
-          <button onclick="switchView('contact')" class="apple-btn-primary px-4 py-1.5 sm:px-5 sm:py-2 rounded-full text-xs font-medium tracking-tight">
-            <span class="btn-text">Book a Call</span>
+          <button onclick="switchView('contact')" class="apple-btn-primary px-3.5 py-1.5 sm:px-5 sm:py-2 rounded-full text-[11px] sm:text-xs font-medium tracking-tight">
+            <span class="btn-text whitespace-nowrap">Book a Call</span>
           </button>
         </div>
 
@@ -459,7 +459,7 @@
 
     <!-- CONTENT STAGE (Padded for raised mobile dock) -->
     <div id="content-stage" class="flex-grow flex items-center justify-center pb-32 md:pb-16 w-full max-w-full">
-      <main class="w-full pointer-events-auto px-4 sm:px-6 pt-24 sm:pt-28 max-w-full">
+      <main class="w-full pointer-events-auto px-4 sm:px-6 pt-20 sm:pt-28 max-w-full">
 
         <!-- ================= VIEW 1: HOME ================= -->
         <section id="view-home" class="view-section active w-full max-w-5xl mx-auto text-center">
@@ -476,36 +476,36 @@
               >
             </div>
 
-            <p class="text-[11px] sm:text-xs font-mono uppercase tracking-widest text-appleBlue font-semibold mb-3">
+            <p class="text-[11px] sm:text-xs font-mono uppercase tracking-widest text-appleBlue font-semibold mb-2 sm:mb-3">
               Autonomous Systems & Design
             </p>
 
-            <h1 class="font-display text-3xl sm:text-6xl md:text-7xl font-bold tracking-tight text-appleInk leading-[1.12] mb-5 sm:mb-6">
+            <h1 class="font-display text-2xl sm:text-6xl md:text-7xl font-bold tracking-tight text-appleInk leading-[1.15] sm:leading-[1.08] mb-4 sm:mb-6 max-w-4xl px-1">
               Engineering autonomous growth for modern enterprises.
             </h1>
 
-            <p class="text-sm sm:text-lg md:text-xl text-appleMuted max-w-2xl font-normal leading-relaxed mb-8 sm:mb-9 px-2">
+            <p class="text-xs sm:text-lg md:text-xl text-appleMuted max-w-2xl font-normal leading-relaxed mb-7 sm:mb-9 px-2">
               We replace manual operational friction with custom agentic AI pipelines, conversion-engineered web architecture, and automated outbound systems.
             </p>
 
-            <div class="flex flex-col sm:flex-row items-center gap-3.5 sm:gap-4 w-full sm:w-auto">
-              <button onclick="switchView('contact')" class="apple-btn-primary w-full sm:w-auto px-8 py-3 rounded-full text-sm font-medium tracking-tight">
+            <div class="flex flex-col sm:flex-row items-center gap-3 sm:gap-4 w-full sm:w-auto">
+              <button onclick="switchView('contact')" class="apple-btn-primary w-full sm:w-auto px-7 py-3 rounded-full text-xs sm:text-sm font-medium tracking-tight">
                 <span class="btn-text">Schedule Discovery Call</span>
               </button>
-              <button onclick="switchView('services')" class="apple-btn-secondary w-full sm:w-auto px-8 py-3 rounded-full text-sm font-medium tracking-tight">
+              <button onclick="switchView('services')" class="apple-btn-secondary w-full sm:w-auto px-7 py-3 rounded-full text-xs sm:text-sm font-medium tracking-tight">
                 <span class="btn-text">Explore Systems</span>
               </button>
             </div>
 
             <!-- Core Performance Grid (Dynamic Squeeze & Stretch Play Cards) -->
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 mt-12 sm:mt-20 w-full max-w-4xl text-left">
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3.5 sm:gap-6 mt-10 sm:mt-20 w-full max-w-4xl text-left">
               <div class="play-card apple-glass p-5 sm:p-6 rounded-2xl flex flex-col justify-between">
                 <div>
-                  <div class="text-[11px] font-mono text-appleBlue font-medium uppercase tracking-wider">01 / VELOCITY</div>
-                  <div class="font-display text-2xl sm:text-3xl font-bold text-appleInk mt-2">10x Output</div>
-                  <p class="text-xs text-appleMuted mt-2 leading-relaxed">Asynchronous AI workflows executing lead intake, data hygiene, and recurring tasks around the clock.</p>
+                  <div class="text-[10px] sm:text-[11px] font-mono text-appleBlue font-medium uppercase tracking-wider">01 / VELOCITY</div>
+                  <div class="font-display text-xl sm:text-3xl font-bold text-appleInk mt-1 sm:mt-2">10x Output</div>
+                  <p class="text-xs text-appleMuted mt-1.5 leading-relaxed">Asynchronous AI workflows executing lead intake, data hygiene, and recurring tasks around the clock.</p>
                 </div>
-                <div class="mt-5 sm:mt-6 pt-3 border-t border-black/5 flex items-center justify-between text-[11px] font-mono text-appleMuted">
+                <div class="mt-4 sm:mt-6 pt-2.5 sm:pt-3 border-t border-black/5 flex items-center justify-between text-[10px] sm:text-[11px] font-mono text-appleMuted">
                   <span>LATENCY</span>
                   <span class="text-appleInk font-semibold">Sub-200ms</span>
                 </div>
@@ -513,11 +513,11 @@
 
               <div class="play-card apple-glass p-5 sm:p-6 rounded-2xl flex flex-col justify-between">
                 <div>
-                  <div class="text-[11px] font-mono text-appleBlue font-medium uppercase tracking-wider">02 / INTEGRATION</div>
-                  <div class="font-display text-2xl sm:text-3xl font-bold text-appleInk mt-2">Zero Silos</div>
-                  <p class="text-xs text-appleMuted mt-2 leading-relaxed">Unified CRM pipelines connecting inbound qualification, outbound outreach, and revenue analytics automatically.</p>
+                  <div class="text-[10px] sm:text-[11px] font-mono text-appleBlue font-medium uppercase tracking-wider">02 / INTEGRATION</div>
+                  <div class="font-display text-xl sm:text-3xl font-bold text-appleInk mt-1 sm:mt-2">Zero Silos</div>
+                  <p class="text-xs text-appleMuted mt-1.5 leading-relaxed">Unified CRM pipelines connecting inbound qualification, outbound outreach, and revenue analytics automatically.</p>
                 </div>
-                <div class="mt-5 sm:mt-6 pt-3 border-t border-black/5 flex items-center justify-between text-[11px] font-mono text-appleMuted">
+                <div class="mt-4 sm:mt-6 pt-2.5 sm:pt-3 border-t border-black/5 flex items-center justify-between text-[10px] sm:text-[11px] font-mono text-appleMuted">
                   <span>DISPATCH</span>
                   <span class="text-appleInk font-semibold">Real-Time</span>
                 </div>
@@ -525,11 +525,11 @@
 
               <div class="play-card apple-glass p-5 sm:p-6 rounded-2xl flex flex-col justify-between">
                 <div>
-                  <div class="text-[11px] font-mono text-appleBlue font-medium uppercase tracking-wider">03 / CONTINUITY</div>
-                  <div class="font-display text-3xl font-bold text-appleInk mt-2">24/7/365</div>
-                  <p class="text-xs text-appleMuted mt-2 leading-relaxed">Cloud-native infrastructure and automated customer touchpoints that never shut down or require manual intervention.</p>
+                  <div class="text-[10px] sm:text-[11px] font-mono text-appleBlue font-medium uppercase tracking-wider">03 / CONTINUITY</div>
+                  <div class="font-display text-xl sm:text-3xl font-bold text-appleInk mt-1 sm:mt-2">24/7/365</div>
+                  <p class="text-xs text-appleMuted mt-1.5 leading-relaxed">Cloud-native infrastructure and automated customer touchpoints that never shut down or require manual intervention.</p>
                 </div>
-                <div class="mt-5 sm:mt-6 pt-3 border-t border-black/5 flex items-center justify-between text-[11px] font-mono text-appleMuted">
+                <div class="mt-4 sm:mt-6 pt-2.5 sm:pt-3 border-t border-black/5 flex items-center justify-between text-[10px] sm:text-[11px] font-mono text-appleMuted">
                   <span>UPTIME SLA</span>
                   <span class="text-appleInk font-semibold">99.9%</span>
                 </div>
@@ -541,14 +541,14 @@
 
         <!-- ================= VIEW 2: SERVICES ================= -->
         <section id="view-services" class="view-section w-full max-w-5xl mx-auto">
-          <div class="text-center mb-8">
+          <div class="text-center mb-6 sm:mb-8">
             <p class="text-[11px] sm:text-xs font-mono uppercase tracking-widest text-appleBlue font-semibold mb-2">Capabilities</p>
-            <h2 class="font-display text-3xl sm:text-5xl font-bold text-appleInk tracking-tight">Architecture & Delivery Flow.</h2>
-            <p class="text-xs sm:text-sm text-appleMuted mt-2 max-w-lg mx-auto">Select any station in the pipeline below to inspect live vector operations.</p>
+            <h2 class="font-display text-2xl sm:text-5xl font-bold text-appleInk tracking-tight">Architecture & Delivery Flow.</h2>
+            <p class="text-xs sm:text-sm text-appleMuted mt-1 sm:mt-2 max-w-lg mx-auto">Select any station in the pipeline below to inspect live vector operations.</p>
           </div>
 
           <!-- Interactive Workflow Architecture Diagram -->
-          <div class="w-full max-w-4xl mx-auto mb-10 relative">
+          <div class="w-full max-w-4xl mx-auto mb-8 sm:mb-10 relative">
 
             <!-- Optical Laser Bus Wire (Desktop) -->
             <svg class="hidden md:block absolute top-[44px] left-[10%] right-[10%] w-[80%] h-1 pointer-events-none z-0 overflow-visible" preserveAspectRatio="none">
@@ -556,12 +556,12 @@
               <line x1="0%" y1="0" x2="100%" y2="0" stroke="#0071e3" stroke-width="2" class="flow-carrier-line" />
             </svg>
 
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-4 relative z-10 text-center">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 relative z-10 text-center">
 
               <!-- 1. Outbound & Lead Prospecting -->
-              <div onclick="selectPipelineStation(0)" class="flex flex-col items-center group cursor-pointer p-2">
-                <div id="station-pedestal-0" class="service-pedestal selected w-16 h-16 sm:w-22 sm:h-22 rounded-2xl sm:rounded-3xl apple-glass bg-white flex items-center justify-center p-3 relative mb-2 sm:mb-3">
-                  <svg class="w-10 h-10 sm:w-12 sm:h-12" viewBox="0 0 72 72" fill="none">
+              <div onclick="selectPipelineStation(0)" class="flex flex-col items-center group cursor-pointer p-1 sm:p-2">
+                <div id="station-pedestal-0" class="service-pedestal selected w-14 h-14 sm:w-22 sm:h-22 rounded-2xl sm:rounded-3xl apple-glass bg-white flex items-center justify-center p-2.5 relative mb-2 sm:mb-3">
+                  <svg class="w-8 h-8 sm:w-12 sm:h-12" viewBox="0 0 72 72" fill="none">
                     <circle cx="36" cy="36" r="30" stroke="#0071e3" stroke-width="1.5" stroke-opacity="0.18" />
                     <circle cx="36" cy="36" r="20" stroke="#0071e3" stroke-width="1.5" stroke-opacity="0.35" />
                     <circle cx="36" cy="36" r="10" stroke="#0071e3" stroke-width="1.5" stroke-opacity="0.65" />
@@ -583,9 +583,9 @@
               </div>
 
               <!-- 2. AI & Workflow Automation -->
-              <div onclick="selectPipelineStation(1)" class="flex flex-col items-center group cursor-pointer p-2">
-                <div id="station-pedestal-1" class="service-pedestal w-16 h-16 sm:w-22 sm:h-22 rounded-2xl sm:rounded-3xl apple-glass bg-white flex items-center justify-center p-3 relative mb-2 sm:mb-3">
-                  <svg class="w-10 h-10 sm:w-12 sm:h-12" viewBox="0 0 72 72" fill="none">
+              <div onclick="selectPipelineStation(1)" class="flex flex-col items-center group cursor-pointer p-1 sm:p-2">
+                <div id="station-pedestal-1" class="service-pedestal w-14 h-14 sm:w-22 sm:h-22 rounded-2xl sm:rounded-3xl apple-glass bg-white flex items-center justify-center p-2.5 relative mb-2 sm:mb-3">
+                  <svg class="w-8 h-8 sm:w-12 sm:h-12" viewBox="0 0 72 72" fill="none">
                     <rect x="20" y="20" width="32" height="32" rx="7" stroke="#0071e3" stroke-width="1.5" stroke-opacity="0.3" />
                     <g class="neural-processor-core">
                       <rect x="27" y="27" width="18" height="18" rx="4" fill="#0071e3" fill-opacity="0.12" stroke="#0071e3" stroke-width="2" />
@@ -604,9 +604,9 @@
               </div>
 
               <!-- 3. Web Engineering & UX -->
-              <div onclick="selectPipelineStation(2)" class="flex flex-col items-center group cursor-pointer p-2">
-                <div id="station-pedestal-2" class="service-pedestal w-16 h-16 sm:w-22 sm:h-22 rounded-2xl sm:rounded-3xl apple-glass bg-white flex items-center justify-center p-3 relative mb-2 sm:mb-3">
-                  <svg class="w-10 h-10 sm:w-12 sm:h-12" viewBox="0 0 72 72" fill="none">
+              <div onclick="selectPipelineStation(2)" class="flex flex-col items-center group cursor-pointer p-1 sm:p-2">
+                <div id="station-pedestal-2" class="service-pedestal w-14 h-14 sm:w-22 sm:h-22 rounded-2xl sm:rounded-3xl apple-glass bg-white flex items-center justify-center p-2.5 relative mb-2 sm:mb-3">
+                  <svg class="w-8 h-8 sm:w-12 sm:h-12" viewBox="0 0 72 72" fill="none">
                     <rect x="12" y="16" width="48" height="40" rx="6" stroke="#0284c7" stroke-width="1.5" stroke-opacity="0.3" />
                     <line x1="12" y1="26" x2="60" y2="26" stroke="#0284c7" stroke-width="1.2" stroke-opacity="0.2" />
                     <circle cx="18" cy="21" r="1.5" fill="#0284c7" />
@@ -624,9 +624,9 @@
               </div>
 
               <!-- 4. CRM & Growth Infrastructure -->
-              <div onclick="selectPipelineStation(3)" class="flex flex-col items-center group cursor-pointer p-2">
-                <div id="station-pedestal-3" class="service-pedestal w-16 h-16 sm:w-22 sm:h-22 rounded-2xl sm:rounded-3xl apple-glass bg-white flex items-center justify-center p-3 relative mb-2 sm:mb-3">
-                  <svg class="w-10 h-10 sm:w-12 sm:h-12" viewBox="0 0 72 72" fill="none">
+              <div onclick="selectPipelineStation(3)" class="flex flex-col items-center group cursor-pointer p-1 sm:p-2">
+                <div id="station-pedestal-3" class="service-pedestal w-14 h-14 sm:w-22 sm:h-22 rounded-2xl sm:rounded-3xl apple-glass bg-white flex items-center justify-center p-2.5 relative mb-2 sm:mb-3">
+                  <svg class="w-8 h-8 sm:w-12 sm:h-12" viewBox="0 0 72 72" fill="none">
                     <ellipse cx="26" cy="22" rx="12" ry="4.5" stroke="#0071e3" stroke-width="1.5" stroke-opacity="0.35" />
                     <path d="M14 22 V30 C14 32.5 19.4 34.5 26 34.5 C32.6 34.5 38 32.5 38 30 V22" stroke="#0071e3" stroke-width="1.5" stroke-opacity="0.35" />
                     <path class="growth-vector-path" d="M 26 52 Q 40 50 48 34 L 58 20" stroke="#0071e3" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
@@ -642,10 +642,10 @@
           </div>
 
           <!-- Live Terminal Inspector Banner -->
-          <div class="apple-glass p-4 sm:p-5 rounded-2xl mb-10 sm:mb-12 max-w-4xl mx-auto text-left font-mono border border-black/5">
-            <div class="flex items-center justify-between pb-3 border-b border-black/5 text-xs text-appleMuted">
+          <div class="apple-glass p-4 sm:p-5 rounded-2xl mb-8 sm:mb-12 max-w-4xl mx-auto text-left font-mono border border-black/5">
+            <div class="flex items-center justify-between pb-3 border-b border-black/5 text-[11px] sm:text-xs text-appleMuted">
               <span id="terminal-step-badge" class="text-appleInk font-semibold">STAGE: 01 / OUTBOUND PROSPECTING</span>
-              <span id="terminal-latency" class="text-appleBlue text-[11px]">LATENCY: 42ms</span>
+              <span id="terminal-latency" class="text-appleBlue text-[10px] sm:text-[11px]">LATENCY: 42ms</span>
             </div>
             <p id="terminal-description" class="text-xs text-appleInk mt-3 leading-relaxed">
               Automated scraping & qualification pipelines cross-referencing ICP signals, verifying deliverability, and pre-warming dedicated domain clusters.
@@ -653,8 +653,8 @@
           </div>
 
           <!-- Deep Service Pillar Play Cards -->
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6">
-            <div class="play-card apple-glass p-6 sm:p-7 rounded-3xl flex flex-col justify-between">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
+            <div class="play-card apple-glass p-5 sm:p-7 rounded-3xl flex flex-col justify-between">
               <div>
                 <span class="text-xs font-mono text-appleBlue uppercase font-medium">01 / Agentic AI</span>
                 <h3 class="font-display text-lg sm:text-xl font-semibold text-appleInk mt-2 mb-3">Workflow Automation</h3>
@@ -670,7 +670,7 @@
               <button onclick="switchView('contact')" class="text-xs font-mono text-appleBlue pt-4 border-t border-black/5 font-medium text-left hover:underline">SCHEDULE BLUEPRINT &rarr;</button>
             </div>
 
-            <div class="play-card apple-glass p-6 sm:p-7 rounded-3xl flex flex-col justify-between">
+            <div class="play-card apple-glass p-5 sm:p-7 rounded-3xl flex flex-col justify-between">
               <div>
                 <span class="text-xs font-mono text-appleBlue uppercase font-medium">02 / Engineering</span>
                 <h3 class="font-display text-lg sm:text-xl font-semibold text-appleInk mt-2 mb-3">Web Architecture & UX</h3>
@@ -686,7 +686,7 @@
               <button onclick="switchView('contact')" class="text-xs font-mono text-appleBlue pt-4 border-t border-black/5 font-medium text-left hover:underline">VIEW TECH STACK &rarr;</button>
             </div>
 
-            <div class="play-card apple-glass p-6 sm:p-7 rounded-3xl flex flex-col justify-between">
+            <div class="play-card apple-glass p-5 sm:p-7 rounded-3xl flex flex-col justify-between">
               <div>
                 <span class="text-xs font-mono text-appleBlue uppercase font-medium">03 / Outbound</span>
                 <h3 class="font-display text-lg sm:text-xl font-semibold text-appleInk mt-2 mb-3">Acquisition Infrastructure</h3>
@@ -706,17 +706,17 @@
 
         <!-- ================= VIEW 3: PROTOCOL & METHODOLOGY ================= -->
         <section id="view-solutions" class="view-section w-full max-w-5xl mx-auto">
-          <div class="text-center mb-8 sm:mb-14">
+          <div class="text-center mb-6 sm:mb-14">
             <p class="text-[11px] sm:text-xs font-mono uppercase tracking-widest text-appleBlue font-semibold mb-2">Protocol</p>
-            <h2 class="font-display text-3xl sm:text-5xl font-bold text-appleInk tracking-tight">How We Execute.</h2>
+            <h2 class="font-display text-2xl sm:text-5xl font-bold text-appleInk tracking-tight">How We Execute.</h2>
           </div>
 
           <!-- Protocol Stages (Play Cards) -->
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6 mb-10 sm:mb-12">
-            <div class="play-card apple-glass p-6 sm:p-7 rounded-3xl text-left flex flex-col justify-between">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 mb-8 sm:mb-12">
+            <div class="play-card apple-glass p-5 sm:p-7 rounded-3xl text-left flex flex-col justify-between">
               <div>
                 <span class="text-2xl font-mono font-semibold text-appleMuted/40 block mb-2">01</span>
-                <h3 class="font-display text-lg font-semibold text-appleInk mb-2">Diagnostic & Blueprint</h3>
+                <h3 class="font-display text-base sm:text-lg font-semibold text-appleInk mb-2">Diagnostic & Blueprint</h3>
                 <p class="text-appleMuted text-xs sm:text-sm leading-relaxed mb-4">
                   We perform an end-to-end technical audit of your operational bottlenecks, manual friction points, and tech stack redundancies.
                 </p>
@@ -724,10 +724,10 @@
               <div class="text-xs font-mono text-appleBlue font-medium pt-3 border-t border-black/5">TIMELINE: WEEK 1</div>
             </div>
 
-            <div class="play-card apple-glass p-6 sm:p-7 rounded-3xl text-left flex flex-col justify-between">
+            <div class="play-card apple-glass p-5 sm:p-7 rounded-3xl text-left flex flex-col justify-between">
               <div>
                 <span class="text-2xl font-mono font-semibold text-appleMuted/40 block mb-2">02</span>
-                <h3 class="font-display text-lg font-semibold text-appleInk mb-2">Build & Integration</h3>
+                <h3 class="font-display text-base sm:text-lg font-semibold text-appleInk mb-2">Build & Integration</h3>
                 <p class="text-appleMuted text-xs sm:text-sm leading-relaxed mb-4">
                   We develop and deploy custom agentic models, configure web touchpoints, and integrate your CRM tools seamlessly with custom APIs.
                 </p>
@@ -735,10 +735,10 @@
               <div class="text-xs font-mono text-purple-600 font-medium pt-3 border-t border-black/5">TIMELINE: WEEKS 2–3</div>
             </div>
 
-            <div class="play-card apple-glass p-6 sm:p-7 rounded-3xl text-left flex flex-col justify-between">
+            <div class="play-card apple-glass p-5 sm:p-7 rounded-3xl text-left flex flex-col justify-between">
               <div>
                 <span class="text-2xl font-mono font-semibold text-appleMuted/40 block mb-2">03</span>
-                <h3 class="font-display text-lg font-semibold text-appleInk mb-2">Continuous Growth</h3>
+                <h3 class="font-display text-base sm:text-lg font-semibold text-appleInk mb-2">Continuous Growth</h3>
                 <p class="text-appleMuted text-xs sm:text-sm leading-relaxed mb-4">
                   Ongoing performance audits, LLM fine-tuning, latency optimization, and automated conversion tracking to ensure durable compound gains.
                 </p>
@@ -748,32 +748,32 @@
           </div>
 
           <!-- Enterprise Standards (Dual Card) -->
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-6 text-left mb-10 sm:mb-12">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 text-left mb-8 sm:mb-12">
             <div class="play-card apple-glass p-5 sm:p-6 rounded-2xl">
               <div class="w-8 h-8 rounded-xl bg-blue-50 text-appleBlue flex items-center justify-center mb-3">
                 <i data-lucide="shield-check" class="w-4 h-4"></i>
               </div>
-              <h4 class="font-display font-semibold text-appleInk text-base mb-1">Data Sovereignty & Security</h4>
+              <h4 class="font-display font-semibold text-appleInk text-sm sm:text-base mb-1">Data Sovereignty & Security</h4>
               <p class="text-xs text-appleMuted leading-relaxed">End-to-end TLS 1.3 encryption across all communication vectors and zero data leakage. Your records are never used to train public LLM models.</p>
             </div>
             <div class="play-card apple-glass p-5 sm:p-6 rounded-2xl">
               <div class="w-8 h-8 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center mb-3">
                 <i data-lucide="zap" class="w-4 h-4"></i>
               </div>
-              <h4 class="font-display font-semibold text-appleInk text-base mb-1">Edge Computation</h4>
+              <h4 class="font-display font-semibold text-appleInk text-sm sm:text-base mb-1">Edge Computation</h4>
               <p class="text-xs text-appleMuted leading-relaxed">Sub-second responses and latency-engineered pipelines ensure cold visitors turn into high-intent inbound clients without waiting.</p>
             </div>
           </div>
 
           <!-- FAQ Accordion Matrix (Play Card) -->
-          <div class="play-card apple-glass p-6 sm:p-10 rounded-3xl text-left">
-            <h3 class="font-display text-xl sm:text-2xl font-bold text-appleInk mb-5 sm:mb-6">Frequently Asked Questions</h3>
-            <div class="space-y-4">
-              <div class="pb-4 border-b border-black/5">
+          <div class="play-card apple-glass p-5 sm:p-10 rounded-3xl text-left">
+            <h3 class="font-display text-lg sm:text-2xl font-bold text-appleInk mb-4 sm:mb-6">Frequently Asked Questions</h3>
+            <div class="space-y-3.5 sm:space-y-4">
+              <div class="pb-3 border-b border-black/5">
                 <h4 class="font-semibold text-appleInk text-xs sm:text-sm">Do we need an internal engineering team to manage this?</h4>
                 <p class="text-appleMuted text-xs mt-1 leading-relaxed">No. We deliver fully managed turnkey infrastructure or hand over clean, thoroughly documented codebases with plug-and-play maintenance.</p>
               </div>
-              <div class="pb-4 border-b border-black/5">
+              <div class="pb-3 border-b border-black/5">
                 <h4 class="font-semibold text-appleInk text-xs sm:text-sm">How secure is my proprietary company data?</h4>
                 <p class="text-appleMuted text-xs mt-1 leading-relaxed">All AI pipelines run in isolated cloud environments with strict data tenancy. Your customer and proprietary records are never stored on public model training sets.</p>
               </div>
@@ -787,14 +787,14 @@
 
         <!-- ================= VIEW 4: CONTACT ================= -->
         <section id="view-contact" class="view-section w-full max-w-xl mx-auto">
-          <div class="play-card apple-glass p-6 sm:p-10 rounded-3xl text-left">
+          <div class="play-card apple-glass p-5 sm:p-10 rounded-3xl text-left">
             <p class="text-[11px] sm:text-xs font-mono uppercase tracking-widest text-appleBlue font-semibold mb-1">Direct Inquiries</p>
-            <h2 class="font-display text-2xl sm:text-3xl font-bold text-appleInk mb-2 tracking-tight">Let’s discuss your systems.</h2>
-            <p class="text-appleMuted text-xs sm:text-sm mb-6">
+            <h2 class="font-display text-xl sm:text-3xl font-bold text-appleInk mb-2 tracking-tight">Let’s discuss your systems.</h2>
+            <p class="text-appleMuted text-xs sm:text-sm mb-5 sm:mb-6">
               Drop your details below. We’ll schedule a quick discovery call to audit your workflows and discuss high-leverage opportunities.
             </p>
 
-            <form id="contact-form" class="space-y-4" onsubmit="handleContactSubmit(event)">
+            <form id="contact-form" class="space-y-3 sm:space-y-4" onsubmit="handleContactSubmit(event)">
               <div>
                 <label class="block text-xs font-mono text-appleMuted uppercase mb-1">Your Name</label>
                 <!-- Minimum 16px font-size to prevent mobile iOS/Android auto-zoom on focus -->
@@ -821,7 +821,7 @@
                 <textarea id="form-details" rows="3" placeholder="Briefly describe your objectives or manual bottlenecks..." class="w-full px-4 py-2.5 rounded-xl apple-inset text-appleInk placeholder-appleMuted text-[16px] sm:text-sm focus:outline-none focus:border-appleBlue transition-colors resize-none"></textarea>
               </div>
 
-              <button type="submit" id="submit-btn" class="apple-btn-primary w-full mt-2 py-3 rounded-xl text-sm font-medium tracking-tight">
+              <button type="submit" id="submit-btn" class="apple-btn-primary w-full mt-2 py-3 rounded-xl text-xs sm:text-sm font-medium tracking-tight">
                 <span class="btn-text" id="btn-text-content">Schedule Strategy Session</span>
               </button>
             </form>
@@ -833,7 +833,7 @@
 
     <!-- COMPREHENSIVE DUAL FOOTER WITH LEGAL LINKS -->
     <footer class="mt-auto pt-10 pb-36 md:pb-10 px-4 sm:px-6 border-t border-black/5 text-xs text-appleMuted font-sans pointer-events-auto bg-[#fbfbfd]">
-      <div class="max-w-6xl mx-auto space-y-6">
+      <div class="max-w-5xl mx-auto space-y-6">
         
         <!-- Top Links Grid -->
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-6 text-left">
