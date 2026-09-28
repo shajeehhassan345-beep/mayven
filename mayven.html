@@ -1,0 +1,1203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+  <meta name="theme-color" content="#fbfbfd">
+  <title>Mayven & Co. ® — Intelligent Growth & Autonomous Systems</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="erasebg-transformed.png">
+  <link rel="apple-touch-icon" href="erasebg-transformed.png">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Three.js (Core 3D Engine) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <!-- GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600;1,700&family=SF+Pro+Display:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600;1,700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            display: ['"SF Pro Display"', '-apple-system', 'BlinkMacSystemFont', '"Plus Jakarta Sans"', 'sans-serif'],
+            sans: ['-apple-system', 'BlinkMacSystemFont', '"SF Pro Text"', '"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"Space Grotesk"', 'SFMono-Regular', 'Menlo', 'monospace'],
+            serifAccent: ['"Times New Roman"', 'Times', 'Baskerville', 'Georgia', 'serif'],
+          },
+          colors: {
+            appleWhite: '#fbfbfd',
+            appleCanvas: '#f5f5f7',
+            appleInk: '#1d1d1f',
+            appleMuted: '#6e6e73',
+            appleBorder: 'rgba(0, 0, 0, 0.08)',
+            appleBlue: '#0071e3',
+            appleBlueHover: '#0077ed'
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    @media (hover: hover) and (pointer: fine) {
+      * {
+        cursor: none !important;
+      }
+    }
+    @media (hover: none) and (pointer: coarse) {
+      #cursor-dot, #cursor-follower {
+        display: none !important;
+      }
+      * {
+        cursor: auto !important;
+      }
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background-color: #fbfbfd;
+      background-image: 
+        radial-gradient(at 10% 10%, rgba(0, 113, 227, 0.04) 0px, transparent 55%),
+        radial-gradient(at 90% 90%, rgba(0, 0, 0, 0.025) 0px, transparent 65%);
+      background-attachment: fixed;
+      color: #1d1d1f;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      padding-bottom: env(safe-area-inset-bottom, 0px);
+    }
+
+    /* Minimal Cursor */
+    #cursor-dot {
+      pointer-events: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 5px;
+      height: 5px;
+      background: #1d1d1f;
+      border-radius: 50%;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: width 0.18s ease, height 0.18s ease, background-color 0.18s ease;
+    }
+
+    #cursor-follower {
+      pointer-events: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 24px;
+      height: 24px;
+      border: 1px solid rgba(0, 0, 0, 0.2);
+      border-radius: 50%;
+      z-index: 9998;
+      transform: translate(-50%, -50%);
+      transition: width 0.22s cubic-bezier(0.16, 1, 0.3, 1), 
+                  height 0.22s cubic-bezier(0.16, 1, 0.3, 1), 
+                  border-color 0.2s ease, 
+                  background-color 0.2s ease;
+    }
+
+    body.hovering #cursor-follower {
+      width: 32px;
+      height: 32px;
+      border-color: rgba(0, 113, 227, 0.9);
+      background-color: rgba(0, 113, 227, 0.06);
+    }
+    body.hovering #cursor-dot {
+      background: #0071e3;
+    }
+
+    /* Frosted Surface Base */
+    .apple-glass {
+      background: rgba(255, 255, 255, 0.84);
+      backdrop-filter: blur(28px) saturate(180%);
+      -webkit-backdrop-filter: blur(28px) saturate(180%);
+      border: 1px solid rgba(0, 0, 0, 0.07);
+      box-shadow: 0 18px 45px -10px rgba(0, 0, 0, 0.05),
+                  inset 0 1px 0 0 rgba(255, 255, 255, 0.95);
+      transition: transform 0.38s cubic-bezier(0.16, 1, 0.3, 1),
+                  box-shadow 0.38s cubic-bezier(0.16, 1, 0.3, 1),
+                  border-color 0.38s ease,
+                  opacity 0.38s ease,
+                  filter 0.38s ease;
+    }
+
+    .apple-inset {
+      background: rgba(0, 0, 0, 0.025);
+      border: 1px solid rgba(0, 0, 0, 0.06);
+    }
+
+    /* Cinema Focus & Play Card Jump-in Kinetics */
+    .play-card {
+      position: relative;
+      cursor: pointer;
+      will-change: transform, box-shadow, filter, opacity;
+      transform-origin: center center;
+    }
+
+    #content-stage * {
+      transition: filter 0.42s cubic-bezier(0.16, 1, 0.3, 1), 
+                  opacity 0.42s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    body.has-card-hovered #content-stage .focus-target {
+      filter: blur(5px);
+      opacity: 0.32;
+    }
+
+    body.has-card-hovered #pipeline-canvas {
+      opacity: 0.12 !important;
+      transition: opacity 0.5s ease;
+    }
+
+    body.has-card-hovered .play-card.card-in-focus {
+      filter: blur(0px) !important;
+      opacity: 1 !important;
+      transform: translateY(-8px) scale(1.045) !important;
+      z-index: 40 !important;
+      background: rgba(255, 255, 255, 0.98);
+      border-color: rgba(0, 113, 227, 0.35);
+      box-shadow: 0 30px 65px -15px rgba(0, 113, 227, 0.22),
+                  0 0 0 1px rgba(0, 113, 227, 0.2),
+                  inset 0 1px 0 0 rgba(255, 255, 255, 1);
+    }
+
+    /* Editorial Serif Italics Hover Kinetics (Times New Roman) */
+    .btn-text, .pill-text {
+      display: inline-block;
+      font-family: inherit;
+      transition: font-family 0.25s ease, font-style 0.25s ease, letter-spacing 0.25s ease, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: font-family, font-style, letter-spacing, transform;
+    }
+
+    .apple-btn-primary {
+      background: #0071e3;
+      color: #ffffff;
+      box-shadow: 0 4px 14px rgba(0, 113, 227, 0.25);
+      transition: background-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+      touch-action: manipulation;
+    }
+    .apple-btn-primary:hover {
+      background: #0077ed;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 18px rgba(0, 113, 227, 0.32);
+    }
+    .apple-btn-primary:hover .btn-text {
+      font-family: "Times New Roman", Times, Baskerville, Georgia, serif;
+      font-style: italic;
+      letter-spacing: 0.04em;
+    }
+    .apple-btn-primary:active {
+      transform: scale(0.97);
+    }
+
+    .apple-btn-secondary {
+      background: rgba(0, 0, 0, 0.04);
+      color: #1d1d1f;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      transition: background-color 0.25s ease, transform 0.25s ease;
+      touch-action: manipulation;
+    }
+    .apple-btn-secondary:hover {
+      background: rgba(0, 0, 0, 0.07);
+      transform: translateY(-1px);
+    }
+    .apple-btn-secondary:hover .btn-text {
+      font-family: "Times New Roman", Times, Baskerville, Georgia, serif;
+      font-style: italic;
+      letter-spacing: 0.04em;
+    }
+    .apple-btn-secondary:active {
+      transform: scale(0.97);
+    }
+
+    /* Navigation Pills */
+    .dock-pill-desktop {
+      font-size: 0.85rem;
+      letter-spacing: -0.01em;
+      font-weight: 500;
+      padding: 0.4rem 1.05rem;
+      border-radius: 9999px;
+      color: #6e6e73;
+      border: 1px solid transparent;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      white-space: nowrap;
+    }
+    .dock-pill-desktop:hover {
+      color: #1d1d1f;
+      background: rgba(0, 0, 0, 0.05);
+    }
+    .dock-pill-desktop:hover .pill-text {
+      font-family: "Times New Roman", Times, Baskerville, Georgia, serif;
+      font-style: italic;
+      letter-spacing: 0.03em;
+    }
+    .dock-pill-desktop.active {
+      color: #1d1d1f;
+      background: #ffffff;
+      border-color: rgba(0, 0, 0, 0.1);
+      box-shadow: 0 3px 12px rgba(0, 0, 0, 0.06);
+    }
+
+    .dock-pill-mobile {
+      font-size: clamp(0.7rem, 2.7vw, 0.78rem);
+      letter-spacing: -0.015em;
+      font-weight: 500;
+      padding-top: 0.45rem;
+      padding-bottom: 0.45rem;
+      border-radius: 9999px;
+      color: #6e6e73;
+      border: 1px solid transparent;
+      transition: all 0.2s ease;
+      touch-action: manipulation;
+      text-align: center;
+      width: 100%;
+    }
+    .dock-pill-mobile:active .pill-text {
+      font-family: "Times New Roman", Times, Baskerville, Georgia, serif;
+      font-style: italic;
+    }
+    .dock-pill-mobile.active {
+      color: #1d1d1f;
+      background: #ffffff;
+      border-color: rgba(0, 0, 0, 0.1);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    }
+
+    #content-stage {
+      will-change: transform, opacity;
+      transform: translateZ(0);
+    }
+
+    .view-section {
+      display: none;
+    }
+    .view-section.active {
+      display: block;
+    }
+
+    /* Central Monolith Logo */
+    .hero-logo-container {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 2rem;
+      transform-style: preserve-3d;
+      will-change: transform;
+    }
+
+    .hero-logo-halo {
+      position: absolute;
+      inset: -40%;
+      background: radial-gradient(circle, rgba(0, 113, 227, 0.12) 0%, rgba(0, 0, 0, 0.03) 45%, transparent 70%);
+      filter: blur(40px);
+      pointer-events: none;
+    }
+
+    .hero-logo-img {
+      position: relative;
+      z-index: 1;
+      height: 120px;
+      width: auto;
+      object-fit: contain;
+      filter: invert(1) contrast(1.15) drop-shadow(0 14px 28px rgba(0, 0, 0, 0.12));
+      transition: transform 0.4s ease;
+    }
+
+    @media (min-width: 640px) {
+      .hero-logo-img { height: 150px; }
+    }
+    @media (min-width: 1024px) {
+      .hero-logo-img { height: 175px; }
+    }
+
+    .nav-logo-img {
+      height: 26px;
+      width: auto;
+      object-fit: contain;
+      filter: invert(1) contrast(1.15);
+    }
+
+    /* Workflow Graphics Animations */
+    @keyframes pipelineDash {
+      0% { stroke-dashoffset: 40; }
+      100% { stroke-dashoffset: 0; }
+    }
+    .flow-carrier-line {
+      stroke-dasharray: 6 6;
+      animation: pipelineDash 1.2s linear infinite;
+    }
+
+    @keyframes radarSpin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    .radar-sweep-arm {
+      transform-origin: 36px 36px;
+      animation: radarSpin 3.2s linear infinite;
+    }
+
+    @keyframes synapsePulse {
+      0%, 100% { transform: scale(0.95); opacity: 0.85; }
+      50% { transform: scale(1.08); opacity: 1; }
+    }
+    .neural-processor-core {
+      transform-origin: 36px 36px;
+      animation: synapsePulse 2.2s ease-in-out infinite;
+    }
+
+    @keyframes codeStream {
+      0% { transform: translateY(-4px); opacity: 0.3; }
+      50% { opacity: 1; }
+      100% { transform: translateY(18px); opacity: 0.3; }
+    }
+    .web-code-crawler {
+      animation: codeStream 1.9s ease-in-out infinite;
+    }
+
+    @keyframes curveShift {
+      0%, 100% { stroke-dashoffset: 0; }
+      50% { stroke-dashoffset: 16; }
+    }
+    .growth-vector-path {
+      stroke-dasharray: 70;
+      animation: curveShift 3.2s ease-in-out infinite;
+    }
+
+    .service-pedestal {
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease;
+    }
+    .service-pedestal:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 16px 32px -10px rgba(0, 113, 227, 0.14);
+    }
+
+    /* Modal Backdrop */
+    .legal-modal {
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+    .legal-modal.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+  </style>
+</head>
+
+<body class="font-sans antialiased">
+
+  <!-- Desktop Magnetic Cursor -->
+  <div id="cursor-dot"></div>
+  <div id="cursor-follower"></div>
+
+  <!-- Background 3D Kinetic Wave Canvas -->
+  <canvas id="pipeline-canvas" class="fixed inset-0 w-full h-full pointer-events-auto z-0"></canvas>
+
+  <!-- Liquid Portal Curtain -->
+  <svg class="fixed inset-0 w-full h-full pointer-events-none z-50 overflow-hidden" preserveAspectRatio="none" viewBox="0 0 100 100">
+    <defs>
+      <linearGradient id="portalSurge" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" stop-color="#fbfbfd" />
+        <stop offset="50%" stop-color="#f2f3f6" />
+        <stop offset="100%" stop-color="#ffffff" />
+      </linearGradient>
+      <linearGradient id="viscousRim" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" stop-color="rgba(0, 113, 227, 0.18)" />
+        <stop offset="50%" stop-color="rgba(0, 113, 227, 0.85)" />
+        <stop offset="100%" stop-color="rgba(0, 113, 227, 0.18)" />
+      </linearGradient>
+    </defs>
+    <path id="portal-layer-back" d="M 0 0 L 100 0 L 100 0 Q 50 0 0 0 Z" fill="rgba(0, 113, 227, 0.1)" opacity="0" />
+    <path id="portal-layer-front" d="M 0 0 L 100 0 L 100 0 Q 50 0 0 0 Z" fill="url(#portalSurge)" opacity="0" />
+    <path id="portal-rim" d="M 0 0 Q 50 0 100 0" fill="none" stroke="url(#viscousRim)" stroke-width="1.2" opacity="0" />
+  </svg>
+
+  <!-- Mobile Floating Thumb Dock (5 Icons) -->
+  <div class="md:hidden fixed bottom-4 inset-x-0 mx-auto w-full z-40 flex justify-center pointer-events-none px-2">
+    <div class="pointer-events-auto grid grid-cols-5 gap-0.5 items-center w-[94vw] max-w-[360px] apple-glass p-1 rounded-full shadow-lg border border-black/5">
+      <button onclick="switchView('home')" class="dock-pill-mobile view-pill active" data-target="home"><span class="pill-text">Home</span></button>
+      <button onclick="switchView('services')" class="dock-pill-mobile view-pill" data-target="services"><span class="pill-text">Services</span></button>
+      <button onclick="switchView('solutions')" class="dock-pill-mobile view-pill" data-target="solutions"><span class="pill-text">Solutions</span></button>
+      <button onclick="switchView('about')" class="dock-pill-mobile view-pill" data-target="about"><span class="pill-text">About</span></button>
+      <button onclick="switchView('contact')" class="dock-pill-mobile view-pill" data-target="contact"><span class="pill-text">Contact</span></button>
+    </div>
+  </div>
+
+  <div class="relative z-20 flex flex-col min-h-[100dvh] pointer-events-none">
+
+    <!-- Header Navigation -->
+    <header class="fixed top-0 inset-x-0 w-full z-50 bg-[#fbfbfd]/80 backdrop-blur-md border-b border-black/[0.05] pointer-events-auto">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-3">
+        
+        <a href="#" onclick="switchView('home'); return false;" class="flex items-center space-x-2.5 sm:space-x-3 shrink-0">
+          <img 
+            src="logo.png" 
+            alt="Mayven & Co. Logo" 
+            class="nav-logo-img" 
+            onerror="this.onerror=null; this.src='erasebg-transformed (1).png';"
+          >
+          <span class="font-display font-semibold text-sm sm:text-base tracking-tight text-appleInk">Mayven & Co.</span>
+        </a>
+
+        <!-- Desktop Dock -->
+        <div class="hidden md:flex items-center space-x-1 apple-glass px-2.5 py-1.5 rounded-full">
+          <button onclick="switchView('home')" class="dock-pill-desktop view-pill active" data-target="home"><span class="pill-text">Home</span></button>
+          <button onclick="switchView('services')" class="dock-pill-desktop view-pill" data-target="services"><span class="pill-text">Services</span></button>
+          <button onclick="switchView('solutions')" class="dock-pill-desktop view-pill" data-target="solutions"><span class="pill-text">Solutions</span></button>
+          <button onclick="switchView('about')" class="dock-pill-desktop view-pill" data-target="about"><span class="pill-text">About</span></button>
+          <button onclick="switchView('contact')" class="dock-pill-desktop view-pill" data-target="contact"><span class="pill-text">Contact</span></button>
+        </div>
+
+        <div class="shrink-0">
+          <button onclick="switchView('contact')" class="apple-btn-primary px-4 py-1.5 sm:px-5 sm:py-2 rounded-full text-xs font-medium tracking-tight">
+            <span class="btn-text">Book a Call</span>
+          </button>
+        </div>
+
+      </div>
+    </header>
+
+    <!-- CONTENT STAGE (Cinema Focus Container) -->
+    <div id="content-stage" class="flex-grow flex items-center justify-center pb-24 md:pb-16">
+      <main class="w-full pointer-events-auto px-4 sm:px-6 pt-24 sm:pt-28">
+
+        <!-- ================= VIEW 1: HOME ================= -->
+        <section id="view-home" class="view-section active w-full max-w-5xl mx-auto text-center">
+          <div class="flex flex-col items-center">
+
+            <!-- Monolith Logo -->
+            <div class="hero-logo-container group focus-target">
+              <div class="hero-logo-halo"></div>
+              <img 
+                src="logo.png" 
+                alt="Mayven & Co. Emblem" 
+                class="hero-logo-img" 
+                onerror="this.onerror=null; this.src='erasebg-transformed (1).png';"
+              >
+            </div>
+
+            <p class="focus-target text-xs font-mono uppercase tracking-widest text-appleBlue font-semibold mb-3">
+              Autonomous Systems & Design
+            </p>
+
+            <h1 class="focus-target font-display text-4xl sm:text-6xl md:text-7xl font-bold tracking-tight text-appleInk leading-[1.08] mb-6">
+              Engineering autonomous growth for modern enterprises.
+            </h1>
+
+            <p class="focus-target text-base sm:text-lg md:text-xl text-appleMuted max-w-2xl font-normal leading-relaxed mb-9 px-2">
+              We design intelligent AI workflows, bespoke web platforms, and automated outbound engines to help companies scale output with zero operational friction.
+            </p>
+
+            <div class="focus-target flex flex-col sm:flex-row items-center gap-3.5 sm:gap-4 w-full sm:w-auto">
+              <button onclick="switchView('contact')" class="apple-btn-primary w-full sm:w-auto px-8 py-3 rounded-full text-sm font-medium tracking-tight">
+                <span class="btn-text">Schedule Discovery Call</span>
+              </button>
+              <button onclick="switchView('services')" class="apple-btn-secondary w-full sm:w-auto px-8 py-3 rounded-full text-sm font-medium tracking-tight">
+                <span class="btn-text">View Solutions</span>
+              </button>
+            </div>
+
+            <!-- Core Performance Grid (Play Cards) -->
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 sm:gap-6 mt-16 sm:mt-20 w-full max-w-4xl text-left">
+              <div class="play-card apple-glass p-6 rounded-2xl">
+                <div class="text-[11px] font-mono text-appleMuted uppercase">Performance</div>
+                <div class="font-display text-2xl sm:text-3xl font-bold text-appleInk mt-1">10x Output</div>
+                <div class="text-xs text-appleMuted mt-1">Automated workflows & asynchronous agents</div>
+              </div>
+              <div class="play-card apple-glass p-6 rounded-2xl">
+                <div class="text-[11px] font-mono text-appleMuted uppercase">Architecture</div>
+                <div class="font-display text-2xl sm:text-3xl font-bold text-appleInk mt-1">Zero Silos</div>
+                <div class="text-xs text-appleMuted mt-1">Unified CRM data synchronization</div>
+              </div>
+              <div class="play-card apple-glass p-6 rounded-2xl col-span-2 sm:col-span-1">
+                <div class="text-[11px] font-mono text-appleMuted uppercase">Availability</div>
+                <div class="font-display text-2xl sm:text-3xl font-bold text-appleInk mt-1">24/7/365</div>
+                <div class="text-xs text-appleMuted mt-1">Autonomous execution pipelines</div>
+              </div>
+            </div>
+
+            <!-- Enterprise Trust Bar -->
+            <div class="focus-target mt-14 pt-8 border-t border-black/5 w-full max-w-3xl flex flex-wrap items-center justify-center gap-8 sm:gap-12 text-xs font-mono text-appleMuted uppercase tracking-wider">
+              <span>Next.js & Python</span>
+              <span>•</span>
+              <span>Claude & OpenAI Models</span>
+              <span>•</span>
+              <span>AWS Cloud Infrastructure</span>
+              <span>•</span>
+              <span>SOC2 Type II Ready</span>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- ================= VIEW 2: SERVICES ================= -->
+        <section id="view-services" class="view-section w-full max-w-5xl mx-auto">
+          <div class="focus-target text-center mb-10 sm:mb-14">
+            <p class="text-xs font-mono uppercase tracking-widest text-appleBlue font-semibold mb-2">Capabilities</p>
+            <h2 class="font-display text-3xl sm:text-5xl font-bold text-appleInk tracking-tight">What We Build.</h2>
+          </div>
+
+          <!-- Continuous Workflow Architecture Diagram -->
+          <div class="focus-target w-full max-w-4xl mx-auto mb-16 sm:mb-20 relative">
+            <div class="text-center mb-8">
+              <span class="text-xs font-mono uppercase tracking-widest text-appleMuted font-medium">Service Architecture & Flow Protocol</span>
+            </div>
+
+            <!-- Optical Laser Bus Wire -->
+            <svg class="hidden md:block absolute top-[44px] left-[10%] right-[10%] w-[80%] h-1 pointer-events-none z-0 overflow-visible" preserveAspectRatio="none">
+              <line x1="0%" y1="0" x2="100%" y2="0" stroke="rgba(0, 0, 0, 0.08)" stroke-width="2" />
+              <line x1="0%" y1="0" x2="100%" y2="0" stroke="#0071e3" stroke-width="2" class="flow-carrier-line" />
+            </svg>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 md:gap-4 relative z-10 text-center">
+
+              <!-- 1. Outbound & Lead Prospecting -->
+              <div class="flex flex-col items-center group">
+                <div class="service-pedestal w-20 h-20 sm:w-22 sm:h-22 rounded-3xl apple-glass bg-white flex items-center justify-center p-3 relative mb-4">
+                  <svg class="w-12 h-12" viewBox="0 0 72 72" fill="none">
+                    <circle cx="36" cy="36" r="30" stroke="#0071e3" stroke-width="1.5" stroke-opacity="0.18" />
+                    <circle cx="36" cy="36" r="20" stroke="#0071e3" stroke-width="1.5" stroke-opacity="0.35" />
+                    <circle cx="36" cy="36" r="10" stroke="#0071e3" stroke-width="1.5" stroke-opacity="0.65" />
+                    <g class="radar-sweep-arm">
+                      <path d="M 36 36 L 66 36 A 30 30 0 0 0 52 11 Z" fill="url(#radarConeHome)" opacity="0.6" />
+                      <line x1="36" y1="36" x2="66" y2="36" stroke="#0071e3" stroke-width="2" stroke-linecap="round" />
+                    </g>
+                    <circle cx="48" cy="24" r="2.5" fill="#0071e3" />
+                    <defs>
+                      <linearGradient id="radarConeHome" x1="36" y1="36" x2="66" y2="24" gradientUnits="userSpaceOnUse">
+                        <stop stop-color="#0071e3" stop-opacity="0.45" />
+                        <stop offset="100%" stop-color="#0071e3" stop-opacity="0" />
+                      </linearGradient>
+                    </defs>
+                  </svg>
+                </div>
+                <h4 class="font-display font-semibold text-sm text-appleInk">Lead Prospecting</h4>
+                <p class="text-xs text-appleMuted mt-1 max-w-[190px]">High-intent target identification and outbound deliverability.</p>
+              </div>
+
+              <!-- 2. AI & Workflow Automation -->
+              <div class="flex flex-col items-center group">
+                <div class="service-pedestal w-20 h-20 sm:w-22 sm:h-22 rounded-3xl apple-glass bg-white flex items-center justify-center p-3 relative mb-4">
+                  <svg class="w-12 h-12" viewBox="0 0 72 72" fill="none">
+                    <rect x="20" y="20" width="32" height="32" rx="7" stroke="#9333ea" stroke-width="1.5" stroke-opacity="0.25" />
+                    <g class="neural-processor-core">
+                      <rect x="27" y="27" width="18" height="18" rx="4" fill="#9333ea" fill-opacity="0.12" stroke="#9333ea" stroke-width="2" />
+                      <circle cx="36" cy="36" r="3.5" fill="#9333ea" />
+                    </g>
+                    <line x1="36" y1="6" x2="36" y2="20" stroke="#9333ea" stroke-width="1.75" stroke-linecap="round" />
+                    <line x1="36" y1="52" x2="36" y2="66" stroke="#9333ea" stroke-width="1.75" stroke-linecap="round" />
+                    <line x1="6" y1="36" x2="20" y2="36" stroke="#9333ea" stroke-width="1.75" stroke-linecap="round" />
+                    <line x1="52" y1="36" x2="66" y2="36" stroke="#9333ea" stroke-width="1.75" stroke-linecap="round" />
+                    <circle cx="36" cy="11" r="2" fill="#9333ea" />
+                    <circle cx="61" cy="36" r="2" fill="#9333ea" />
+                  </svg>
+                </div>
+                <h4 class="font-display font-semibold text-sm text-appleInk">AI Workflows</h4>
+                <p class="text-xs text-appleMuted mt-1 max-w-[190px]">Autonomous intelligent agents that eliminate back-office tasks.</p>
+              </div>
+
+              <!-- 3. Web Engineering & UX -->
+              <div class="flex flex-col items-center group">
+                <div class="service-pedestal w-20 h-20 sm:w-22 sm:h-22 rounded-3xl apple-glass bg-white flex items-center justify-center p-3 relative mb-4">
+                  <svg class="w-12 h-12" viewBox="0 0 72 72" fill="none">
+                    <rect x="12" y="16" width="48" height="40" rx="6" stroke="#0284c7" stroke-width="1.5" stroke-opacity="0.3" />
+                    <line x1="12" y1="26" x2="60" y2="26" stroke="#0284c7" stroke-width="1.2" stroke-opacity="0.2" />
+                    <circle cx="18" cy="21" r="1.5" fill="#0284c7" />
+                    <circle cx="23" cy="21" r="1.5" fill="#0284c7" opacity="0.6" />
+                    <g class="web-code-crawler">
+                      <line x1="18" y1="33" x2="32" y2="33" stroke="#0284c7" stroke-width="1.75" stroke-linecap="round" />
+                      <line x1="36" y1="33" x2="48" y2="33" stroke="#0284c7" stroke-width="1.75" stroke-linecap="round" opacity="0.45" />
+                      <line x1="18" y1="41" x2="42" y2="41" stroke="#0284c7" stroke-width="1.75" stroke-linecap="round" />
+                    </g>
+                    <path d="M49 35 L44 42 L48 42 L43 49" stroke="#0284c7" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                </div>
+                <h4 class="font-display font-semibold text-sm text-appleInk">Web Architecture</h4>
+                <p class="text-xs text-appleMuted mt-1 max-w-[190px]">High-speed digital platforms engineered for conversion.</p>
+              </div>
+
+              <!-- 4. CRM & Growth Infrastructure -->
+              <div class="flex flex-col items-center group">
+                <div class="service-pedestal w-20 h-20 sm:w-22 sm:h-22 rounded-3xl apple-glass bg-white flex items-center justify-center p-3 relative mb-4">
+                  <svg class="w-12 h-12" viewBox="0 0 72 72" fill="none">
+                    <ellipse cx="26" cy="22" rx="12" ry="4.5" stroke="#059669" stroke-width="1.5" stroke-opacity="0.35" />
+                    <path d="M14 22 V30 C14 32.5 19.4 34.5 26 34.5 C32.6 34.5 38 32.5 38 30 V22" stroke="#059669" stroke-width="1.5" stroke-opacity="0.35" />
+                    <path class="growth-vector-path" d="M 26 52 Q 40 50 48 34 L 58 20" stroke="#059669" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+                    <circle cx="58" cy="20" r="3" fill="#059669" />
+                    <path d="M52 20 H58 V26" stroke="#059669" stroke-width="1.75" stroke-linecap="round" />
+                  </svg>
+                </div>
+                <h4 class="font-display font-semibold text-sm text-appleInk">CRM Automation</h4>
+                <p class="text-xs text-appleMuted mt-1 max-w-[190px]">Unified customer pipelines and automated retention loops.</p>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Deep Service Pillar Play Cards -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="play-card apple-glass p-7 rounded-3xl flex flex-col justify-between">
+              <div>
+                <span class="text-xs font-mono text-appleBlue uppercase">01 / Agentic AI</span>
+                <h3 class="font-display text-xl font-semibold text-appleInk mt-2 mb-3">Workflow Automation</h3>
+                <p class="text-appleMuted text-sm leading-relaxed mb-6">
+                  Intelligent bots and custom-trained AI pipelines that automate customer qualification, multi-database syncing, invoice routing, and internal operations.
+                </p>
+                <ul class="text-xs font-mono text-appleMuted space-y-2 mb-6">
+                  <li>• Custom LLM Tool Integration</li>
+                  <li>• Asynchronous Task Handlers</li>
+                  <li>• Sub-Second Telemetry Sync</li>
+                </ul>
+              </div>
+              <div class="text-xs font-mono text-appleBlue pt-4 border-t border-black/5 font-medium">EXPLORE AI ARCHITECTURE &rarr;</div>
+            </div>
+
+            <div class="play-card apple-glass p-7 rounded-3xl flex flex-col justify-between">
+              <div>
+                <span class="text-xs font-mono text-appleBlue uppercase">02 / Engineering</span>
+                <h3 class="font-display text-xl font-semibold text-appleInk mt-2 mb-3">Web Architecture & UX</h3>
+                <p class="text-appleMuted text-sm leading-relaxed mb-6">
+                  Handcrafted, performance-first web platforms built with modern static rendering, kinetic micro-interactions, and conversion-optimized funnels.
+                </p>
+                <ul class="text-xs font-mono text-appleMuted space-y-2 mb-6">
+                  <li>• 100/100 Google Lighthouse Speeds</li>
+                  <li>• Fluid Vector Three.js / WebGL</li>
+                  <li>• Mobile-Native Responsive Docks</li>
+                </ul>
+              </div>
+              <div class="text-xs font-mono text-appleBlue pt-4 border-t border-black/5 font-medium">VIEW TECH STACK &rarr;</div>
+            </div>
+
+            <div class="play-card apple-glass p-7 rounded-3xl flex flex-col justify-between">
+              <div>
+                <span class="text-xs font-mono text-appleBlue uppercase">03 / Outbound</span>
+                <h3 class="font-display text-xl font-semibold text-appleInk mt-2 mb-3">Acquisition Infrastructure</h3>
+                <p class="text-appleMuted text-sm leading-relaxed mb-6">
+                  High-intent client acquisition engines. We scrape, verify, and route verified B2B opportunities into your calendars on automated schedules.
+                </p>
+                <ul class="text-xs font-mono text-appleMuted space-y-2 mb-6">
+                  <li>• Multi-Inbox Deliverability Pools</li>
+                  <li>• Dynamic Copy Enrichment</li>
+                  <li>• CRM Pipeline Bi-directional Sync</li>
+                </ul>
+              </div>
+              <div class="text-xs font-mono text-appleBlue pt-4 border-t border-black/5 font-medium">SCALE PIPELINES &rarr;</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ================= VIEW 3: SOLUTIONS ================= -->
+        <section id="view-solutions" class="view-section w-full max-w-5xl mx-auto">
+          <div class="focus-target text-center mb-10 sm:mb-14">
+            <p class="text-xs font-mono uppercase tracking-widest text-appleBlue font-semibold mb-2">Protocol</p>
+            <h2 class="font-display text-3xl sm:text-5xl font-bold text-appleInk tracking-tight">How We Execute.</h2>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+            <div class="play-card apple-glass p-7 rounded-3xl">
+              <span class="text-2xl font-mono font-semibold text-appleMuted/40 block mb-2">01</span>
+              <h3 class="font-display text-lg font-semibold text-appleInk mb-2">Diagnostic & Blueprint</h3>
+              <p class="text-appleMuted text-sm leading-relaxed mb-4">
+                We perform an end-to-end technical audit of your operational bottlenecks, manual friction points, and tech stack redundancies.
+              </p>
+              <div class="text-xs font-mono text-appleMuted">TIMELINE: WEEK 1</div>
+            </div>
+            <div class="play-card apple-glass p-7 rounded-3xl">
+              <span class="text-2xl font-mono font-semibold text-appleMuted/40 block mb-2">02</span>
+              <h3 class="font-display text-lg font-semibold text-appleInk mb-2">Build & Integration</h3>
+              <p class="text-appleMuted text-sm leading-relaxed mb-4">
+                We develop and deploy custom agentic models, configure web touchpoints, and integrate your CRM tools seamlessly with custom APIs.
+              </p>
+              <div class="text-xs font-mono text-appleMuted">TIMELINE: WEEKS 2–3</div>
+            </div>
+            <div class="play-card apple-glass p-7 rounded-3xl">
+              <span class="text-2xl font-mono font-semibold text-appleMuted/40 block mb-2">03</span>
+              <h3 class="font-display text-lg font-semibold text-appleInk mb-2">Continuous Growth</h3>
+              <p class="text-appleMuted text-sm leading-relaxed mb-4">
+                Ongoing performance audits, LLM fine-tuning, latency optimization, and automated conversion tracking to ensure durable compound gains.
+              </p>
+              <div class="text-xs font-mono text-appleMuted">TIMELINE: CONTINUOUS</div>
+            </div>
+          </div>
+
+          <!-- FAQ Accordion Matrix (Play Card) -->
+          <div class="play-card apple-glass p-7 sm:p-10 rounded-3xl text-left">
+            <h3 class="font-display text-2xl font-bold text-appleInk mb-6">Frequently Asked Questions</h3>
+            <div class="space-y-4">
+              <div class="pb-4 border-b border-black/5">
+                <h4 class="font-semibold text-appleInk text-sm sm:text-base">Do we need an internal engineering team to manage this?</h4>
+                <p class="text-appleMuted text-xs sm:text-sm mt-1 leading-relaxed">No. We deliver fully managed turnkey infrastructure or hand over clean, thoroughly documented codebases with plug-and-play maintenance.</p>
+              </div>
+              <div class="pb-4 border-b border-black/5">
+                <h4 class="font-semibold text-appleInk text-sm sm:text-base">How secure is my proprietary company data?</h4>
+                <p class="text-appleMuted text-xs sm:text-sm mt-1 leading-relaxed">All AI pipelines run in isolated cloud environments with strict data tenancy. Your customer and proprietary records are never stored on public model training sets.</p>
+              </div>
+              <div>
+                <h4 class="font-semibold text-appleInk text-sm sm:text-base">What is the typical deployment timeframe?</h4>
+                <p class="text-appleMuted text-xs sm:text-sm mt-1 leading-relaxed">Standard automation engines and web platforms deploy within 10 to 21 business days following your initial architecture blueprint sign-off.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ================= VIEW 4: ABOUT ================= -->
+        <section id="view-about" class="view-section w-full max-w-4xl mx-auto">
+          <div class="play-card apple-glass p-7 sm:p-12 rounded-3xl text-left mb-8">
+            <p class="text-xs font-mono uppercase tracking-widest text-appleBlue font-semibold mb-3">About Mayven & Co.</p>
+            <h2 class="font-display text-3xl sm:text-4xl font-bold text-appleInk mb-5 tracking-tight">
+              Bridging intelligent software with real enterprise outcomes.
+            </h2>
+            <p class="text-appleMuted text-sm sm:text-base leading-relaxed mb-6">
+              Founded on the belief that modern software should eliminate operational complexity rather than compound it, Mayven & Co. partners with ambitious founders, operators, and enterprises worldwide.
+            </p>
+            <p class="text-appleMuted text-sm sm:text-base leading-relaxed mb-8">
+              We combine advanced agentic AI, modern web design frameworks, and automated outbound infrastructure into cohesive systems that give small teams the leverage of large enterprise divisions.
+            </p>
+
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-6 border-t border-black/5 text-xs font-mono text-appleMuted">
+              <div>• FAST DEPLOYMENT</div>
+              <div>• DATA PRIVACY FIRST</div>
+              <div>• BESPOKE CODEBASE</div>
+              <div>• 99.9% UPTIME SLA</div>
+            </div>
+          </div>
+
+          <!-- Operational Standards Cards -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 text-left">
+            <div class="play-card apple-glass p-6 rounded-2xl">
+              <div class="w-8 h-8 rounded-xl bg-blue-50 text-appleBlue flex items-center justify-center mb-3">
+                <i data-lucide="shield-check" class="w-4 h-4"></i>
+              </div>
+              <h4 class="font-display font-semibold text-appleInk text-base mb-1">Security & Encryption</h4>
+              <p class="text-xs text-appleMuted leading-relaxed">End-to-end TLS 1.3 encryption across all communication vectors and zero data leakage policies.</p>
+            </div>
+            <div class="play-card apple-glass p-6 rounded-2xl">
+              <div class="w-8 h-8 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center mb-3">
+                <i data-lucide="zap" class="w-4 h-4"></i>
+              </div>
+              <h4 class="font-display font-semibold text-appleInk text-base mb-1">Sub-Second Execution</h4>
+              <p class="text-xs text-appleMuted leading-relaxed">Edge-computed responses and latency-engineered pipelines ensure snappy customer interactions.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- ================= VIEW 5: CONTACT ================= -->
+        <section id="view-contact" class="view-section w-full max-w-xl mx-auto">
+          <div class="play-card apple-glass p-7 sm:p-10 rounded-3xl text-left">
+            <p class="text-xs font-mono uppercase tracking-widest text-appleBlue font-semibold mb-1">Get In Touch</p>
+            <h2 class="font-display text-2xl sm:text-3xl font-bold text-appleInk mb-2 tracking-tight">Let’s discuss your systems.</h2>
+            <p class="text-appleMuted text-xs sm:text-sm mb-6">
+              Drop your details below. We’ll schedule a quick discovery call to audit your workflows and discuss high-leverage opportunities.
+            </p>
+
+            <form class="space-y-4" onsubmit="event.preventDefault(); alert('Inquiry recorded. A Mayven & Co. engineering lead will reach out shortly.');">
+              <div>
+                <label class="block text-xs font-mono text-appleMuted uppercase mb-1">Your Name</label>
+                <input type="text" required placeholder="Alex Vance" class="w-full px-4 py-2.5 rounded-xl apple-inset text-appleInk placeholder-appleMuted text-sm focus:outline-none focus:border-appleBlue transition-colors">
+              </div>
+
+              <div>
+                <label class="block text-xs font-mono text-appleMuted uppercase mb-1">Work Email</label>
+                <input type="email" required placeholder="alex@company.com" class="w-full px-4 py-2.5 rounded-xl apple-inset text-appleInk placeholder-appleMuted text-sm focus:outline-none focus:border-appleBlue transition-colors">
+              </div>
+
+              <div>
+                <label class="block text-xs font-mono text-appleMuted uppercase mb-1">Service Required</label>
+                <select class="w-full px-4 py-2.5 rounded-xl apple-inset text-appleInk text-sm focus:outline-none focus:border-appleBlue transition-colors bg-white">
+                  <option>Agentic AI & Workflow Automation</option>
+                  <option>Custom Web Engineering & UI/UX</option>
+                  <option>Client Acquisition & Outbound Engine</option>
+                  <option>Full Architecture Retainer</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="block text-xs font-mono text-appleMuted uppercase mb-1">Project Details</label>
+                <textarea rows="3" placeholder="Briefly describe your objectives or manual bottlenecks..." class="w-full px-4 py-2.5 rounded-xl apple-inset text-appleInk placeholder-appleMuted text-sm focus:outline-none focus:border-appleBlue transition-colors resize-none"></textarea>
+              </div>
+
+              <button type="submit" class="apple-btn-primary w-full mt-2 py-3 rounded-xl text-sm font-medium tracking-tight">
+                <span class="btn-text">Schedule Strategy Session</span>
+              </button>
+            </form>
+          </div>
+        </section>
+
+      </main>
+    </div>
+
+    <!-- COMPREHENSIVE DUAL FOOTER WITH LEGAL LINKS -->
+    <footer class="mt-auto pt-10 pb-20 md:pb-10 px-4 sm:px-6 border-t border-black/5 text-xs text-appleMuted font-sans pointer-events-auto bg-[#fbfbfd]">
+      <div class="max-w-6xl mx-auto space-y-6">
+        
+        <!-- Top Links Grid -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-6 text-left">
+          <div>
+            <h5 class="font-display font-semibold text-appleInk mb-2 text-xs">Systems & Services</h5>
+            <ul class="space-y-1.5 text-[11px]">
+              <li><a href="#" onclick="switchView('services'); return false;" class="hover:text-appleInk transition-colors">Agentic AI Workflows</a></li>
+              <li><a href="#" onclick="switchView('services'); return false;" class="hover:text-appleInk transition-colors">Custom Web Engines</a></li>
+              <li><a href="#" onclick="switchView('services'); return false;" class="hover:text-appleInk transition-colors">Outbound Infrastructure</a></li>
+            </ul>
+          </div>
+          <div>
+            <h5 class="font-display font-semibold text-appleInk mb-2 text-xs">Company</h5>
+            <ul class="space-y-1.5 text-[11px]">
+              <li><a href="#" onclick="switchView('about'); return false;" class="hover:text-appleInk transition-colors">About Mayven & Co.</a></li>
+              <li><a href="#" onclick="switchView('solutions'); return false;" class="hover:text-appleInk transition-colors">Methodology</a></li>
+              <li><a href="#" onclick="switchView('contact'); return false;" class="hover:text-appleInk transition-colors">Careers & Contact</a></li>
+            </ul>
+          </div>
+          <div>
+            <h5 class="font-display font-semibold text-appleInk mb-2 text-xs">Legal & Governance</h5>
+            <ul class="space-y-1.5 text-[11px]">
+              <li><button onclick="openModal('terms-modal')" class="hover:text-appleInk transition-colors">Terms of Service</button></li>
+              <li><button onclick="openModal('privacy-modal')" class="hover:text-appleInk transition-colors">Privacy Policy</button></li>
+              <li><button onclick="openModal('security-modal')" class="hover:text-appleInk transition-colors">Security Compliance</button></li>
+            </ul>
+          </div>
+          <div>
+            <h5 class="font-display font-semibold text-appleInk mb-2 text-xs">Network Status</h5>
+            <div class="flex items-center space-x-2 text-[11px] text-emerald-600 font-medium">
+              <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+              <span>All Systems Operational</span>
+            </div>
+            <p class="text-[10px] text-appleMuted mt-1">Global latency: 18ms</p>
+          </div>
+        </div>
+
+        <!-- Bottom Copyright Row -->
+        <div class="pt-6 border-t border-black/5 flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left text-[11px]">
+          <div>
+            Copyright &copy; 2026 Mayven & Co. All rights reserved. Registered trademark.
+          </div>
+          <div class="flex items-center space-x-4">
+            <button onclick="openModal('privacy-modal')" class="hover:underline">Privacy</button>
+            <span>•</span>
+            <button onclick="openModal('terms-modal')" class="hover:underline">Terms of Use</button>
+            <span>•</span>
+            <button onclick="openModal('security-modal')" class="hover:underline">Security</button>
+          </div>
+        </div>
+
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- INTERACTIVE FROSTED LEGAL MODALS -->
+  <div id="terms-modal" class="legal-modal hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/30 backdrop-blur-sm">
+    <div class="apple-glass max-w-2xl w-full max-h-[85vh] rounded-3xl p-6 sm:p-8 overflow-y-auto relative text-left">
+      <div class="flex items-center justify-between pb-4 border-b border-black/5 mb-4">
+        <h3 class="font-display text-xl font-bold text-appleInk">Terms of Service</h3>
+        <button onclick="closeModal('terms-modal')" class="text-appleMuted hover:text-appleInk p-1 rounded-full hover:bg-black/5">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+      <div class="space-y-4 text-xs sm:text-sm text-appleMuted leading-relaxed">
+        <p><strong class="text-appleInk">1. Acceptance of Terms:</strong> By accessing and utilizing services provided by Mayven & Co., you agree to be bound by these Terms of Service. If you do not agree, discontinue use immediately.</p>
+        <p><strong class="text-appleInk">2. Intellectual Property Rights:</strong> All proprietary custom software architectures, code packages, bespoke designs, and automation blueprints developed under client contract remain client property upon full disbursement of agreed-upon deliverables.</p>
+        <p><strong class="text-appleInk">3. Service Levels & Availability:</strong> Mayven & Co. provides infrastructure with standard 99.9% uptime objectives. Scheduled maintenance windows are communicated in advance.</p>
+        <p><strong class="text-appleInk">4. Limitation of Liability:</strong> Under no circumstances shall Mayven & Co. be held liable for indirect, incidental, or consequential damages resulting from third-party API changes, downstream service outages, or unauthorized third-party access.</p>
+      </div>
+    </div>
+  </div>
+
+  <div id="privacy-modal" class="legal-modal hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/30 backdrop-blur-sm">
+    <div class="apple-glass max-w-2xl w-full max-h-[85vh] rounded-3xl p-6 sm:p-8 overflow-y-auto relative text-left">
+      <div class="flex items-center justify-between pb-4 border-b border-black/5 mb-4">
+        <h3 class="font-display text-xl font-bold text-appleInk">Privacy Policy</h3>
+        <button onclick="closeModal('privacy-modal')" class="text-appleMuted hover:text-appleInk p-1 rounded-full hover:bg-black/5">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+      <div class="space-y-4 text-xs sm:text-sm text-appleMuted leading-relaxed">
+        <p><strong class="text-appleInk">1. Data Collection:</strong> We collect only business contact information submitted voluntarily through our inquiry workflows and diagnostic auditing tools.</p>
+        <p><strong class="text-appleInk">2. Data Isolation & AI Training:</strong> Client proprietary data, prospect lists, and operational documents are strictly isolated in single-tenant cloud buckets. Your data is <em>never</em> used to train public machine learning models.</p>
+        <p><strong class="text-appleInk">3. Cookies & Analytics:</strong> This website utilizes privacy-preserving session tokens and zero third-party behavioral trackers.</p>
+        <p><strong class="text-appleInk">4. Right to Deletion:</strong> You may request complete erasure of your corporate inquiries and contact logs at any time by contacting our engineering compliance office.</p>
+      </div>
+    </div>
+  </div>
+
+  <div id="security-modal" class="legal-modal hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/30 backdrop-blur-sm">
+    <div class="apple-glass max-w-2xl w-full max-h-[85vh] rounded-3xl p-6 sm:p-8 overflow-y-auto relative text-left">
+      <div class="flex items-center justify-between pb-4 border-b border-black/5 mb-4">
+        <h3 class="font-display text-xl font-bold text-appleInk">Security Architecture & Compliance</h3>
+        <button onclick="closeModal('security-modal')" class="text-appleMuted hover:text-appleInk p-1 rounded-full hover:bg-black/5">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+      <div class="space-y-4 text-xs sm:text-sm text-appleMuted leading-relaxed">
+        <p><strong class="text-appleInk">1. Cryptographic Standards:</strong> All telemetry and API webhooks are encrypted in transit via TLS 1.3 and at rest with AES-256 bit encryption keys managed through AWS KMS.</p>
+        <p><strong class="text-appleInk">2. Access Control:</strong> Strict role-based access control (RBAC) and hardware-based MFA are mandatory across all infrastructure clusters.</p>
+        <p><strong class="text-appleInk">3. Continuous Auditing:</strong> Automated penetration testing and dependency vulnerability scanning run on every codebase deployment.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Three.js Kinetic Wave Engine & Cinema Focus Logic -->
+  <script>
+    lucide.createIcons();
+
+    // 1. Magnetic Cursor
+    const dot = document.getElementById('cursor-dot');
+    const follower = document.getElementById('cursor-follower');
+    const isTouchDevice = () => ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+
+    let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
+    let followerX = mouseX, followerY = mouseY;
+
+    if (!isTouchDevice()) {
+      window.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX; mouseY = e.clientY;
+        dot.style.left = `${mouseX}px`; dot.style.top = `${mouseY}px`;
+      }, { passive: true });
+
+      document.querySelectorAll('a, button, input, textarea, select, .service-pedestal').forEach(el => {
+        el.addEventListener('mouseenter', () => document.body.classList.add('hovering'));
+        el.addEventListener('mouseleave', () => document.body.classList.remove('hovering'));
+      });
+
+      function animateCursor() {
+        followerX += (mouseX - followerX) * 0.22;
+        followerY += (mouseY - followerY) * 0.22;
+        follower.style.left = `${followerX}px`;
+        follower.style.top = `${followerY}px`;
+        requestAnimationFrame(animateCursor);
+      }
+      animateCursor();
+    }
+
+    // 2. Logo 3D Tilt
+    const heroLogo = document.querySelector('.hero-logo-container');
+    if (heroLogo && !isTouchDevice()) {
+      window.addEventListener('mousemove', (e) => {
+        const deltaX = (e.clientX - window.innerWidth / 2) / (window.innerWidth / 2);
+        const deltaY = (e.clientY - window.innerHeight / 2) / (window.innerHeight / 2);
+        heroLogo.style.transform = `perspective(800px) rotateX(${-deltaY * 10}deg) rotateY(${deltaX * 12}deg)`;
+      }, { passive: true });
+    }
+
+    // 3. Cinema Focus Card Hover Logic
+    function initCinemaFocus() {
+      const allCards = document.querySelectorAll('.play-card');
+
+      allCards.forEach(card => {
+        card.addEventListener('mouseenter', () => {
+          document.body.classList.add('has-card-hovered');
+          card.classList.add('card-in-focus');
+          
+          allCards.forEach(other => {
+            if (other !== card) {
+              other.classList.add('focus-target');
+            }
+          });
+        });
+
+        card.addEventListener('mouseleave', () => {
+          document.body.classList.remove('has-card-hovered');
+          card.classList.remove('card-in-focus');
+          
+          allCards.forEach(other => {
+            other.classList.remove('focus-target');
+          });
+        });
+      });
+    }
+    initCinemaFocus();
+
+    // 4. Continuous Kinetic Topology & Quantum Cloud (Three.js)
+    const canvas = document.getElementById('pipeline-canvas');
+    const scene = new THREE.Scene();
+    scene.fog = new THREE.FogExp2(0xfbfbfd, 0.038);
+
+    const camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 0.1, 100);
+    camera.position.set(0, 5, 12);
+
+    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: "high-performance" });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.75));
+
+    window.addEventListener('resize', () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    }, { passive: true });
+
+    const gridCols = 42;
+    const gridRows = 42;
+    const planeGeo = new THREE.PlaneGeometry(36, 36, gridCols - 1, gridRows - 1);
+    planeGeo.rotateX(-Math.PI / 2.3);
+
+    const planeMat = new THREE.PointsMaterial({
+      color: 0x0071e3,
+      size: 0.085,
+      transparent: true,
+      opacity: 0.42
+    });
+
+    const wireMat = new THREE.MeshBasicMaterial({
+      color: 0xd2d2d7,
+      wireframe: true,
+      transparent: true,
+      opacity: 0.16
+    });
+
+    const meshPlane = new THREE.Mesh(planeGeo, wireMat);
+    const pointPlane = new THREE.Points(planeGeo, planeMat);
+    meshPlane.position.y = -2.5;
+    pointPlane.position.y = -2.5;
+    scene.add(meshPlane);
+    scene.add(pointPlane);
+
+    const cloudCount = 280;
+    const cloudGeo = new THREE.BufferGeometry();
+    const cloudPos = new Float32Array(cloudCount * 3);
+    for (let i = 0; i < cloudCount; i++) {
+      cloudPos[i * 3] = (Math.random() - 0.5) * 32;
+      cloudPos[i * 3 + 1] = (Math.random() - 0.5) * 16 + 2;
+      cloudPos[i * 3 + 2] = (Math.random() - 0.5) * 20;
+    }
+    cloudGeo.setAttribute('position', new THREE.BufferAttribute(cloudPos, 3));
+    const cloudMat = new THREE.PointsMaterial({
+      color: 0x0071e3,
+      size: 0.065,
+      transparent: true,
+      opacity: 0.35
+    });
+    const cloudPoints = new THREE.Points(cloudGeo, cloudMat);
+    scene.add(cloudPoints);
+
+    let normMouseX = 0;
+    let normMouseY = 0;
+    window.addEventListener('mousemove', (e) => {
+      normMouseX = (e.clientX / window.innerWidth) * 2 - 1;
+      normMouseY = -(e.clientY / window.innerHeight) * 2 + 1;
+    }, { passive: true });
+
+    const posAttr = planeGeo.attributes.position;
+    const basePositions = Float32Array.from(posAttr.array);
+    const clock = new THREE.Clock();
+
+    function renderAnimation() {
+      const time = clock.getElapsedTime() * 0.75;
+
+      for (let i = 0; i < posAttr.count; i++) {
+        const u = basePositions[i * 3];
+        const v = basePositions[i * 3 + 1];
+        const wave1 = Math.sin(u * 0.35 + time * 1.2) * Math.cos(v * 0.35 + time * 0.9) * 0.85;
+        const wave2 = Math.sin((u + v) * 0.2 + time * 1.5) * 0.4;
+        posAttr.array[i * 3 + 2] = basePositions[i * 3 + 2] + wave1 + wave2;
+      }
+      posAttr.needsUpdate = true;
+
+      cloudPoints.rotation.y = time * 0.04;
+      cloudPoints.rotation.x = Math.sin(time * 0.05) * 0.05;
+
+      camera.position.x += (normMouseX * 1.2 - camera.position.x) * 0.03;
+      camera.position.y += ((normMouseY * 0.8 + 4.8) - camera.position.y) * 0.03;
+      camera.lookAt(0, 0, 0);
+
+      renderer.render(scene, camera);
+      requestAnimationFrame(renderAnimation);
+    }
+    renderAnimation();
+
+    // 5. Glitch-Free Liquid Page Transition
+    let currentView = 'home';
+    let isTransitioning = false;
+
+    const layerBack = document.getElementById('portal-layer-back');
+    const layerFront = document.getElementById('portal-layer-front');
+    const rim = document.getElementById('portal-rim');
+    const contentStage = document.getElementById('content-stage');
+
+    function switchView(viewId) {
+      if (isTransitioning || currentView === viewId) return;
+
+      const currentEl = document.getElementById(`view-${currentView}`);
+      const targetEl = document.getElementById(`view-${viewId}`);
+      if (!targetEl) return;
+
+      isTransitioning = true;
+      document.body.classList.remove('has-card-hovered');
+
+      document.querySelectorAll('.view-pill').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.target === viewId);
+      });
+
+      const tl = gsap.timeline({
+        onComplete: () => {
+          isTransitioning = false;
+          currentView = viewId;
+          initCinemaFocus();
+        }
+      });
+
+      tl.set([layerBack, layerFront, rim], { opacity: 1 })
+        .to(contentStage, { opacity: 0, y: -8, duration: 0.28, ease: "power2.in" }, 0)
+        .fromTo(layerBack,
+          { attr: { d: "M 0 0 L 100 0 L 100 0 Q 50 0 0 0 Z" } },
+          { duration: 0.36, attr: { d: "M 0 0 L 100 0 L 100 100 Q 50 120 0 100 Z" }, ease: "power3.in" }, 0
+        )
+        .fromTo(layerFront,
+          { attr: { d: "M 0 0 L 100 0 L 100 0 Q 50 0 0 0 Z" } },
+          { duration: 0.38, attr: { d: "M 0 0 L 100 0 L 100 100 Q 50 110 0 100 Z" }, ease: "power3.in" }, 0.02
+        )
+        .add(() => {
+          currentEl.classList.remove('active');
+          targetEl.classList.add('active');
+          window.scrollTo({ top: 0, behavior: 'instant' });
+          lucide.createIcons();
+        })
+        .to(layerFront, { duration: 0.42, attr: { d: "M 0 100 L 100 100 L 100 100 Q 50 100 0 100 Z" }, ease: "power4.out" })
+        .to(layerBack, { duration: 0.46, attr: { d: "M 0 100 L 100 100 L 100 100 Q 50 100 0 100 Z" }, ease: "power4.out" }, "<0.02")
+        .fromTo(contentStage, { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.38, ease: "power3.out" }, "-=0.32")
+        .set([layerBack, layerFront, rim], { opacity: 0 });
+    }
+
+    // 6. Legal Modals Controller
+    function openModal(id) {
+      const modal = document.getElementById(id);
+      if (modal) {
+        modal.classList.remove('hidden');
+        lucide.createIcons();
+      }
+    }
+
+    function closeModal(id) {
+      const modal = document.getElementById(id);
+      if (modal) modal.classList.add('hidden');
+    }
+
+    window.addEventListener('click', (e) => {
+      if (e.target.classList.contains('legal-modal')) {
+        e.target.classList.add('hidden');
+      }
+    });
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        document.querySelectorAll('.legal-modal').forEach(m => m.classList.add('hidden'));
+      }
+    });
+  </script>
+</body>
+</html>
