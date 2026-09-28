@@ -118,11 +118,6 @@
       border: 1px solid rgba(0, 0, 0, 0.07);
       box-shadow: 0 18px 45px -10px rgba(0, 0, 0, 0.05),
                   inset 0 1px 0 0 rgba(255, 255, 255, 0.95);
-      transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1),
-                  box-shadow 0.65s cubic-bezier(0.16, 1, 0.3, 1),
-                  border-color 0.5s ease,
-                  opacity 0.75s cubic-bezier(0.19, 1, 0.22, 1),
-                  filter 0.75s cubic-bezier(0.19, 1, 0.22, 1);
     }
 
     .apple-inset {
@@ -130,47 +125,27 @@
       border: 1px solid rgba(0, 0, 0, 0.06);
     }
 
-    /* Cinema Focus & Play Card Jump-in Kinetics */
+    /* =========================================================================
+       PLAY CARD SQUEEZE & STRETCH SCROLL PHYSICS (NO BLURRING)
+       ========================================================================= */
     .play-card {
       position: relative;
       cursor: pointer;
-      will-change: transform, box-shadow, filter, opacity;
+      will-change: transform, box-shadow;
       transform-origin: center center;
-      transition: transform 0.68s cubic-bezier(0.34, 1.56, 0.64, 1),
-                  box-shadow 0.72s cubic-bezier(0.16, 1, 0.3, 1),
-                  border-color 0.5s ease,
-                  filter 0.75s cubic-bezier(0.19, 1, 0.22, 1),
-                  opacity 0.75s cubic-bezier(0.19, 1, 0.22, 1);
+      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
+                  box-shadow 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+                  border-color 0.3s ease;
     }
 
-    #content-stage * {
-      transition: filter 0.75s cubic-bezier(0.19, 1, 0.22, 1), 
-                  opacity 0.75s cubic-bezier(0.19, 1, 0.22, 1);
-    }
-
-    /* Ambient Smooth Background Diffusion */
-    body.has-card-hovered #content-stage .focus-target {
-      filter: blur(7px);
-      opacity: 0.22;
-      pointer-events: none;
-    }
-
-    body.has-card-hovered #chromatic-canvas {
-      opacity: 0.25 !important;
-      transition: opacity 0.85s cubic-bezier(0.19, 1, 0.22, 1);
-    }
-
-    /* Spring-Bounced Forward Card In Focus */
-    body.has-card-hovered .play-card.card-in-focus {
-      filter: blur(0px) !important;
-      opacity: 1 !important;
-      transform: translateY(-14px) scale(1.055) translateZ(24px) !important;
-      z-index: 50 !important;
+    /* Tactile Bounce On Hover Without Blurring Out Page */
+    .play-card:hover {
+      transform: translateY(-8px) scale(1.025) !important;
+      z-index: 30;
       background: rgba(255, 255, 255, 0.98);
-      border-color: rgba(0, 113, 227, 0.45);
-      box-shadow: 0 40px 85px -18px rgba(0, 113, 227, 0.26),
-                  0 12px 30px -8px rgba(0, 0, 0, 0.08),
-                  0 0 0 1px rgba(0, 113, 227, 0.22),
+      border-color: rgba(0, 113, 227, 0.4);
+      box-shadow: 0 32px 75px -18px rgba(0, 113, 227, 0.22),
+                  0 10px 24px -6px rgba(0, 0, 0, 0.06),
                   inset 0 1px 0 0 rgba(255, 255, 255, 1);
     }
 
@@ -408,8 +383,8 @@
   <div id="cursor-dot"></div>
   <div id="cursor-follower"></div>
 
-  <!-- CHROMATIC REFRACTIVE RIBBON CANVAS (Inspired by uploaded image) -->
-  <canvas id="chromatic-canvas" class="fixed inset-0 w-full h-full pointer-events-none z-0 opacity-85"></canvas>
+  <!-- MONOCHROME ELECTRIC BLUE CAUSTIC WAVE CANVAS (No Rainbow) -->
+  <canvas id="chromatic-canvas" class="fixed inset-0 w-full h-full pointer-events-none z-0 opacity-80"></canvas>
 
   <!-- Liquid Portal Curtain -->
   <svg class="fixed inset-0 w-full h-full pointer-events-none z-50 overflow-hidden" preserveAspectRatio="none" viewBox="0 0 100 100">
@@ -474,7 +449,7 @@
       </div>
     </header>
 
-    <!-- CONTENT STAGE (Cinema Focus Container) -->
+    <!-- CONTENT STAGE -->
     <div id="content-stage" class="flex-grow flex items-center justify-center pb-24 md:pb-16">
       <main class="w-full pointer-events-auto px-4 sm:px-6 pt-24 sm:pt-28">
 
@@ -483,7 +458,7 @@
           <div class="flex flex-col items-center">
 
             <!-- Scaled-Up Monolith Logo -->
-            <div class="hero-logo-container group focus-target">
+            <div class="hero-logo-container group">
               <div class="hero-logo-halo"></div>
               <img 
                 src="erasebg-transformed (1).png" 
@@ -493,19 +468,19 @@
               >
             </div>
 
-            <p class="focus-target text-xs font-mono uppercase tracking-widest text-appleBlue font-semibold mb-3">
+            <p class="text-xs font-mono uppercase tracking-widest text-appleBlue font-semibold mb-3">
               Autonomous Systems & Design
             </p>
 
-            <h1 class="focus-target font-display text-4xl sm:text-6xl md:text-7xl font-bold tracking-tight text-appleInk leading-[1.08] mb-6">
+            <h1 class="font-display text-4xl sm:text-6xl md:text-7xl font-bold tracking-tight text-appleInk leading-[1.08] mb-6">
               Engineering autonomous growth for modern enterprises.
             </h1>
 
-            <p class="focus-target text-base sm:text-lg md:text-xl text-appleMuted max-w-2xl font-normal leading-relaxed mb-9 px-2">
+            <p class="text-base sm:text-lg md:text-xl text-appleMuted max-w-2xl font-normal leading-relaxed mb-9 px-2">
               We replace manual operational friction with custom agentic AI pipelines, conversion-engineered web architecture, and automated outbound systems.
             </p>
 
-            <div class="focus-target flex flex-col sm:flex-row items-center gap-3.5 sm:gap-4 w-full sm:w-auto">
+            <div class="flex flex-col sm:flex-row items-center gap-3.5 sm:gap-4 w-full sm:w-auto">
               <button onclick="switchView('contact')" class="apple-btn-primary w-full sm:w-auto px-8 py-3 rounded-full text-sm font-medium tracking-tight">
                 <span class="btn-text">Schedule Discovery Call</span>
               </button>
@@ -514,7 +489,7 @@
               </button>
             </div>
 
-            <!-- Core Performance Grid (Cinema Focus Play Cards) -->
+            <!-- Core Performance Grid (Dynamic Squeeze & Stretch Play Cards) -->
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 mt-16 sm:mt-20 w-full max-w-4xl text-left">
               <div class="play-card apple-glass p-6 rounded-2xl flex flex-col justify-between">
                 <div>
@@ -554,7 +529,7 @@
             </div>
 
             <!-- Enterprise Trust Bar -->
-            <div class="focus-target mt-14 pt-8 border-t border-black/5 w-full max-w-3xl flex flex-wrap items-center justify-center gap-8 sm:gap-12 text-xs font-mono text-appleMuted uppercase tracking-wider">
+            <div class="mt-14 pt-8 border-t border-black/5 w-full max-w-3xl flex flex-wrap items-center justify-center gap-8 sm:gap-12 text-xs font-mono text-appleMuted uppercase tracking-wider">
               <span>Next.js & Python</span>
               <span>•</span>
               <span>Claude & OpenAI Models</span>
@@ -569,14 +544,14 @@
 
         <!-- ================= VIEW 2: SERVICES ================= -->
         <section id="view-services" class="view-section w-full max-w-5xl mx-auto">
-          <div class="focus-target text-center mb-8">
+          <div class="text-center mb-8">
             <p class="text-xs font-mono uppercase tracking-widest text-appleBlue font-semibold mb-2">Capabilities</p>
             <h2 class="font-display text-3xl sm:text-5xl font-bold text-appleInk tracking-tight">Architecture & Delivery Flow.</h2>
             <p class="text-xs sm:text-sm text-appleMuted mt-2 max-w-lg mx-auto">Select any station in the pipeline below to inspect live vector operations.</p>
           </div>
 
           <!-- Interactive Workflow Architecture Diagram -->
-          <div class="focus-target w-full max-w-4xl mx-auto mb-10 relative">
+          <div class="w-full max-w-4xl mx-auto mb-10 relative">
 
             <!-- Optical Laser Bus Wire -->
             <svg class="hidden md:block absolute top-[44px] left-[10%] right-[10%] w-[80%] h-1 pointer-events-none z-0 overflow-visible" preserveAspectRatio="none">
@@ -614,17 +589,17 @@
               <div onclick="selectPipelineStation(1)" class="flex flex-col items-center group cursor-pointer">
                 <div id="station-pedestal-1" class="service-pedestal w-20 h-20 sm:w-22 sm:h-22 rounded-3xl apple-glass bg-white flex items-center justify-center p-3 relative mb-3">
                   <svg class="w-12 h-12" viewBox="0 0 72 72" fill="none">
-                    <rect x="20" y="20" width="32" height="32" rx="7" stroke="#9333ea" stroke-width="1.5" stroke-opacity="0.25" />
+                    <rect x="20" y="20" width="32" height="32" rx="7" stroke="#0071e3" stroke-width="1.5" stroke-opacity="0.3" />
                     <g class="neural-processor-core">
-                      <rect x="27" y="27" width="18" height="18" rx="4" fill="#9333ea" fill-opacity="0.12" stroke="#9333ea" stroke-width="2" />
-                      <circle cx="36" cy="36" r="3.5" fill="#9333ea" />
+                      <rect x="27" y="27" width="18" height="18" rx="4" fill="#0071e3" fill-opacity="0.12" stroke="#0071e3" stroke-width="2" />
+                      <circle cx="36" cy="36" r="3.5" fill="#0071e3" />
                     </g>
-                    <line x1="36" y1="6" x2="36" y2="20" stroke="#9333ea" stroke-width="1.75" stroke-linecap="round" />
-                    <line x1="36" y1="52" x2="36" y2="66" stroke="#9333ea" stroke-width="1.75" stroke-linecap="round" />
-                    <line x1="6" y1="36" x2="20" y2="36" stroke="#9333ea" stroke-width="1.75" stroke-linecap="round" />
-                    <line x1="52" y1="36" x2="66" y2="36" stroke="#9333ea" stroke-width="1.75" stroke-linecap="round" />
-                    <circle cx="36" cy="11" r="2" fill="#9333ea" />
-                    <circle cx="61" cy="36" r="2" fill="#9333ea" />
+                    <line x1="36" y1="6" x2="36" y2="20" stroke="#0071e3" stroke-width="1.75" stroke-linecap="round" />
+                    <line x1="36" y1="52" x2="36" y2="66" stroke="#0071e3" stroke-width="1.75" stroke-linecap="round" />
+                    <line x1="6" y1="36" x2="20" y2="36" stroke="#0071e3" stroke-width="1.75" stroke-linecap="round" />
+                    <line x1="52" y1="36" x2="66" y2="36" stroke="#0071e3" stroke-width="1.75" stroke-linecap="round" />
+                    <circle cx="36" cy="11" r="2" fill="#0071e3" />
+                    <circle cx="61" cy="36" r="2" fill="#0071e3" />
                   </svg>
                 </div>
                 <h4 class="font-display font-semibold text-sm text-appleInk">02 / AI Logic Core</h4>
@@ -635,16 +610,16 @@
               <div onclick="selectPipelineStation(2)" class="flex flex-col items-center group cursor-pointer">
                 <div id="station-pedestal-2" class="service-pedestal w-20 h-20 sm:w-22 sm:h-22 rounded-3xl apple-glass bg-white flex items-center justify-center p-3 relative mb-3">
                   <svg class="w-12 h-12" viewBox="0 0 72 72" fill="none">
-                    <rect x="12" y="16" width="48" height="40" rx="6" stroke="#0284c7" stroke-width="1.5" stroke-opacity="0.3" />
-                    <line x1="12" y1="26" x2="60" y2="26" stroke="#0284c7" stroke-width="1.2" stroke-opacity="0.2" />
-                    <circle cx="18" cy="21" r="1.5" fill="#0284c7" />
-                    <circle cx="23" cy="21" r="1.5" fill="#0284c7" opacity="0.6" />
+                    <rect x="12" y="16" width="48" height="40" rx="6" stroke="#0071e3" stroke-width="1.5" stroke-opacity="0.3" />
+                    <line x1="12" y1="26" x2="60" y2="26" stroke="#0071e3" stroke-width="1.2" stroke-opacity="0.2" />
+                    <circle cx="18" cy="21" r="1.5" fill="#0071e3" />
+                    <circle cx="23" cy="21" r="1.5" fill="#0071e3" opacity="0.6" />
                     <g class="web-code-crawler">
-                      <line x1="18" y1="33" x2="32" y2="33" stroke="#0284c7" stroke-width="1.75" stroke-linecap="round" />
-                      <line x1="36" y1="33" x2="48" y2="33" stroke="#0284c7" stroke-width="1.75" stroke-linecap="round" opacity="0.45" />
-                      <line x1="18" y1="41" x2="42" y2="41" stroke="#0284c7" stroke-width="1.75" stroke-linecap="round" />
+                      <line x1="18" y1="33" x2="32" y2="33" stroke="#0071e3" stroke-width="1.75" stroke-linecap="round" />
+                      <line x1="36" y1="33" x2="48" y2="33" stroke="#0071e3" stroke-width="1.75" stroke-linecap="round" opacity="0.45" />
+                      <line x1="18" y1="41" x2="42" y2="41" stroke="#0071e3" stroke-width="1.75" stroke-linecap="round" />
                     </g>
-                    <path d="M49 35 L44 42 L48 42 L43 49" stroke="#0284c7" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M49 35 L44 42 L48 42 L43 49" stroke="#0071e3" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" />
                   </svg>
                 </div>
                 <h4 class="font-display font-semibold text-sm text-appleInk">03 / Web Engines</h4>
@@ -655,11 +630,11 @@
               <div onclick="selectPipelineStation(3)" class="flex flex-col items-center group cursor-pointer">
                 <div id="station-pedestal-3" class="service-pedestal w-20 h-20 sm:w-22 sm:h-22 rounded-3xl apple-glass bg-white flex items-center justify-center p-3 relative mb-3">
                   <svg class="w-12 h-12" viewBox="0 0 72 72" fill="none">
-                    <ellipse cx="26" cy="22" rx="12" ry="4.5" stroke="#059669" stroke-width="1.5" stroke-opacity="0.35" />
-                    <path d="M14 22 V30 C14 32.5 19.4 34.5 26 34.5 C32.6 34.5 38 32.5 38 30 V22" stroke="#059669" stroke-width="1.5" stroke-opacity="0.35" />
-                    <path class="growth-vector-path" d="M 26 52 Q 40 50 48 34 L 58 20" stroke="#059669" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
-                    <circle cx="58" cy="20" r="3" fill="#059669" />
-                    <path d="M52 20 H58 V26" stroke="#059669" stroke-width="1.75" stroke-linecap="round" />
+                    <ellipse cx="26" cy="22" rx="12" ry="4.5" stroke="#0071e3" stroke-width="1.5" stroke-opacity="0.35" />
+                    <path d="M14 22 V30 C14 32.5 19.4 34.5 26 34.5 C32.6 34.5 38 32.5 38 30 V22" stroke="#0071e3" stroke-width="1.5" stroke-opacity="0.35" />
+                    <path class="growth-vector-path" d="M 26 52 Q 40 50 48 34 L 58 20" stroke="#0071e3" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+                    <circle cx="58" cy="20" r="3" fill="#0071e3" />
+                    <path d="M52 20 H58 V26" stroke="#0071e3" stroke-width="1.75" stroke-linecap="round" />
                   </svg>
                 </div>
                 <h4 class="font-display font-semibold text-sm text-appleInk">04 / Growth Sync</h4>
@@ -670,10 +645,10 @@
           </div>
 
           <!-- Live Terminal Inspector Banner -->
-          <div class="focus-target apple-glass p-5 rounded-2xl mb-12 max-w-4xl mx-auto text-left font-mono border border-black/5">
+          <div class="apple-glass p-5 rounded-2xl mb-12 max-w-4xl mx-auto text-left font-mono border border-black/5">
             <div class="flex items-center justify-between pb-3 border-b border-black/5 text-xs text-appleMuted">
               <div class="flex items-center space-x-2">
-                <span class="inline-block w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                <span class="inline-block w-2.5 h-2.5 rounded-full bg-appleBlue animate-pulse"></span>
                 <span id="terminal-step-badge" class="text-appleInk font-semibold">STAGE: 01 / OUTBOUND PROSPECTING</span>
               </div>
               <span id="terminal-latency" class="text-appleBlue text-[11px]">LATENCY: 42ms</span>
@@ -710,7 +685,7 @@
                 </p>
                 <ul class="text-xs font-mono text-appleMuted space-y-2 mb-6">
                   <li>• 100/100 Google Lighthouse Speeds</li>
-                  <li>• Fluid Vector Three.js / WebGL</li>
+                  <li>• Fluid Vector WebGL Shaders</li>
                   <li>• Mobile-Native Responsive Docks</li>
                 </ul>
               </div>
@@ -737,7 +712,7 @@
 
         <!-- ================= VIEW 3: PROTOCOL & METHODOLOGY ================= -->
         <section id="view-solutions" class="view-section w-full max-w-5xl mx-auto">
-          <div class="focus-target text-center mb-10 sm:mb-14">
+          <div class="text-center mb-10 sm:mb-14">
             <p class="text-xs font-mono uppercase tracking-widest text-appleBlue font-semibold mb-2">Protocol</p>
             <h2 class="font-display text-3xl sm:text-5xl font-bold text-appleInk tracking-tight">How We Execute.</h2>
           </div>
@@ -763,7 +738,7 @@
                   We develop and deploy custom agentic models, configure web touchpoints, and integrate your CRM tools seamlessly with custom APIs.
                 </p>
               </div>
-              <div class="text-xs font-mono text-purple-600 font-medium pt-3 border-t border-black/5">TIMELINE: WEEKS 2–3</div>
+              <div class="text-xs font-mono text-appleBlue font-medium pt-3 border-t border-black/5">TIMELINE: WEEKS 2–3</div>
             </div>
 
             <div class="play-card apple-glass p-7 rounded-3xl text-left flex flex-col justify-between">
@@ -774,7 +749,7 @@
                   Ongoing performance audits, LLM fine-tuning, latency optimization, and automated conversion tracking to ensure durable compound gains.
                 </p>
               </div>
-              <div class="text-xs font-mono text-emerald-600 font-medium pt-3 border-t border-black/5">TIMELINE: CONTINUOUS</div>
+              <div class="text-xs font-mono text-appleBlue font-medium pt-3 border-t border-black/5">TIMELINE: CONTINUOUS</div>
             </div>
           </div>
 
@@ -788,7 +763,7 @@
               <p class="text-xs text-appleMuted leading-relaxed">End-to-end TLS 1.3 encryption across all communication vectors and zero data leakage. Your records are never used to train public LLM models.</p>
             </div>
             <div class="play-card apple-glass p-6 rounded-2xl">
-              <div class="w-8 h-8 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center mb-3">
+              <div class="w-8 h-8 rounded-xl bg-blue-50 text-appleBlue flex items-center justify-center mb-3">
                 <i data-lucide="zap" class="w-4 h-4"></i>
               </div>
               <h4 class="font-display font-semibold text-appleInk text-base mb-1">Edge Computation</h4>
@@ -971,7 +946,7 @@
     </div>
   </div>
 
-  <!-- CHROMATIC REFRACTIVE CAUSTIC ENGINE (Inspired by uploaded image) -->
+  <!-- SCRIPT ENGINE -->
   <script>
     lucide.createIcons();
 
@@ -1020,7 +995,46 @@
     }
 
     // =========================================================================
-    // 3. GPU CHROMATIC REFRACTIVE CAUSTIC SHADER (60 FPS WebGL)
+    // 3. SQUEEZE & STRETCH SCROLL PHYSICS ENGINE FOR CARDS
+    // =========================================================================
+    let lastScrollY = window.scrollY;
+    let scrollVelocity = 0;
+    let smoothedVelocity = 0;
+
+    window.addEventListener('scroll', () => {
+      const currentScrollY = window.scrollY;
+      scrollVelocity = currentScrollY - lastScrollY;
+      lastScrollY = currentScrollY;
+    }, { passive: true });
+
+    function applyCardScrollPhysics() {
+      // Smooth dampening towards zero
+      smoothedVelocity += (scrollVelocity - smoothedVelocity) * 0.14;
+      scrollVelocity *= 0.88; // decay
+
+      // Clamp max deform
+      const clampedVel = Math.max(-28, Math.min(28, smoothedVelocity));
+      const absVel = Math.abs(clampedVel);
+      
+      // Squeeze & Stretch math: stretch on Y, compress on X
+      const stretchY = 1 + (absVel * 0.0016);
+      const squeezeX = 1 - (absVel * 0.0009);
+      const skewY = clampedVel * 0.04;
+
+      const cards = document.querySelectorAll('.play-card');
+      cards.forEach(card => {
+        // Only apply scroll stretch when not actively hovered to prevent hover conflicts
+        if (!card.matches(':hover')) {
+          card.style.transform = `scale(${squeezeX}, ${stretchY}) skewY(${skewY}deg)`;
+        }
+      });
+
+      requestAnimationFrame(applyCardScrollPhysics);
+    }
+    applyCardScrollPhysics();
+
+    // =========================================================================
+    // 4. CLEAN ELECTRIC-BLUE CAUSTIC WAVE SHADER (NO RAINBOW / MONOCHROME)
     // =========================================================================
     const canvas = document.getElementById('chromatic-canvas');
     const gl = canvas.getContext('webgl', { antialias: true, alpha: true, powerPreference: 'high-performance' });
@@ -1035,7 +1049,7 @@
         }
       `;
 
-      // Chromatic aberration shader with blue core & magenta/cyan refracted fringes
+      // Pure Cobalt Blue, Royal Navy, and Luminous Ice-Blue caustics
       const fsSource = `
         precision highp float;
         varying vec2 vUv;
@@ -1043,57 +1057,54 @@
         uniform float u_time;
         uniform vec2 u_mouse;
 
-        float ribbon(vec2 p, float offset, float freq, float speed, float phase) {
-          float yCurve = sin(p.x * freq + u_time * speed + phase) * 0.28 +
-                         cos(p.x * (freq * 0.5) - u_time * (speed * 0.6)) * 0.14;
+        float waveRibbon(vec2 p, float offset, float freq, float speed, float phase) {
+          float yCurve = sin(p.x * freq + u_time * speed + phase) * 0.32 +
+                         cos(p.x * (freq * 0.45) - u_time * (speed * 0.55)) * 0.16;
           return p.y - (offset + yCurve);
         }
 
         void main() {
           vec2 st = (gl_FragCoord.xy - 0.5 * u_resolution) / min(u_resolution.x, u_resolution.y);
           
-          // Gentle diagonal rotation matching reference orientation
-          float angle = 0.52;
+          // Gentle diagonal angle
+          float angle = 0.54;
           mat2 rot = mat2(cos(angle), -sin(angle), sin(angle), cos(angle));
           st = rot * st;
 
-          // Interactive mouse wave influence
-          st.y += sin(st.x * 2.0 + u_time * 0.5) * (u_mouse.y * 0.06);
+          // Interactive mouse wave deflection
+          st.y += sin(st.x * 2.2 + u_time * 0.4) * (u_mouse.y * 0.05);
 
-          // Ceramic porcelain white backdrop
+          // Ceramic Porcelain Backdrop
           vec3 bg = vec3(0.984, 0.984, 0.992);
-          vec3 color = bg;
+          vec3 finalColor = bg;
 
-          // 4 Sweeping chromatic ribbons
+          // Monochrome Electric Blue Palette
+          vec3 deepNavy = vec3(0.015, 0.14, 0.45);   // Core deep navy
+          vec3 electricBlue = vec3(0.0, 0.443, 0.89); // Apple Electric Blue (#0071e3)
+          vec3 iceCyan = vec3(0.35, 0.72, 1.0);       // Soft luminous tint
+
+          // 4 Continuous Flowing Ribbons
           for (int i = 0; i < 4; i++) {
             float fi = float(i);
-            float baseOffset = -0.55 + fi * 0.38;
-            float freq = 1.35 + fi * 0.22;
-            float speed = 0.42 + fi * 0.08;
-            float phase = fi * 1.57;
+            float baseOffset = -0.58 + fi * 0.38;
+            float freq = 1.30 + fi * 0.18;
+            float speed = 0.38 + fi * 0.07;
+            float phase = fi * 1.55;
 
-            // Chromatic prism channel separation (RGB offsets)
-            float distR = ribbon(st, baseOffset + 0.022, freq, speed, phase);
-            float distG = ribbon(st, baseOffset,         freq, speed, phase);
-            float distB = ribbon(st, baseOffset - 0.024, freq, speed, phase);
+            float dist = waveRibbon(st, baseOffset, freq, speed, phase);
+            float width = 0.088;
+            
+            // Gaussian bell curve
+            float profile = exp(-pow(dist / width, 2.0));
 
-            // Gaussian soft-focus falloff
-            float width = 0.085;
-            float rProfile = exp(-pow(distR / width, 2.0));
-            float gProfile = exp(-pow(distG / width, 2.0));
-            float bProfile = exp(-pow(distB / width, 2.0));
+            // Layered monochrome blue gradient
+            vec3 ribbonColor = mix(electricBlue, deepNavy, profile * 0.65);
+            ribbonColor = mix(ribbonColor, iceCyan, smoothstep(0.0, width, abs(dist)));
 
-            // Chromatic palette: Deep Cobalt Blue with Pink/Magenta and Cyan Dispersion fringes
-            vec3 ribbonCol = vec3(0.0);
-            ribbonCol.r = rProfile * 0.78 + bProfile * 0.22;  // Magenta fringe on one side
-            ribbonCol.g = gProfile * 0.35 + bProfile * 0.45;  // Cyan edge on other side
-            ribbonCol.b = bProfile * 1.00 + gProfile * 0.30;  // Deep vibrant blue core
-
-            float intensity = max(max(rProfile, gProfile), bProfile);
-            color = mix(color, ribbonCol, intensity * 0.88);
+            finalColor = mix(finalColor, ribbonColor, profile * 0.82);
           }
 
-          gl_FragColor = vec4(color, 1.0);
+          gl_FragColor = vec4(finalColor, 1.0);
         }
       `;
 
@@ -1150,38 +1161,6 @@
       }
       renderCaustics();
     }
-
-    // 4. Cinema Focus Card Hover Logic with Smooth Delayed Clearing
-    function initCinemaFocus() {
-      const allCards = document.querySelectorAll('.play-card');
-      let focusTimeout = null;
-
-      allCards.forEach(card => {
-        card.addEventListener('mouseenter', () => {
-          if (focusTimeout) clearTimeout(focusTimeout);
-          document.body.classList.add('has-card-hovered');
-          allCards.forEach(c => c.classList.remove('card-in-focus'));
-          card.classList.add('card-in-focus');
-          
-          allCards.forEach(other => {
-            if (other !== card) {
-              other.classList.add('focus-target');
-            } else {
-              other.classList.remove('focus-target');
-            }
-          });
-        });
-
-        card.addEventListener('mouseleave', () => {
-          card.classList.remove('card-in-focus');
-          focusTimeout = setTimeout(() => {
-            document.body.classList.remove('has-card-hovered');
-            allCards.forEach(other => other.classList.remove('focus-target'));
-          }, 80);
-        });
-      });
-    }
-    initCinemaFocus();
 
     // 5. Interactive Pipeline Terminal Selector
     const pipelineData = [
@@ -1248,7 +1227,6 @@
       if (!targetEl) return;
 
       isTransitioning = true;
-      document.body.classList.remove('has-card-hovered');
 
       document.querySelectorAll('.view-pill').forEach(btn => {
         btn.classList.toggle('active', btn.dataset.target === viewId);
@@ -1258,7 +1236,6 @@
         onComplete: () => {
           isTransitioning = false;
           currentView = viewId;
-          initCinemaFocus();
         }
       });
 
