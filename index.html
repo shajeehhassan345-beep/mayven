@@ -285,40 +285,42 @@
       display: block;
     }
 
-    /* Central Monolith Logo */
+    /* =========================================================================
+       HERO MONOLITH LOGO (SCALED PROPORTIONALLY BIGGER)
+       ========================================================================= */
     .hero-logo-container {
       position: relative;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      margin-bottom: 2rem;
+      margin-bottom: 2.25rem;
       transform-style: preserve-3d;
       will-change: transform;
     }
 
     .hero-logo-halo {
       position: absolute;
-      inset: -40%;
-      background: radial-gradient(circle, rgba(0, 113, 227, 0.12) 0%, rgba(0, 0, 0, 0.03) 45%, transparent 70%);
-      filter: blur(40px);
+      inset: -55%;
+      background: radial-gradient(circle, rgba(0, 113, 227, 0.15) 0%, rgba(0, 0, 0, 0.04) 45%, transparent 70%);
+      filter: blur(55px);
       pointer-events: none;
     }
 
     .hero-logo-img {
       position: relative;
       z-index: 1;
-      height: 125px;
+      height: 190px;
       width: auto;
       object-fit: contain;
-      filter: invert(1) contrast(1.15) drop-shadow(0 14px 28px rgba(0, 0, 0, 0.12));
+      filter: invert(1) contrast(1.15) drop-shadow(0 20px 36px rgba(0, 0, 0, 0.14));
       transition: transform 0.4s ease;
     }
 
     @media (min-width: 640px) {
-      .hero-logo-img { height: 155px; }
+      .hero-logo-img { height: 240px; }
     }
     @media (min-width: 1024px) {
-      .hero-logo-img { height: 180px; }
+      .hero-logo-img { height: 285px; }
     }
 
     .nav-logo-img {
@@ -427,7 +429,7 @@
     <path id="portal-rim" d="M 0 0 Q 50 0 100 0" fill="none" stroke="url(#viscousRim)" stroke-width="1.2" opacity="0" />
   </svg>
 
-  <!-- Mobile Floating Thumb Dock (Streamlined 4 Columns) -->
+  <!-- Mobile Floating Thumb Dock -->
   <div class="md:hidden fixed bottom-4 inset-x-0 mx-auto w-full z-40 flex justify-center pointer-events-none px-3">
     <div class="pointer-events-auto grid grid-cols-4 gap-1 items-center w-[92vw] max-w-[340px] apple-glass p-1 rounded-full shadow-lg border border-black/5">
       <button onclick="switchView('home')" class="dock-pill-mobile view-pill active" data-target="home"><span class="pill-text">Home</span></button>
@@ -443,12 +445,13 @@
     <header class="fixed top-0 inset-x-0 w-full z-50 bg-[#fbfbfd]/80 backdrop-blur-md border-b border-black/[0.05] pointer-events-auto">
       <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-3">
         
-        <!-- Navbar Logo: uses erasebg-transformed (1).png -->
+        <!-- Navbar Logo -->
         <a href="#" onclick="switchView('home'); return false;" class="flex items-center space-x-2.5 sm:space-x-3 shrink-0">
           <img 
             src="erasebg-transformed (1).png" 
             alt="Mayven & Co. Logo" 
-            class="nav-logo-img"
+            class="nav-logo-img" 
+            onerror="this.onerror=null; this.src='erasebg-transformed.png';"
           >
           <span class="font-display font-semibold text-sm sm:text-base tracking-tight text-appleInk">Mayven & Co.</span>
         </a>
@@ -478,13 +481,14 @@
         <section id="view-home" class="view-section active w-full max-w-5xl mx-auto text-center">
           <div class="flex flex-col items-center">
 
-            <!-- Hero Monolith Logo: uses erasebg-transformed (1).png -->
+            <!-- Scaled-Up Monolith Logo -->
             <div class="hero-logo-container group focus-target">
               <div class="hero-logo-halo"></div>
               <img 
                 src="erasebg-transformed (1).png" 
                 alt="Mayven & Co. Emblem" 
-                class="hero-logo-img"
+                class="hero-logo-img" 
+                onerror="this.onerror=null; this.src='erasebg-transformed.png';"
               >
             </div>
 
@@ -562,7 +566,7 @@
           </div>
         </section>
 
-        <!-- ================= VIEW 2: SERVICES (Interactive Flow & Pedestals) ================= -->
+        <!-- ================= VIEW 2: SERVICES ================= -->
         <section id="view-services" class="view-section w-full max-w-5xl mx-auto">
           <div class="focus-target text-center mb-8">
             <p class="text-xs font-mono uppercase tracking-widest text-appleBlue font-semibold mb-2">Capabilities</p>
@@ -1235,7 +1239,7 @@
         .set([layerBack, layerFront, rim], { opacity: 0 });
     }
 
-    // 7. Contact Form Handler (Supports serverless /api/contact or fallback)
+    // 7. Contact Form Handler
     async function handleContactSubmit(e) {
       e.preventDefault();
       const btn = document.getElementById('submit-btn');
