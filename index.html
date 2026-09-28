@@ -275,9 +275,7 @@
       display: block;
     }
 
-    /* =========================================================================
-       HERO MONOLITH LOGO (SCALED UP, TIGHTENED VERTICAL PADDING)
-       ========================================================================= */
+    /* Hero Monolith Logo */
     .hero-logo-container {
       position: relative;
       display: inline-flex;
@@ -316,11 +314,21 @@
       .hero-logo-img { height: 340px; }
     }
 
+    /* =========================================================================
+       MASSIVELY SCALED-UP NAVBAR BRAND & LOGO
+       ========================================================================= */
     .nav-logo-img {
-      height: 24px;
+      height: 48px;
       width: auto;
       object-fit: contain;
-      filter: invert(1) contrast(1.15);
+      filter: invert(1) contrast(1.25);
+      transition: transform 0.3s ease;
+    }
+
+    @media (min-width: 640px) {
+      .nav-logo-img {
+        height: 60px;
+      }
     }
 
     /* Workflow Graphics Animations */
@@ -430,19 +438,19 @@
 
   <div class="relative z-20 flex flex-col min-h-[100dvh] pointer-events-none w-full max-w-full overflow-hidden">
 
-    <!-- Header Navigation -->
+    <!-- Header Navigation (Accommodating Big Prominent Brand Header) -->
     <header class="fixed top-0 inset-x-0 w-full z-50 bg-[#fbfbfd]/85 backdrop-blur-md border-b border-black/[0.05] pointer-events-auto">
-      <div class="w-full max-w-5xl mx-auto px-4 sm:px-6 h-14 sm:h-16 flex items-center justify-between">
+      <div class="w-full max-w-5xl mx-auto px-4 sm:px-6 h-20 sm:h-24 flex items-center justify-between">
         
-        <!-- Navbar Logo -->
-        <a href="#" onclick="switchView('home'); return false;" class="flex items-center space-x-2 sm:space-x-3 shrink-0">
+        <!-- Navbar Logo & Brand Name (Massively Scaled Up) -->
+        <a href="#" onclick="switchView('home'); return false;" class="flex items-center space-x-3 sm:space-x-4 shrink-0 group">
           <img 
             src="erasebg-transformed (1).png" 
             alt="Mayven & Co. Logo" 
-            class="nav-logo-img" 
+            class="nav-logo-img group-hover:scale-105 transition-transform" 
             onerror="this.onerror=null; this.src='erasebg-transformed.png';"
           >
-          <span class="font-display font-semibold text-xs sm:text-base tracking-tight text-appleInk">Mayven & Co.</span>
+          <span class="font-display font-bold text-lg sm:text-2xl tracking-tight text-appleInk">Mayven & Co.</span>
         </a>
 
         <!-- Desktop Dock -->
@@ -454,7 +462,7 @@
         </div>
 
         <div class="shrink-0">
-          <button onclick="switchView('contact')" class="apple-btn-primary px-3.5 py-1.5 sm:px-5 sm:py-2 rounded-full text-[11px] sm:text-xs font-medium tracking-tight">
+          <button onclick="switchView('contact')" class="apple-btn-primary px-4 py-2 sm:px-6 sm:py-3 rounded-full text-xs sm:text-sm font-semibold tracking-tight shadow-md">
             <span class="btn-text whitespace-nowrap">Claim Free Audit</span>
           </button>
         </div>
@@ -462,15 +470,15 @@
       </div>
     </header>
 
-    <!-- CONTENT STAGE (Tightened Top Margin to Eliminate False Dead Space) -->
+    <!-- CONTENT STAGE (Padded for expanded header) -->
     <div id="content-stage" class="flex-grow flex items-center justify-center pb-32 md:pb-16 w-full max-w-full">
-      <main class="w-full pointer-events-auto px-4 sm:px-6 pt-16 sm:pt-20 max-w-full">
+      <main class="w-full pointer-events-auto px-4 sm:px-6 pt-24 sm:pt-32 max-w-full">
 
         <!-- ================= VIEW 1: HOME ================= -->
         <section id="view-home" class="view-section active w-full max-w-5xl mx-auto text-center">
           <div class="flex flex-col items-center">
 
-            <!-- Scaled-Up Monolith Logo (Bigger & Balanced) -->
+            <!-- Scaled-Up Monolith Logo -->
             <div class="hero-logo-container group">
               <div class="hero-logo-halo"></div>
               <img 
@@ -623,7 +631,7 @@
                 <div id="station-pedestal-3" class="service-pedestal w-14 h-14 sm:w-22 sm:h-22 rounded-2xl sm:rounded-3xl apple-glass bg-white flex items-center justify-center p-2.5 relative mb-2 sm:mb-3">
                   <svg class="w-10 h-10 sm:w-12 sm:h-12" viewBox="0 0 72 72" fill="none">
                     <ellipse cx="26" cy="22" rx="12" ry="4.5" stroke="#0071e3" stroke-width="1.5" stroke-opacity="0.35" />
-                    <path d="M14 22 V30 C14 32.5 19.4 34.5 26 34.5 C32.6 34.5 38 30 V22" stroke="#0071e3" stroke-width="1.5" stroke-opacity="0.35" />
+                    <path d="M14 22 V30 C14 32.5 19.4 34.5 26 34.5 C32.6 34.5 38 32.5 38 30 V22" stroke="#0071e3" stroke-width="1.5" stroke-opacity="0.35" />
                     <path class="growth-vector-path" d="M 26 52 Q 40 50 48 34 L 58 20" stroke="#0071e3" stroke-width="2.2" stroke-linecap="round" />
                     <circle cx="58" cy="20" r="3" fill="#0071e3" />
                   </svg>
