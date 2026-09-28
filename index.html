@@ -20,7 +20,7 @@
   <!-- Typography -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600&family=SF+Pro+Display:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=SF+Pro+Display:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <script>
     tailwind.config = {
@@ -30,7 +30,6 @@
             display: ['"SF Pro Display"', '-apple-system', 'BlinkMacSystemFont', '"Plus Jakarta Sans"', 'sans-serif'],
             sans: ['-apple-system', 'BlinkMacSystemFont', '"SF Pro Text"', '"Plus Jakarta Sans"', 'sans-serif'],
             mono: ['"Space Grotesk"', 'SFMono-Regular', 'Menlo', 'monospace'],
-            serifAccent: ['"Times New Roman"', 'Times', 'Baskerville', 'Georgia', 'serif'],
           },
           colors: {
             appleWhite: '#fbfbfd',
@@ -154,53 +153,60 @@
       }
     }
 
-    /* Editorial Serif Italics Hover Kinetics */
+    /* =========================================================================
+       BUBBLY SMOOTH POP BUTTONS & INNER TEXT KINETICS
+       ========================================================================= */
     .btn-text, .pill-text {
       display: inline-block;
       font-family: inherit;
-      transition: font-family 0.25s ease, font-style 0.25s ease, letter-spacing 0.25s ease, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-      will-change: font-family, font-style, letter-spacing, transform;
+      font-style: normal;
+      will-change: transform;
+      transition: transform 0.48s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
     .apple-btn-primary {
       background: #0071e3;
       color: #ffffff;
       box-shadow: 0 4px 14px rgba(0, 113, 227, 0.25);
-      transition: background-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+      will-change: transform, box-shadow;
+      transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1),
+                  box-shadow 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+                  background-color 0.25s ease;
       touch-action: manipulation;
     }
     .apple-btn-primary:hover {
       background: #0077ed;
-      transform: translateY(-1px);
-      box-shadow: 0 6px 18px rgba(0, 113, 227, 0.32);
+      transform: translateY(-3px) scale(1.055);
+      box-shadow: 0 12px 28px rgba(0, 113, 227, 0.4);
     }
     .apple-btn-primary:hover .btn-text {
-      font-family: "Times New Roman", Times, Baskerville, Georgia, serif;
-      font-style: italic;
-      letter-spacing: 0.04em;
+      transform: scale(1.05);
     }
     .apple-btn-primary:active {
-      transform: scale(0.97);
+      transform: scale(0.96) translateY(0);
+      box-shadow: 0 2px 8px rgba(0, 113, 227, 0.2);
     }
 
     .apple-btn-secondary {
       background: rgba(0, 0, 0, 0.04);
       color: #1d1d1f;
       border: 1px solid rgba(0, 0, 0, 0.08);
-      transition: background-color 0.25s ease, transform 0.25s ease;
+      will-change: transform, box-shadow;
+      transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1),
+                  box-shadow 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+                  background-color 0.25s ease;
       touch-action: manipulation;
     }
     .apple-btn-secondary:hover {
-      background: rgba(0, 0, 0, 0.07);
-      transform: translateY(-1px);
+      background: rgba(0, 0, 0, 0.065);
+      transform: translateY(-3px) scale(1.055);
+      box-shadow: 0 8px 22px rgba(0, 0, 0, 0.08);
     }
     .apple-btn-secondary:hover .btn-text {
-      font-family: "Times New Roman", Times, Baskerville, Georgia, serif;
-      font-style: italic;
-      letter-spacing: 0.04em;
+      transform: scale(1.05);
     }
     .apple-btn-secondary:active {
-      transform: scale(0.97);
+      transform: scale(0.96) translateY(0);
     }
 
     /* Desktop Navigation Pills */
@@ -212,17 +218,17 @@
       border-radius: 9999px;
       color: #6e6e73;
       border: 1px solid transparent;
-      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: transform;
+      transition: all 0.42s cubic-bezier(0.34, 1.56, 0.64, 1);
       white-space: nowrap;
     }
     .dock-pill-desktop:hover {
       color: #1d1d1f;
       background: rgba(0, 0, 0, 0.05);
+      transform: scale(1.055);
     }
     .dock-pill-desktop:hover .pill-text {
-      font-family: "Times New Roman", Times, Baskerville, Georgia, serif;
-      font-style: italic;
-      letter-spacing: 0.03em;
+      transform: scale(1.04);
     }
     .dock-pill-desktop.active {
       color: #1d1d1f;
@@ -241,7 +247,7 @@
       border-radius: 9999px;
       color: #6e6e73;
       border: 1px solid transparent;
-      transition: all 0.2s ease;
+      transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
       touch-action: manipulation;
       text-align: center;
       width: 100%;
@@ -249,16 +255,14 @@
       align-items: center;
       justify-content: center;
     }
+    .dock-pill-mobile:active {
+      transform: scale(0.94);
+    }
     .dock-pill-mobile.active {
       color: #0071e3;
       background: #ffffff;
       border-color: rgba(0, 113, 227, 0.15);
       box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
-    }
-    .dock-pill-mobile.active .pill-text {
-      font-family: "Times New Roman", Times, Baskerville, Georgia, serif;
-      font-style: italic;
-      letter-spacing: 0.02em;
     }
 
     #content-stage {
@@ -413,7 +417,7 @@
     <path id="portal-rim" d="M 0 0 Q 50 0 100 0" fill="none" stroke="url(#viscousRim)" stroke-width="1.2" opacity="0" />
   </svg>
 
-  <!-- ELEVATED MOBILE FLOATING THUMB DOCK (Positioned comfortably high off the bottom edge) -->
+  <!-- ELEVATED MOBILE FLOATING THUMB DOCK -->
   <div class="md:hidden fixed inset-x-0 mx-auto w-full z-[99999] flex justify-center pointer-events-none px-4" style="bottom: max(1.75rem, env(safe-area-inset-bottom, 1.75rem));">
     <nav class="pointer-events-auto grid grid-cols-4 gap-1.5 items-center w-full max-w-[340px] apple-glass p-1 rounded-full shadow-2xl border border-black/10 backdrop-blur-xl">
       <button onclick="switchView('home')" class="dock-pill-mobile view-pill active" data-target="home"><span class="pill-text">Home</span></button>
@@ -425,7 +429,7 @@
 
   <div class="relative z-20 flex flex-col min-h-[100dvh] pointer-events-none w-full max-w-full overflow-hidden">
 
-    <!-- Header Navigation (Fully constrained to viewport width) -->
+    <!-- Header Navigation -->
     <header class="fixed top-0 inset-x-0 w-full z-50 bg-[#fbfbfd]/85 backdrop-blur-md border-b border-black/[0.05] pointer-events-auto">
       <div class="w-full max-w-5xl mx-auto px-4 sm:px-6 h-14 sm:h-16 flex items-center justify-between">
         
@@ -457,7 +461,7 @@
       </div>
     </header>
 
-    <!-- CONTENT STAGE (Padded for raised mobile dock) -->
+    <!-- CONTENT STAGE -->
     <div id="content-stage" class="flex-grow flex items-center justify-center pb-32 md:pb-16 w-full max-w-full">
       <main class="w-full pointer-events-auto px-4 sm:px-6 pt-20 sm:pt-28 max-w-full">
 
@@ -550,7 +554,7 @@
           <!-- Interactive Workflow Architecture Diagram -->
           <div class="w-full max-w-4xl mx-auto mb-8 sm:mb-10 relative">
 
-            <!-- Optical Laser Bus Wire (Desktop) -->
+            <!-- Optical Laser Bus Wire -->
             <svg class="hidden md:block absolute top-[44px] left-[10%] right-[10%] w-[80%] h-1 pointer-events-none z-0 overflow-visible" preserveAspectRatio="none">
               <line x1="0%" y1="0" x2="100%" y2="0" stroke="rgba(0, 0, 0, 0.08)" stroke-width="2" />
               <line x1="0%" y1="0" x2="100%" y2="0" stroke="#0071e3" stroke-width="2" class="flow-carrier-line" />
@@ -606,7 +610,7 @@
               <!-- 3. Web Engineering & UX -->
               <div onclick="selectPipelineStation(2)" class="flex flex-col items-center group cursor-pointer p-1 sm:p-2">
                 <div id="station-pedestal-2" class="service-pedestal w-14 h-14 sm:w-22 sm:h-22 rounded-2xl sm:rounded-3xl apple-glass bg-white flex items-center justify-center p-2.5 relative mb-2 sm:mb-3">
-                  <svg class="w-8 h-8 sm:w-12 sm:h-12" viewBox="0 0 72 72" fill="none">
+                  <svg class="w-10 h-10 sm:w-12 sm:h-12" viewBox="0 0 72 72" fill="none">
                     <rect x="12" y="16" width="48" height="40" rx="6" stroke="#0284c7" stroke-width="1.5" stroke-opacity="0.3" />
                     <line x1="12" y1="26" x2="60" y2="26" stroke="#0284c7" stroke-width="1.2" stroke-opacity="0.2" />
                     <circle cx="18" cy="21" r="1.5" fill="#0284c7" />
@@ -626,7 +630,7 @@
               <!-- 4. CRM & Growth Infrastructure -->
               <div onclick="selectPipelineStation(3)" class="flex flex-col items-center group cursor-pointer p-1 sm:p-2">
                 <div id="station-pedestal-3" class="service-pedestal w-14 h-14 sm:w-22 sm:h-22 rounded-2xl sm:rounded-3xl apple-glass bg-white flex items-center justify-center p-2.5 relative mb-2 sm:mb-3">
-                  <svg class="w-8 h-8 sm:w-12 sm:h-12" viewBox="0 0 72 72" fill="none">
+                  <svg class="w-10 h-10 sm:w-12 sm:h-12" viewBox="0 0 72 72" fill="none">
                     <ellipse cx="26" cy="22" rx="12" ry="4.5" stroke="#0071e3" stroke-width="1.5" stroke-opacity="0.35" />
                     <path d="M14 22 V30 C14 32.5 19.4 34.5 26 34.5 C32.6 34.5 38 32.5 38 30 V22" stroke="#0071e3" stroke-width="1.5" stroke-opacity="0.35" />
                     <path class="growth-vector-path" d="M 26 52 Q 40 50 48 34 L 58 20" stroke="#0071e3" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
@@ -760,7 +764,7 @@
               <div class="w-8 h-8 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center mb-3">
                 <i data-lucide="zap" class="w-4 h-4"></i>
               </div>
-              <h4 class="font-display font-semibold text-appleInk text-sm sm:text-base mb-1">Edge Computation</h4>
+              <h4 class="font-display font-semibold text-appleInk text-base mb-1">Edge Computation</h4>
               <p class="text-xs text-appleMuted leading-relaxed">Sub-second responses and latency-engineered pipelines ensure cold visitors turn into high-intent inbound clients without waiting.</p>
             </div>
           </div>
@@ -797,7 +801,6 @@
             <form id="contact-form" class="space-y-3 sm:space-y-4" onsubmit="handleContactSubmit(event)">
               <div>
                 <label class="block text-xs font-mono text-appleMuted uppercase mb-1">Your Name</label>
-                <!-- Minimum 16px font-size to prevent mobile iOS/Android auto-zoom on focus -->
                 <input type="text" id="form-name" required placeholder="Alex Vance" class="w-full px-4 py-2.5 rounded-xl apple-inset text-appleInk placeholder-appleMuted text-[16px] sm:text-sm focus:outline-none focus:border-appleBlue transition-colors">
               </div>
 
