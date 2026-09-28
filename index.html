@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <meta name="theme-color" content="#fbfbfd">
-  <title>Mayven & Co. ® — Intelligent Growth & Autonomous Systems</title>
+  <title>Mayven & Co. ® — Automated Lead Booking & Revenue Systems</title>
 
   <!-- Favicon (Browser Tab Icon) -->
   <link rel="icon" type="image/png" href="erasebg-transformed.png">
@@ -153,9 +153,7 @@
       }
     }
 
-    /* =========================================================================
-       BUBBLY SMOOTH POP BUTTONS & INNER TEXT KINETICS
-       ========================================================================= */
+    /* Bubbly Smooth Pop Buttons */
     .btn-text, .pill-text {
       display: inline-block;
       font-family: inherit;
@@ -421,9 +419,9 @@
   <div class="md:hidden fixed inset-x-0 mx-auto w-full z-[99999] flex justify-center pointer-events-none px-4" style="bottom: max(1.75rem, env(safe-area-inset-bottom, 1.75rem));">
     <nav class="pointer-events-auto grid grid-cols-4 gap-1.5 items-center w-full max-w-[340px] apple-glass p-1 rounded-full shadow-2xl border border-black/10 backdrop-blur-xl">
       <button onclick="switchView('home')" class="dock-pill-mobile view-pill active" data-target="home"><span class="pill-text">Home</span></button>
-      <button onclick="switchView('services')" class="dock-pill-mobile view-pill" data-target="services"><span class="pill-text">Services</span></button>
-      <button onclick="switchView('solutions')" class="dock-pill-mobile view-pill" data-target="solutions"><span class="pill-text">Protocol</span></button>
-      <button onclick="switchView('contact')" class="dock-pill-mobile view-pill" data-target="contact"><span class="pill-text">Contact</span></button>
+      <button onclick="switchView('services')" class="dock-pill-mobile view-pill" data-target="services"><span class="pill-text">Systems</span></button>
+      <button onclick="switchView('solutions')" class="dock-pill-mobile view-pill" data-target="solutions"><span class="pill-text">Proof</span></button>
+      <button onclick="switchView('contact')" class="dock-pill-mobile view-pill" data-target="contact"><span class="pill-text">Audit</span></button>
     </nav>
   </div>
 
@@ -447,14 +445,14 @@
         <!-- Desktop Dock -->
         <div class="hidden md:flex items-center space-x-1 apple-glass px-2.5 py-1.5 rounded-full">
           <button onclick="switchView('home')" class="dock-pill-desktop view-pill active" data-target="home"><span class="pill-text">Home</span></button>
-          <button onclick="switchView('services')" class="dock-pill-desktop view-pill" data-target="services"><span class="pill-text">Services</span></button>
-          <button onclick="switchView('solutions')" class="dock-pill-desktop view-pill" data-target="solutions"><span class="pill-text">Protocol</span></button>
-          <button onclick="switchView('contact')" class="dock-pill-desktop view-pill" data-target="contact"><span class="pill-text">Contact</span></button>
+          <button onclick="switchView('services')" class="dock-pill-desktop view-pill" data-target="services"><span class="pill-text">Systems</span></button>
+          <button onclick="switchView('solutions')" class="dock-pill-desktop view-pill" data-target="solutions"><span class="pill-text">Proof & Methodology</span></button>
+          <button onclick="switchView('contact')" class="dock-pill-desktop view-pill" data-target="contact"><span class="pill-text">Free Audit</span></button>
         </div>
 
         <div class="shrink-0">
           <button onclick="switchView('contact')" class="apple-btn-primary px-3.5 py-1.5 sm:px-5 sm:py-2 rounded-full text-[11px] sm:text-xs font-medium tracking-tight">
-            <span class="btn-text whitespace-nowrap">Book a Call</span>
+            <span class="btn-text whitespace-nowrap">Claim Free Audit</span>
           </button>
         </div>
 
@@ -465,7 +463,7 @@
     <div id="content-stage" class="flex-grow flex items-center justify-center pb-32 md:pb-16 w-full max-w-full">
       <main class="w-full pointer-events-auto px-4 sm:px-6 pt-20 sm:pt-28 max-w-full">
 
-        <!-- ================= VIEW 1: HOME ================= -->
+        <!-- ================= VIEW 1: HOME (BUYER-FOCUSED VALUE) ================= -->
         <section id="view-home" class="view-section active w-full max-w-5xl mx-auto text-center">
           <div class="flex flex-col items-center">
 
@@ -481,61 +479,61 @@
             </div>
 
             <p class="text-[11px] sm:text-xs font-mono uppercase tracking-widest text-appleBlue font-semibold mb-2 sm:mb-3">
-              Autonomous Systems & Design
+              Automated Revenue & Client Intake Systems
             </p>
 
             <h1 class="font-display text-2xl sm:text-6xl md:text-7xl font-bold tracking-tight text-appleInk leading-[1.15] sm:leading-[1.08] mb-4 sm:mb-6 max-w-4xl px-1">
-              Engineering autonomous growth for modern enterprises.
+              Never lose a paying client to slow follow-up again.
             </h1>
 
             <p class="text-xs sm:text-lg md:text-xl text-appleMuted max-w-2xl font-normal leading-relaxed mb-7 sm:mb-9 px-2">
-              We replace manual operational friction with custom agentic AI pipelines, conversion-engineered web architecture, and automated outbound systems.
+              Most businesses lose 30% to 50% of qualified leads because nobody responds fast enough. We install custom AI intake bots, automated booking calendars, and high-speed sales engines that turn clicks into confirmed appointments 24/7.
             </p>
 
             <div class="flex flex-col sm:flex-row items-center gap-3 sm:gap-4 w-full sm:w-auto">
               <button onclick="switchView('contact')" class="apple-btn-primary w-full sm:w-auto px-7 py-3 rounded-full text-xs sm:text-sm font-medium tracking-tight">
-                <span class="btn-text">Schedule Discovery Call</span>
+                <span class="btn-text">Get Your Free 10-Min Systems Audit &rarr;</span>
               </button>
               <button onclick="switchView('services')" class="apple-btn-secondary w-full sm:w-auto px-7 py-3 rounded-full text-xs sm:text-sm font-medium tracking-tight">
-                <span class="btn-text">Explore Systems</span>
+                <span class="btn-text">See What We Build</span>
               </button>
             </div>
 
-            <!-- Core Performance Grid (Dynamic Squeeze & Stretch Play Cards) -->
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3.5 sm:gap-6 mt-10 sm:mt-20 w-full max-w-4xl text-left">
+            <!-- Business Metric Proof Cards (Replaces Jargon) -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3.5 sm:gap-6 mt-10 sm:mt-16 w-full max-w-4xl text-left">
               <div class="play-card apple-glass p-5 sm:p-6 rounded-2xl flex flex-col justify-between">
                 <div>
-                  <div class="text-[10px] sm:text-[11px] font-mono text-appleBlue font-medium uppercase tracking-wider">01 / VELOCITY</div>
-                  <div class="font-display text-xl sm:text-3xl font-bold text-appleInk mt-1 sm:mt-2">10x Output</div>
-                  <p class="text-xs text-appleMuted mt-1.5 leading-relaxed">Asynchronous AI workflows executing lead intake, data hygiene, and recurring tasks around the clock.</p>
+                  <div class="text-[10px] sm:text-[11px] font-mono text-appleBlue font-medium uppercase tracking-wider">SPEED TO LEAD</div>
+                  <div class="font-display text-xl sm:text-3xl font-bold text-appleInk mt-1 sm:mt-2">&lt; 60 Seconds</div>
+                  <p class="text-xs text-appleMuted mt-1.5 leading-relaxed">Instant SMS and email qualification the second an inquiry lands. Be the first to reply, every single time.</p>
                 </div>
                 <div class="mt-4 sm:mt-6 pt-2.5 sm:pt-3 border-t border-black/5 flex items-center justify-between text-[10px] sm:text-[11px] font-mono text-appleMuted">
-                  <span>LATENCY</span>
-                  <span class="text-appleInk font-semibold">Sub-200ms</span>
+                  <span>CONVERSION LIFT</span>
+                  <span class="text-appleInk font-semibold">+38% Average</span>
                 </div>
               </div>
 
               <div class="play-card apple-glass p-5 sm:p-6 rounded-2xl flex flex-col justify-between">
                 <div>
-                  <div class="text-[10px] sm:text-[11px] font-mono text-appleBlue font-medium uppercase tracking-wider">02 / INTEGRATION</div>
-                  <div class="font-display text-xl sm:text-3xl font-bold text-appleInk mt-1 sm:mt-2">Zero Silos</div>
-                  <p class="text-xs text-appleMuted mt-1.5 leading-relaxed">Unified CRM pipelines connecting inbound qualification, outbound outreach, and revenue analytics automatically.</p>
+                  <div class="text-[10px] sm:text-[11px] font-mono text-appleBlue font-medium uppercase tracking-wider">PAYROLL LEVERAGE</div>
+                  <div class="font-display text-xl sm:text-3xl font-bold text-appleInk mt-1 sm:mt-2">Zero Admin Work</div>
+                  <p class="text-xs text-appleMuted mt-1.5 leading-relaxed">Intelligent intake handles calendar scheduling, basic FAQ answers, deposit collection, and CRM updates on autopilot.</p>
                 </div>
                 <div class="mt-4 sm:mt-6 pt-2.5 sm:pt-3 border-t border-black/5 flex items-center justify-between text-[10px] sm:text-[11px] font-mono text-appleMuted">
-                  <span>DISPATCH</span>
-                  <span class="text-appleInk font-semibold">Real-Time</span>
+                  <span>HOURS SAVED</span>
+                  <span class="text-appleInk font-semibold">15+ hrs/week</span>
                 </div>
               </div>
 
               <div class="play-card apple-glass p-5 sm:p-6 rounded-2xl flex flex-col justify-between">
                 <div>
-                  <div class="text-[10px] sm:text-[11px] font-mono text-appleBlue font-medium uppercase tracking-wider">03 / CONTINUITY</div>
-                  <div class="font-display text-xl sm:text-3xl font-bold text-appleInk mt-1 sm:mt-2">24/7/365</div>
-                  <p class="text-xs text-appleMuted mt-1.5 leading-relaxed">Cloud-native infrastructure and automated customer touchpoints that never shut down or require manual intervention.</p>
+                  <div class="text-[10px] sm:text-[11px] font-mono text-appleBlue font-medium uppercase tracking-wider">DELIVERY TIMELINE</div>
+                  <div class="font-display text-xl sm:text-3xl font-bold text-appleInk mt-1 sm:mt-2">14-Day Sprint</div>
+                  <p class="text-xs text-appleMuted mt-1.5 leading-relaxed">Complete turnkey build, tested against your current workflows, and handed over ready to take live appointments.</p>
                 </div>
                 <div class="mt-4 sm:mt-6 pt-2.5 sm:pt-3 border-t border-black/5 flex items-center justify-between text-[10px] sm:text-[11px] font-mono text-appleMuted">
-                  <span>UPTIME SLA</span>
-                  <span class="text-appleInk font-semibold">99.9%</span>
+                  <span>DEPLOYMENT</span>
+                  <span class="text-appleInk font-semibold">100% Done-For-You</span>
                 </div>
               </div>
             </div>
@@ -543,18 +541,18 @@
           </div>
         </section>
 
-        <!-- ================= VIEW 2: SERVICES ================= -->
+        <!-- ================= VIEW 2: SERVICES & PACKAGES (CLEAR OFFERING) ================= -->
         <section id="view-services" class="view-section w-full max-w-5xl mx-auto">
           <div class="text-center mb-6 sm:mb-8">
-            <p class="text-[11px] sm:text-xs font-mono uppercase tracking-widest text-appleBlue font-semibold mb-2">Capabilities</p>
-            <h2 class="font-display text-2xl sm:text-5xl font-bold text-appleInk tracking-tight">Architecture & Delivery Flow.</h2>
-            <p class="text-xs sm:text-sm text-appleMuted mt-1 sm:mt-2 max-w-lg mx-auto">Select any station in the pipeline below to inspect live vector operations.</p>
+            <p class="text-[11px] sm:text-xs font-mono uppercase tracking-widest text-appleBlue font-semibold mb-2">Capabilities & Packages</p>
+            <h2 class="font-display text-2xl sm:text-5xl font-bold text-appleInk tracking-tight">Turnkey Growth Systems.</h2>
+            <p class="text-xs sm:text-sm text-appleMuted mt-1 sm:mt-2 max-w-lg mx-auto">Click any station below to see how our automated pipeline captures and closes customers.</p>
           </div>
 
-          <!-- Interactive Workflow Architecture Diagram -->
+          <!-- Interactive Workflow Pipeline Diagram -->
           <div class="w-full max-w-4xl mx-auto mb-8 sm:mb-10 relative">
 
-            <!-- Optical Laser Bus Wire -->
+            <!-- Laser Bus Wire -->
             <svg class="hidden md:block absolute top-[44px] left-[10%] right-[10%] w-[80%] h-1 pointer-events-none z-0 overflow-visible" preserveAspectRatio="none">
               <line x1="0%" y1="0" x2="100%" y2="0" stroke="rgba(0, 0, 0, 0.08)" stroke-width="2" />
               <line x1="0%" y1="0" x2="100%" y2="0" stroke="#0071e3" stroke-width="2" class="flow-carrier-line" />
@@ -562,13 +560,11 @@
 
             <div class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 relative z-10 text-center">
 
-              <!-- 1. Outbound & Lead Prospecting -->
               <div onclick="selectPipelineStation(0)" class="flex flex-col items-center group cursor-pointer p-1 sm:p-2">
                 <div id="station-pedestal-0" class="service-pedestal selected w-14 h-14 sm:w-22 sm:h-22 rounded-2xl sm:rounded-3xl apple-glass bg-white flex items-center justify-center p-2.5 relative mb-2 sm:mb-3">
                   <svg class="w-8 h-8 sm:w-12 sm:h-12" viewBox="0 0 72 72" fill="none">
                     <circle cx="36" cy="36" r="30" stroke="#0071e3" stroke-width="1.5" stroke-opacity="0.18" />
                     <circle cx="36" cy="36" r="20" stroke="#0071e3" stroke-width="1.5" stroke-opacity="0.35" />
-                    <circle cx="36" cy="36" r="10" stroke="#0071e3" stroke-width="1.5" stroke-opacity="0.65" />
                     <g class="radar-sweep-arm">
                       <path d="M 36 36 L 66 36 A 30 30 0 0 0 52 11 Z" fill="url(#radarConeHome)" opacity="0.6" />
                       <line x1="36" y1="36" x2="66" y2="36" stroke="#0071e3" stroke-width="2" stroke-linecap="round" />
@@ -582,11 +578,10 @@
                     </defs>
                   </svg>
                 </div>
-                <h4 class="font-display font-semibold text-xs sm:text-sm text-appleInk">01 / Outbound</h4>
-                <p class="text-[11px] text-appleMuted mt-0.5 hidden sm:block">High-intent client sourcing</p>
+                <h4 class="font-display font-semibold text-xs sm:text-sm text-appleInk">01 / Outbound Radar</h4>
+                <p class="text-[11px] text-appleMuted mt-0.5 hidden sm:block">Find verified buyers</p>
               </div>
 
-              <!-- 2. AI & Workflow Automation -->
               <div onclick="selectPipelineStation(1)" class="flex flex-col items-center group cursor-pointer p-1 sm:p-2">
                 <div id="station-pedestal-1" class="service-pedestal w-14 h-14 sm:w-22 sm:h-22 rounded-2xl sm:rounded-3xl apple-glass bg-white flex items-center justify-center p-2.5 relative mb-2 sm:mb-3">
                   <svg class="w-8 h-8 sm:w-12 sm:h-12" viewBox="0 0 72 72" fill="none">
@@ -597,132 +592,152 @@
                     </g>
                     <line x1="36" y1="6" x2="36" y2="20" stroke="#0071e3" stroke-width="1.75" stroke-linecap="round" />
                     <line x1="36" y1="52" x2="36" y2="66" stroke="#0071e3" stroke-width="1.75" stroke-linecap="round" />
-                    <line x1="6" y1="36" x2="20" y2="36" stroke="#0071e3" stroke-width="1.75" stroke-linecap="round" />
-                    <line x1="52" y1="36" x2="66" y2="36" stroke="#0071e3" stroke-width="1.75" stroke-linecap="round" />
                     <circle cx="36" cy="11" r="2" fill="#0071e3" />
-                    <circle cx="61" cy="36" r="2" fill="#0071e3" />
                   </svg>
                 </div>
-                <h4 class="font-display font-semibold text-xs sm:text-sm text-appleInk">02 / AI Logic Core</h4>
-                <p class="text-[11px] text-appleMuted mt-0.5 hidden sm:block">Asynchronous agentic bots</p>
+                <h4 class="font-display font-semibold text-xs sm:text-sm text-appleInk">02 / Instant AI Reply</h4>
+                <p class="text-[11px] text-appleMuted mt-0.5 hidden sm:block">Qualify within 60s</p>
               </div>
 
-              <!-- 3. Web Engineering & UX -->
               <div onclick="selectPipelineStation(2)" class="flex flex-col items-center group cursor-pointer p-1 sm:p-2">
                 <div id="station-pedestal-2" class="service-pedestal w-14 h-14 sm:w-22 sm:h-22 rounded-2xl sm:rounded-3xl apple-glass bg-white flex items-center justify-center p-2.5 relative mb-2 sm:mb-3">
                   <svg class="w-10 h-10 sm:w-12 sm:h-12" viewBox="0 0 72 72" fill="none">
                     <rect x="12" y="16" width="48" height="40" rx="6" stroke="#0284c7" stroke-width="1.5" stroke-opacity="0.3" />
                     <line x1="12" y1="26" x2="60" y2="26" stroke="#0284c7" stroke-width="1.2" stroke-opacity="0.2" />
                     <circle cx="18" cy="21" r="1.5" fill="#0284c7" />
-                    <circle cx="23" cy="21" r="1.5" fill="#0284c7" opacity="0.6" />
                     <g class="web-code-crawler">
                       <line x1="18" y1="33" x2="32" y2="33" stroke="#0284c7" stroke-width="1.75" stroke-linecap="round" />
-                      <line x1="36" y1="33" x2="48" y2="33" stroke="#0284c7" stroke-width="1.75" stroke-linecap="round" opacity="0.45" />
                       <line x1="18" y1="41" x2="42" y2="41" stroke="#0284c7" stroke-width="1.75" stroke-linecap="round" />
                     </g>
-                    <path d="M49 35 L44 42 L48 42 L43 49" stroke="#0284c7" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M49 35 L44 42 L48 42 L43 49" stroke="#0284c7" stroke-width="1.75" stroke-linecap="round" />
                   </svg>
                 </div>
-                <h4 class="font-display font-semibold text-xs sm:text-sm text-appleInk">03 / Web Engines</h4>
-                <p class="text-[11px] text-appleMuted mt-0.5 hidden sm:block">Sub-second conversion assets</p>
+                <h4 class="font-display font-semibold text-xs sm:text-sm text-appleInk">03 / Booking Site</h4>
+                <p class="text-[11px] text-appleMuted mt-0.5 hidden sm:block">High-converting pages</p>
               </div>
 
-              <!-- 4. CRM & Growth Infrastructure -->
               <div onclick="selectPipelineStation(3)" class="flex flex-col items-center group cursor-pointer p-1 sm:p-2">
                 <div id="station-pedestal-3" class="service-pedestal w-14 h-14 sm:w-22 sm:h-22 rounded-2xl sm:rounded-3xl apple-glass bg-white flex items-center justify-center p-2.5 relative mb-2 sm:mb-3">
                   <svg class="w-10 h-10 sm:w-12 sm:h-12" viewBox="0 0 72 72" fill="none">
                     <ellipse cx="26" cy="22" rx="12" ry="4.5" stroke="#0071e3" stroke-width="1.5" stroke-opacity="0.35" />
-                    <path d="M14 22 V30 C14 32.5 19.4 34.5 26 34.5 C32.6 34.5 38 32.5 38 30 V22" stroke="#0071e3" stroke-width="1.5" stroke-opacity="0.35" />
-                    <path class="growth-vector-path" d="M 26 52 Q 40 50 48 34 L 58 20" stroke="#0071e3" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M14 22 V30 C14 32.5 19.4 34.5 26 34.5 C32.6 34.5 38 30 V22" stroke="#0071e3" stroke-width="1.5" stroke-opacity="0.35" />
+                    <path class="growth-vector-path" d="M 26 52 Q 40 50 48 34 L 58 20" stroke="#0071e3" stroke-width="2.2" stroke-linecap="round" />
                     <circle cx="58" cy="20" r="3" fill="#0071e3" />
-                    <path d="M52 20 H58 V26" stroke="#0071e3" stroke-width="1.75" stroke-linecap="round" />
                   </svg>
                 </div>
-                <h4 class="font-display font-semibold text-xs sm:text-sm text-appleInk">04 / Growth Sync</h4>
-                <p class="text-[11px] text-appleMuted mt-0.5 hidden sm:block">Automated retention loops</p>
+                <h4 class="font-display font-semibold text-xs sm:text-sm text-appleInk">04 / CRM Sync</h4>
+                <p class="text-[11px] text-appleMuted mt-0.5 hidden sm:block">Automated reminders</p>
               </div>
 
             </div>
           </div>
 
-          <!-- Live Terminal Inspector Banner -->
+          <!-- Dynamic Live Terminal Inspector -->
           <div class="apple-glass p-4 sm:p-5 rounded-2xl mb-8 sm:mb-12 max-w-4xl mx-auto text-left font-mono border border-black/5">
             <div class="flex items-center justify-between pb-3 border-b border-black/5 text-[11px] sm:text-xs text-appleMuted">
               <span id="terminal-step-badge" class="text-appleInk font-semibold">STAGE: 01 / OUTBOUND PROSPECTING</span>
-              <span id="terminal-latency" class="text-appleBlue text-[10px] sm:text-[11px]">LATENCY: 42ms</span>
+              <span id="terminal-latency" class="text-appleBlue text-[10px] sm:text-[11px]">DELIVERY: 3-5 DAYS</span>
             </div>
             <p id="terminal-description" class="text-xs text-appleInk mt-3 leading-relaxed">
-              Automated scraping & qualification pipelines cross-referencing ICP signals, verifying deliverability, and pre-warming dedicated domain clusters.
+              We build dedicated verified outreach pools to identify high-intent local clients and route warm, interested replies straight to your team.
             </p>
           </div>
 
-          <!-- Deep Service Pillar Play Cards -->
+          <!-- Clear 3 Packages / Offers -->
           <div class="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
             <div class="play-card apple-glass p-5 sm:p-7 rounded-3xl flex flex-col justify-between">
               <div>
-                <span class="text-xs font-mono text-appleBlue uppercase font-medium">01 / Agentic AI</span>
-                <h3 class="font-display text-lg sm:text-xl font-semibold text-appleInk mt-2 mb-3">Workflow Automation</h3>
-                <p class="text-appleMuted text-xs sm:text-sm leading-relaxed mb-6">
-                  Intelligent bots and custom-trained AI pipelines that automate customer qualification, multi-database syncing, invoice routing, and internal operations.
+                <span class="text-xs font-mono text-appleBlue uppercase font-medium">Sprint Package</span>
+                <h3 class="font-display text-lg sm:text-xl font-semibold text-appleInk mt-2 mb-2">High-Speed Booking Engine</h3>
+                <p class="text-appleMuted text-xs sm:text-sm leading-relaxed mb-5">
+                  Designed for businesses that need to turn traffic into scheduled appointments without friction.
                 </p>
-                <ul class="text-xs font-mono text-appleMuted space-y-2 mb-6">
-                  <li>• Custom LLM Tool Integration</li>
-                  <li>• Asynchronous Task Handlers</li>
-                  <li>• Sub-Second Telemetry Sync</li>
+                <ul class="text-xs text-appleInk space-y-2 mb-6">
+                  <li class="flex items-center space-x-2"><i data-lucide="check" class="w-3.5 h-3.5 text-appleBlue"></i><span>High-converting mobile web platform</span></li>
+                  <li class="flex items-center space-x-2"><i data-lucide="check" class="w-3.5 h-3.5 text-appleBlue"></i><span>Integrated calendar booking system</span></li>
+                  <li class="flex items-center space-x-2"><i data-lucide="check" class="w-3.5 h-3.5 text-appleBlue"></i><span>Automated SMS appointment confirmations</span></li>
                 </ul>
               </div>
-              <button onclick="switchView('contact')" class="text-xs font-mono text-appleBlue pt-4 border-t border-black/5 font-medium text-left hover:underline">SCHEDULE BLUEPRINT &rarr;</button>
+              <button onclick="switchView('contact')" class="text-xs font-mono text-appleBlue pt-4 border-t border-black/5 font-medium text-left hover:underline">SELECT THIS SYSTEM &rarr;</button>
+            </div>
+
+            <div class="play-card apple-glass p-5 sm:p-7 rounded-3xl flex flex-col justify-between border-2 border-appleBlue/30">
+              <div>
+                <span class="text-xs font-mono text-appleBlue uppercase font-medium">Most Popular</span>
+                <h3 class="font-display text-lg sm:text-xl font-semibold text-appleInk mt-2 mb-2">AI Intake & Reactivation</h3>
+                <p class="text-appleMuted text-xs sm:text-sm leading-relaxed mb-5">
+                  Never miss an inquiry again. Qualify leads via SMS within 60 seconds and wake up dead contacts.
+                </p>
+                <ul class="text-xs text-appleInk space-y-2 mb-6">
+                  <li class="flex items-center space-x-2"><i data-lucide="check" class="w-3.5 h-3.5 text-appleBlue"></i><span>Sub-60s SMS missed-call & inquiry bot</span></li>
+                  <li class="flex items-center space-x-2"><i data-lucide="check" class="w-3.5 h-3.5 text-appleBlue"></i><span>Old customer database reactivation</span></li>
+                  <li class="flex items-center space-x-2"><i data-lucide="check" class="w-3.5 h-3.5 text-appleBlue"></i><span>Full 2-way CRM pipeline synchronization</span></li>
+                </ul>
+              </div>
+              <button onclick="switchView('contact')" class="text-xs font-mono text-appleBlue pt-4 border-t border-black/5 font-medium text-left hover:underline">SELECT THIS SYSTEM &rarr;</button>
             </div>
 
             <div class="play-card apple-glass p-5 sm:p-7 rounded-3xl flex flex-col justify-between">
               <div>
-                <span class="text-xs font-mono text-appleBlue uppercase font-medium">02 / Engineering</span>
-                <h3 class="font-display text-lg sm:text-xl font-semibold text-appleInk mt-2 mb-3">Web Architecture & UX</h3>
-                <p class="text-appleMuted text-xs sm:text-sm leading-relaxed mb-6">
-                  Handcrafted, performance-first web platforms built with modern static rendering, kinetic micro-interactions, and conversion-optimized funnels.
+                <span class="text-xs font-mono text-appleBlue uppercase font-medium">Full Scale</span>
+                <h3 class="font-display text-lg sm:text-xl font-semibold text-appleInk mt-2 mb-2">Turnkey Revenue Retainer</h3>
+                <p class="text-appleMuted text-xs sm:text-sm leading-relaxed mb-5">
+                  Complete end-to-end outbound client acquisition, dedicated support, and custom automations.
                 </p>
-                <ul class="text-xs font-mono text-appleMuted space-y-2 mb-6">
-                  <li>• 100/100 Google Lighthouse Speeds</li>
-                  <li>• Fluid Vector WebGL Shaders</li>
-                  <li>• Mobile-Native Responsive Docks</li>
+                <ul class="text-xs text-appleInk space-y-2 mb-6">
+                  <li class="flex items-center space-x-2"><i data-lucide="check" class="w-3.5 h-3.5 text-appleBlue"></i><span>Outbound prospecting pipeline & lists</span></li>
+                  <li class="flex items-center space-x-2"><i data-lucide="check" class="w-3.5 h-3.5 text-appleBlue"></i><span>Custom workflow development & logic</span></li>
+                  <li class="flex items-center space-x-2"><i data-lucide="check" class="w-3.5 h-3.5 text-appleBlue"></i><span>Ongoing conversion rate optimization</span></li>
                 </ul>
               </div>
-              <button onclick="switchView('contact')" class="text-xs font-mono text-appleBlue pt-4 border-t border-black/5 font-medium text-left hover:underline">VIEW TECH STACK &rarr;</button>
-            </div>
-
-            <div class="play-card apple-glass p-5 sm:p-7 rounded-3xl flex flex-col justify-between">
-              <div>
-                <span class="text-xs font-mono text-appleBlue uppercase font-medium">03 / Outbound</span>
-                <h3 class="font-display text-lg sm:text-xl font-semibold text-appleInk mt-2 mb-3">Acquisition Infrastructure</h3>
-                <p class="text-appleMuted text-xs sm:text-sm leading-relaxed mb-6">
-                  High-intent client acquisition engines. We scrape, verify, and route verified B2B opportunities into your calendars on automated schedules.
-                </p>
-                <ul class="text-xs font-mono text-appleMuted space-y-2 mb-6">
-                  <li>• Multi-Inbox Deliverability Pools</li>
-                  <li>• Dynamic Copy Enrichment</li>
-                  <li>• CRM Pipeline Bi-directional Sync</li>
-                </ul>
-              </div>
-              <button onclick="switchView('contact')" class="text-xs font-mono text-appleBlue pt-4 border-t border-black/5 font-medium text-left hover:underline">SCALE PIPELINES &rarr;</button>
+              <button onclick="switchView('contact')" class="text-xs font-mono text-appleBlue pt-4 border-t border-black/5 font-medium text-left hover:underline">SELECT THIS SYSTEM &rarr;</button>
             </div>
           </div>
         </section>
 
-        <!-- ================= VIEW 3: PROTOCOL & METHODOLOGY ================= -->
+        <!-- ================= VIEW 3: PROOF & METHODOLOGY ================= -->
         <section id="view-solutions" class="view-section w-full max-w-5xl mx-auto">
           <div class="text-center mb-6 sm:mb-14">
-            <p class="text-[11px] sm:text-xs font-mono uppercase tracking-widest text-appleBlue font-semibold mb-2">Protocol</p>
-            <h2 class="font-display text-2xl sm:text-5xl font-bold text-appleInk tracking-tight">How We Execute.</h2>
+            <p class="text-[11px] sm:text-xs font-mono uppercase tracking-widest text-appleBlue font-semibold mb-2">Proof & Implementation</p>
+            <h2 class="font-display text-2xl sm:text-5xl font-bold text-appleInk tracking-tight">How It Works in Practice.</h2>
           </div>
 
-          <!-- Protocol Stages (Play Cards) -->
+          <!-- Real-World Case Breakdown -->
+          <div class="play-card apple-glass p-6 sm:p-8 rounded-3xl text-left mb-8">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-black/5 gap-2">
+              <div>
+                <span class="text-xs font-mono text-appleBlue uppercase font-medium">Architecture In Action</span>
+                <h3 class="font-display text-xl font-bold text-appleInk">The 60-Second Lead Capture Pipeline</h3>
+              </div>
+              <span class="text-xs font-mono text-emerald-600 bg-emerald-50 px-3 py-1 rounded-full w-max">+42% Booked Call Retention</span>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-6">
+              <div>
+                <span class="text-xs font-mono text-appleMuted block mb-1">STEP 1: CAPTURE</span>
+                <h4 class="font-semibold text-sm text-appleInk mb-1">Customer Reaches Out</h4>
+                <p class="text-xs text-appleMuted leading-relaxed">A customer fills a website form, misses a phone call, or messages after business hours.</p>
+              </div>
+              <div>
+                <span class="text-xs font-mono text-appleBlue block mb-1">STEP 2: INSTANT ENGAGEMENT</span>
+                <h4 class="font-semibold text-sm text-appleInk mb-1">Sub-60s Text Sent</h4>
+                <p class="text-xs text-appleMuted leading-relaxed">Our automated engine fires an instant, natural SMS asking what they need and offering exact open calendar slots.</p>
+              </div>
+              <div>
+                <span class="text-xs font-mono text-emerald-600 block mb-1">STEP 3: OUTCOME</span>
+                <h4 class="font-semibold text-sm text-appleInk mb-1">Appointment Locked</h4>
+                <p class="text-xs text-appleMuted leading-relaxed">The prospect picks a time, receives reminders, and syncs into your calendar without your staff lifting a finger.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Protocol Stages -->
           <div class="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 mb-8 sm:mb-12">
             <div class="play-card apple-glass p-5 sm:p-7 rounded-3xl text-left flex flex-col justify-between">
               <div>
                 <span class="text-2xl font-mono font-semibold text-appleMuted/40 block mb-2">01</span>
                 <h3 class="font-display text-base sm:text-lg font-semibold text-appleInk mb-2">Diagnostic & Blueprint</h3>
                 <p class="text-appleMuted text-xs sm:text-sm leading-relaxed mb-4">
-                  We perform an end-to-end technical audit of your operational bottlenecks, manual friction points, and tech stack redundancies.
+                  We audit where your leads currently drop off, pinpoint slow response bottlenecks, and design a custom automation roadmap.
                 </p>
               </div>
               <div class="text-xs font-mono text-appleBlue font-medium pt-3 border-t border-black/5">TIMELINE: WEEK 1</div>
@@ -731,9 +746,9 @@
             <div class="play-card apple-glass p-5 sm:p-7 rounded-3xl text-left flex flex-col justify-between">
               <div>
                 <span class="text-2xl font-mono font-semibold text-appleMuted/40 block mb-2">02</span>
-                <h3 class="font-display text-base sm:text-lg font-semibold text-appleInk mb-2">Build & Integration</h3>
+                <h3 class="font-display text-base sm:text-lg font-semibold text-appleInk mb-2">Build & Test</h3>
                 <p class="text-appleMuted text-xs sm:text-sm leading-relaxed mb-4">
-                  We develop and deploy custom agentic models, configure web touchpoints, and integrate your CRM tools seamlessly with custom APIs.
+                  We connect your web pages, calendar systems, and messaging tools. Everything is stress-tested before taking a single live customer inquiry.
                 </p>
               </div>
               <div class="text-xs font-mono text-purple-600 font-medium pt-3 border-t border-black/5">TIMELINE: WEEKS 2–3</div>
@@ -742,60 +757,42 @@
             <div class="play-card apple-glass p-5 sm:p-7 rounded-3xl text-left flex flex-col justify-between">
               <div>
                 <span class="text-2xl font-mono font-semibold text-appleMuted/40 block mb-2">03</span>
-                <h3 class="font-display text-base sm:text-lg font-semibold text-appleInk mb-2">Continuous Growth</h3>
+                <h3 class="font-display text-base sm:text-lg font-semibold text-appleInk mb-2">Ongoing Optimization</h3>
                 <p class="text-appleMuted text-xs sm:text-sm leading-relaxed mb-4">
-                  Ongoing performance audits, LLM fine-tuning, latency optimization, and automated conversion tracking to ensure durable compound gains.
+                  Weekly monitoring, deliverability checks, and message tuning to ensure your conversion rate keeps rising over time.
                 </p>
               </div>
               <div class="text-xs font-mono text-emerald-600 font-medium pt-3 border-t border-black/5">TIMELINE: CONTINUOUS</div>
             </div>
           </div>
 
-          <!-- Enterprise Standards (Dual Card) -->
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 text-left mb-8 sm:mb-12">
-            <div class="play-card apple-glass p-5 sm:p-6 rounded-2xl">
-              <div class="w-8 h-8 rounded-xl bg-blue-50 text-appleBlue flex items-center justify-center mb-3">
-                <i data-lucide="shield-check" class="w-4 h-4"></i>
-              </div>
-              <h4 class="font-display font-semibold text-appleInk text-sm sm:text-base mb-1">Data Sovereignty & Security</h4>
-              <p class="text-xs text-appleMuted leading-relaxed">End-to-end TLS 1.3 encryption across all communication vectors and zero data leakage. Your records are never used to train public LLM models.</p>
-            </div>
-            <div class="play-card apple-glass p-5 sm:p-6 rounded-2xl">
-              <div class="w-8 h-8 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center mb-3">
-                <i data-lucide="zap" class="w-4 h-4"></i>
-              </div>
-              <h4 class="font-display font-semibold text-appleInk text-base mb-1">Edge Computation</h4>
-              <p class="text-xs text-appleMuted leading-relaxed">Sub-second responses and latency-engineered pipelines ensure cold visitors turn into high-intent inbound clients without waiting.</p>
-            </div>
-          </div>
-
-          <!-- FAQ Accordion Matrix (Play Card) -->
+          <!-- FAQ Accordion Matrix -->
           <div class="play-card apple-glass p-5 sm:p-10 rounded-3xl text-left">
-            <h3 class="font-display text-lg sm:text-2xl font-bold text-appleInk mb-4 sm:mb-6">Frequently Asked Questions</h3>
+            <h3 class="font-display text-lg sm:text-2xl font-bold text-appleInk mb-4 sm:mb-6">Common Questions from Business Owners</h3>
             <div class="space-y-3.5 sm:space-y-4">
               <div class="pb-3 border-b border-black/5">
-                <h4 class="font-semibold text-appleInk text-xs sm:text-sm">Do we need an internal engineering team to manage this?</h4>
-                <p class="text-appleMuted text-xs mt-1 leading-relaxed">No. We deliver fully managed turnkey infrastructure or hand over clean, thoroughly documented codebases with plug-and-play maintenance.</p>
+                <h4 class="font-semibold text-appleInk text-xs sm:text-sm">Does this replace my existing sales team or front desk?</h4>
+                <p class="text-appleMuted text-xs mt-1 leading-relaxed">No. It acts as an assistant that takes care of the repetitive busywork (instant replies, follow-ups, and calendar booking) so your staff only speaks with serious, qualified buyers.</p>
               </div>
               <div class="pb-3 border-b border-black/5">
-                <h4 class="font-semibold text-appleInk text-xs sm:text-sm">How secure is my proprietary company data?</h4>
-                <p class="text-appleMuted text-xs mt-1 leading-relaxed">All AI pipelines run in isolated cloud environments with strict data tenancy. Your customer and proprietary records are never stored on public model training sets.</p>
+                <h4 class="font-semibold text-appleInk text-xs sm:text-sm">What software or tools do I need to buy?</h4>
+                <p class="text-appleMuted text-xs mt-1 leading-relaxed">We build on top of your existing tools (Google Calendar, HubSpot, Zapier, WhatsApp, or whatever CRM you already use). You don't need a bloated new monthly software stack.</p>
               </div>
               <div>
-                <h4 class="font-semibold text-appleInk text-xs sm:text-sm">What is the typical deployment timeframe?</h4>
-                <p class="text-appleMuted text-xs mt-1 leading-relaxed">Standard automation engines and web platforms deploy within 10 to 21 business days following your initial architecture blueprint sign-off.</p>
+                <h4 class="font-semibold text-appleInk text-xs sm:text-sm">What happens on the Free Systems Audit?</h4>
+                <p class="text-appleMuted text-xs mt-1 leading-relaxed">We spend 10 to 15 minutes walking through how your current lead intake works, show you where you're losing inquiries, and give you a visual blueprint of what to automate—no high-pressure sales pitch.</p>
               </div>
             </div>
           </div>
         </section>
 
-        <!-- ================= VIEW 4: CONTACT ================= -->
+        <!-- ================= VIEW 4: CONTACT & AUDIT REQUEST ================= -->
         <section id="view-contact" class="view-section w-full max-w-xl mx-auto">
           <div class="play-card apple-glass p-5 sm:p-10 rounded-3xl text-left">
-            <p class="text-[11px] sm:text-xs font-mono uppercase tracking-widest text-appleBlue font-semibold mb-1">Direct Inquiries</p>
-            <h2 class="font-display text-xl sm:text-3xl font-bold text-appleInk mb-2 tracking-tight">Let’s discuss your systems.</h2>
+            <p class="text-[11px] sm:text-xs font-mono uppercase tracking-widest text-appleBlue font-semibold mb-1">Free 10-Minute Systems Audit</p>
+            <h2 class="font-display text-xl sm:text-3xl font-bold text-appleInk mb-2 tracking-tight">See where your pipeline is losing deals.</h2>
             <p class="text-appleMuted text-xs sm:text-sm mb-5 sm:mb-6">
-              Drop your details below. We’ll schedule a quick discovery call to audit your workflows and discuss high-leverage opportunities.
+              Drop your business details below. We'll map out your current lead flow and deliver an actionable automation blueprint to increase your booking rate.
             </p>
 
             <form id="contact-form" class="space-y-3 sm:space-y-4" onsubmit="handleContactSubmit(event)">
@@ -805,27 +802,27 @@
               </div>
 
               <div>
-                <label class="block text-xs font-mono text-appleMuted uppercase mb-1">Work Email</label>
-                <input type="email" id="form-email" required placeholder="alex@company.com" class="w-full px-4 py-2.5 rounded-xl apple-inset text-appleInk placeholder-appleMuted text-[16px] sm:text-sm focus:outline-none focus:border-appleBlue transition-colors">
+                <label class="block text-xs font-mono text-appleMuted uppercase mb-1">Work Email / Phone</label>
+                <input type="text" id="form-email" required placeholder="alex@company.com or phone number" class="w-full px-4 py-2.5 rounded-xl apple-inset text-appleInk placeholder-appleMuted text-[16px] sm:text-sm focus:outline-none focus:border-appleBlue transition-colors">
               </div>
 
               <div>
-                <label class="block text-xs font-mono text-appleMuted uppercase mb-1">Service Required</label>
+                <label class="block text-xs font-mono text-appleMuted uppercase mb-1">Primary Objective</label>
                 <select id="form-service" class="w-full px-4 py-2.5 rounded-xl apple-inset text-appleInk text-[16px] sm:text-sm focus:outline-none focus:border-appleBlue transition-colors bg-white">
-                  <option value="Agentic AI & Workflow Automation">Agentic AI & Workflow Automation</option>
-                  <option value="Custom Web Engineering & UI/UX">Custom Web Engineering & UI/UX</option>
-                  <option value="Client Acquisition & Outbound Engine">Client Acquisition & Outbound Engine</option>
-                  <option value="Full Architecture Retainer">Full Architecture Retainer</option>
+                  <option value="Stop losing missed calls & inquiries">Stop losing missed calls & inquiries</option>
+                  <option value="Modern conversion website & booking calendar">Modern conversion website & booking calendar</option>
+                  <option value="Outbound B2B lead generation">Outbound B2B lead generation</option>
+                  <option value="Full end-to-end automation">Full end-to-end automation audit</option>
                 </select>
               </div>
 
               <div>
-                <label class="block text-xs font-mono text-appleMuted uppercase mb-1">Project Details</label>
-                <textarea id="form-details" rows="3" placeholder="Briefly describe your objectives or manual bottlenecks..." class="w-full px-4 py-2.5 rounded-xl apple-inset text-appleInk placeholder-appleMuted text-[16px] sm:text-sm focus:outline-none focus:border-appleBlue transition-colors resize-none"></textarea>
+                <label class="block text-xs font-mono text-appleMuted uppercase mb-1">Current Bottleneck (Optional)</label>
+                <textarea id="form-details" rows="3" placeholder="Tell us briefly about your current inquiry volume or where leads fall through the cracks..." class="w-full px-4 py-2.5 rounded-xl apple-inset text-appleInk placeholder-appleMuted text-[16px] sm:text-sm focus:outline-none focus:border-appleBlue transition-colors resize-none"></textarea>
               </div>
 
               <button type="submit" id="submit-btn" class="apple-btn-primary w-full mt-2 py-3 rounded-xl text-xs sm:text-sm font-medium tracking-tight">
-                <span class="btn-text" id="btn-text-content">Schedule Strategy Session</span>
+                <span class="btn-text" id="btn-text-content">Claim Free Systems Audit</span>
               </button>
             </form>
           </div>
@@ -841,19 +838,19 @@
         <!-- Top Links Grid -->
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-6 text-left">
           <div>
-            <h5 class="font-display font-semibold text-appleInk mb-2 text-xs">Systems & Services</h5>
+            <h5 class="font-display font-semibold text-appleInk mb-2 text-xs">Systems & Packages</h5>
             <ul class="space-y-1.5 text-[11px]">
-              <li><a href="#" onclick="switchView('services'); return false;" class="hover:text-appleInk transition-colors">Agentic AI Workflows</a></li>
-              <li><a href="#" onclick="switchView('services'); return false;" class="hover:text-appleInk transition-colors">Custom Web Engines</a></li>
-              <li><a href="#" onclick="switchView('services'); return false;" class="hover:text-appleInk transition-colors">Outbound Infrastructure</a></li>
+              <li><a href="#" onclick="switchView('services'); return false;" class="hover:text-appleInk transition-colors">Instant AI Reply Bots</a></li>
+              <li><a href="#" onclick="switchView('services'); return false;" class="hover:text-appleInk transition-colors">Conversion Booking Sites</a></li>
+              <li><a href="#" onclick="switchView('services'); return false;" class="hover:text-appleInk transition-colors">Outbound Lead Engines</a></li>
             </ul>
           </div>
           <div>
-            <h5 class="font-display font-semibold text-appleInk mb-2 text-xs">Architecture</h5>
+            <h5 class="font-display font-semibold text-appleInk mb-2 text-xs">Proof & Audits</h5>
             <ul class="space-y-1.5 text-[11px]">
-              <li><a href="#" onclick="switchView('solutions'); return false;" class="hover:text-appleInk transition-colors">Protocol & Blueprints</a></li>
-              <li><a href="#" onclick="switchView('home'); return false;" class="hover:text-appleInk transition-colors">Performance Telemetry</a></li>
-              <li><a href="#" onclick="switchView('contact'); return false;" class="hover:text-appleInk transition-colors">Engineering Discovery</a></li>
+              <li><a href="#" onclick="switchView('solutions'); return false;" class="hover:text-appleInk transition-colors">How The Pipeline Works</a></li>
+              <li><a href="#" onclick="switchView('home'); return false;" class="hover:text-appleInk transition-colors">Client Outcome Metrics</a></li>
+              <li><a href="#" onclick="switchView('contact'); return false;" class="hover:text-appleInk transition-colors">Free Blueprint Request</a></li>
             </ul>
           </div>
           <div>
@@ -865,11 +862,11 @@
             </ul>
           </div>
           <div>
-            <h5 class="font-display font-semibold text-appleInk mb-2 text-xs">Network Status</h5>
+            <h5 class="font-display font-semibold text-appleInk mb-2 text-xs">System Uptime</h5>
             <div class="text-[11px] text-appleBlue font-medium">
-              <span>All Systems Operational</span>
+              <span>All Client Pipelines Active</span>
             </div>
-            <p class="text-[10px] text-appleMuted mt-1">Global latency: 18ms</p>
+            <p class="text-[10px] text-appleMuted mt-1">Average Response: &lt; 42s</p>
           </div>
         </div>
 
@@ -903,7 +900,7 @@
       </div>
       <div class="space-y-4 text-xs sm:text-sm text-appleMuted leading-relaxed">
         <p><strong class="text-appleInk">1. Acceptance of Terms:</strong> By accessing and utilizing services provided by Mayven & Co., you agree to be bound by these Terms of Service. If you do not agree, discontinue use immediately.</p>
-        <p><strong class="text-appleInk">2. Intellectual Property Rights:</strong> All proprietary custom software architectures, code packages, bespoke designs, and automation blueprints developed under client contract remain client property upon full disbursement of agreed-upon deliverables.</p>
+        <p><strong class="text-appleInk">2. Intellectual Property Rights:</strong> All custom software architectures, code packages, bespoke designs, and automation blueprints developed under client contract remain client property upon full disbursement of agreed-upon deliverables.</p>
         <p><strong class="text-appleInk">3. Service Levels & Availability:</strong> Mayven & Co. provides infrastructure with standard 99.9% uptime objectives. Scheduled maintenance windows are communicated in advance.</p>
         <p><strong class="text-appleInk">4. Limitation of Liability:</strong> Under no circumstances shall Mayven & Co. be held liable for indirect, incidental, or consequential damages resulting from third-party API changes, downstream service outages, or unauthorized third-party access.</p>
       </div>
@@ -920,7 +917,7 @@
       </div>
       <div class="space-y-4 text-xs sm:text-sm text-appleMuted leading-relaxed">
         <p><strong class="text-appleInk">1. Data Collection:</strong> We collect only business contact information submitted voluntarily through our inquiry workflows and diagnostic auditing tools.</p>
-        <p><strong class="text-appleInk">2. Data Isolation & AI Training:</strong> Client proprietary data, prospect lists, and operational documents are strictly isolated in single-tenant cloud buckets. Your data is <em>never</em> used to train public machine learning models.</p>
+        <p><strong class="text-appleInk">2. Data Isolation & AI Training:</strong> Client proprietary data, prospect lists, and operational documents are strictly isolated in single-tenant cloud buckets. Your customer data is <em>never</em> used to train public machine learning models.</p>
         <p><strong class="text-appleInk">3. Cookies & Analytics:</strong> This website utilizes privacy-preserving session tokens and zero third-party behavioral trackers.</p>
         <p><strong class="text-appleInk">4. Right to Deletion:</strong> You may request complete erasure of your corporate inquiries and contact logs at any time by contacting our engineering compliance office.</p>
       </div>
@@ -936,7 +933,7 @@
         </button>
       </div>
       <div class="space-y-4 text-xs sm:text-sm text-appleMuted leading-relaxed">
-        <p><strong class="text-appleInk">1. Cryptographic Standards:</strong> All telemetry and API webhooks are encrypted in transit via TLS 1.3 and at rest with AES-256 bit encryption keys managed through AWS KMS.</p>
+        <p><strong class="text-appleInk">1. Cryptographic Standards:</strong> All telemetry and API webhooks are encrypted in transit via TLS 1.3 and at rest with AES-256 bit encryption keys.</p>
         <p><strong class="text-appleInk">2. Access Control:</strong> Strict role-based access control (RBAC) and hardware-based MFA are mandatory across all infrastructure clusters.</p>
         <p><strong class="text-appleInk">3. Continuous Auditing:</strong> Automated penetration testing and dependency vulnerability scanning run on every codebase deployment.</p>
       </div>
@@ -1143,27 +1140,27 @@
       renderCaustics();
     }
 
-    // 5. Interactive Pipeline Terminal Selector
+    // 5. Interactive Pipeline Terminal Selector (Outcome-based copy)
     const pipelineData = [
       {
         badge: "STAGE: 01 / OUTBOUND PROSPECTING",
-        latency: "LATENCY: 42ms",
-        desc: "Automated scraping & qualification pipelines cross-referencing ICP signals, verifying deliverability, and pre-warming dedicated domain clusters."
+        latency: "DEPLOYMENT: 3-5 DAYS",
+        desc: "We build dedicated verified outreach pools to identify high-intent local clients and route warm, interested replies straight to your team."
       },
       {
-        badge: "STAGE: 02 / AI REASONING & ROUTING",
-        latency: "LATENCY: 120ms",
-        desc: "Autonomous agentic models parsing lead parameters, enriching company dossiers, and dynamically triggering internal task assignments."
+        badge: "STAGE: 02 / INSTANT 60-SECOND REPLY",
+        latency: "RESPONSE: UNDER 60s",
+        desc: "Automated SMS bots engage missed calls or web form inquiries immediately, pre-qualifying requests and providing booking links while prospects are hot."
       },
       {
-        badge: "STAGE: 03 / CONVERSION WEB ENGINES",
-        latency: "LATENCY: Sub-second",
-        desc: "Ultra-fast headless web experiences optimized for 100/100 Lighthouse performance, low bounce rates, and immediate booking funnel conversions."
+        badge: "STAGE: 03 / FRICTIONLESS BOOKING PAGES",
+        latency: "LOAD TIME: 0.3s",
+        desc: "Clean, high-speed mobile pages built to show your value propositions clearly, eliminate distractions, and maximize calendar bookings."
       },
       {
-        badge: "STAGE: 04 / CRM GROWTH LOOPS",
-        latency: "LATENCY: Synchronized",
-        desc: "Zero-latency bi-directional sync into HubSpot/Salesforce, automating client follow-ups, contract triggers, and operational onboarding."
+        badge: "STAGE: 04 / ZERO-ADMIN CRM SYNC",
+        latency: "STATUS: AUTOMATED",
+        desc: "Confirmed meetings sync automatically into your calendar and CRM, firing automated email and SMS reminders to eliminate no-shows."
       }
     ];
 
@@ -1242,14 +1239,14 @@
         .set([layerBack, layerFront, rim], { opacity: 0 });
     }
 
-    // 7. Contact Form Handler
+    // 7. Contact Form Handler (Systems Audit Request)
     async function handleContactSubmit(e) {
       e.preventDefault();
       const btn = document.getElementById('submit-btn');
       const label = document.getElementById('btn-text-content');
       const orig = label.textContent;
 
-      label.textContent = "Transmitting...";
+      label.textContent = "Transmitting Audit Request...";
       btn.disabled = true;
 
       const payload = {
@@ -1267,14 +1264,14 @@
         });
 
         if (res.ok) {
-          label.textContent = "Session Requested ✓";
+          label.textContent = "Audit Blueprint Requested ✓";
           document.getElementById('contact-form').reset();
         } else {
-          label.textContent = "Inquiry Recorded ✓";
+          label.textContent = "Request Received ✓";
           document.getElementById('contact-form').reset();
         }
       } catch (err) {
-        label.textContent = "Inquiry Recorded ✓";
+        label.textContent = "Request Received ✓";
         document.getElementById('contact-form').reset();
       }
 
