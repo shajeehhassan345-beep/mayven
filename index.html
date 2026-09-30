@@ -2,7 +2,7 @@
 <html lang="en" class="overflow-x-hidden w-full">
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdnjs.cloudflare.com https://unpkg.com 'sha256-1BZg090jGX3IE781ejySRC+K2ASQSoNSOitZeU0/wM8='; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self' mailto:">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdnjs.cloudflare.com https://unpkg.com 'sha256-4Av1CUjonYvJda9iB9zDJRKRhxamasbII1GL7otzWcY='; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://mayven-audit-api.shajeehhassan345.workers.dev; object-src 'none'; base-uri 'self'; form-action 'self' mailto:">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="theme-color" content="#fbfbfd">
   <title>Mayven & Co. — Automated Lead Booking & Revenue Systems</title>
@@ -463,12 +463,12 @@
             <form id="contact-form" class="space-y-3 sm:space-y-4" >
               <div>
                 <label for="form-name" class="block text-xs font-mono text-appleMuted uppercase mb-1">Your Name</label>
-                <input type="text" id="form-name" name="name" autocomplete="name" required placeholder="Alex Vance" class="w-full px-4 py-2.5 rounded-xl apple-inset text-appleInk placeholder-appleMuted text-[16px] sm:text-sm focus:outline-none focus:border-appleBlue transition-colors">
+                <input type="text" id="form-name" name="name" autocomplete="name" required maxlength="100" placeholder="Alex Vance" class="w-full px-4 py-2.5 rounded-xl apple-inset text-appleInk placeholder-appleMuted text-[16px] sm:text-sm focus:outline-none focus:border-appleBlue transition-colors">
               </div>
 
               <div>
                 <label for="form-email" class="block text-xs font-mono text-appleMuted uppercase mb-1">Work Email / Phone</label>
-                <input type="text" id="form-email" name="contact" autocomplete="email" inputmode="email" required placeholder="alex@company.com or phone number" class="w-full px-4 py-2.5 rounded-xl apple-inset text-appleInk placeholder-appleMuted text-[16px] sm:text-sm focus:outline-none focus:border-appleBlue transition-colors">
+                <input type="text" id="form-email" name="contact" autocomplete="email" inputmode="email" required maxlength="254" placeholder="alex@company.com or phone number" class="w-full px-4 py-2.5 rounded-xl apple-inset text-appleInk placeholder-appleMuted text-[16px] sm:text-sm focus:outline-none focus:border-appleBlue transition-colors">
               </div>
 
               <div>
@@ -483,7 +483,12 @@
 
               <div>
                 <label for="form-details" class="block text-xs font-mono text-appleMuted uppercase mb-1">Current Bottleneck (Optional)</label>
-                <textarea id="form-details" name="details" rows="3" placeholder="Tell us briefly about your current inquiry volume or where leads fall through the cracks..." class="w-full px-4 py-2.5 rounded-xl apple-inset text-appleInk placeholder-appleMuted text-[16px] sm:text-sm focus:outline-none focus:border-appleBlue transition-colors resize-none"></textarea>
+                <textarea id="form-details" name="details" rows="3" maxlength="2000" placeholder="Tell us briefly about your current inquiry volume or where leads fall through the cracks..." class="w-full px-4 py-2.5 rounded-xl apple-inset text-appleInk placeholder-appleMuted text-[16px] sm:text-sm focus:outline-none focus:border-appleBlue transition-colors resize-none"></textarea>
+              </div>
+
+              <div class="hp-field" aria-hidden="true">
+                <label for="form-website">Website</label>
+                <input type="text" id="form-website" name="website" tabindex="-1" autocomplete="off" placeholder="Your website">
               </div>
 
               <button type="submit" id="submit-btn" class="apple-btn-primary w-full mt-2 py-3 rounded-xl text-xs sm:text-sm font-medium tracking-tight">
@@ -611,7 +616,7 @@
     const REDUCED_MOTION = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     // Lead-capture endpoint: paste a JSON endpoint (e.g. https://formspree.io/f/xxxxxx).
     // When empty, the form falls back to the visitor's email app so no lead is silently lost.
-    const FORM_ENDPOINT = "";
+    const FORM_ENDPOINT = "https://mayven-audit-api.shajeehhassan345.workers.dev/api/audit";
     const FALLBACK_EMAIL = "ayesha@mayvenco.com";
 
     function refreshIcons() { if (window.lucide) lucide.createIcons(); }
@@ -939,6 +944,7 @@
 
       const payload = {
         name, contact, service, details,
+        website: document.getElementById('form-website').value,
         page: location.href,
         submitted_at: new Date().toISOString()
       };
@@ -951,7 +957,20 @@
             headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
             body: JSON.stringify(payload)
           });
-          delivered = res.ok;
+          if (res.ok) {
+            delivered = true;
+          } else if (res.status === 422) {
+            // Backend rejected the input: tell the visitor what to fix,
+            // don't pop open their email app over a typo.
+            let msg = "Please check your details and try again.";
+            try {
+              const j = await res.json();
+              if (j.fields && j.fields.length) msg = "Please fix: " + j.fields.join(", ");
+            } catch (e) { /* keep default message */ }
+            label.textContent = msg;
+            setTimeout(() => { label.textContent = originalText; btn.disabled = false; }, 6000);
+            return;
+          }
         } catch (err) {
           delivered = false;
         }
