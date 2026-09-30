@@ -2,6 +2,7 @@
 <html lang="en" class="overflow-x-hidden w-full">
 <head>
   <meta charset="UTF-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdnjs.cloudflare.com https://unpkg.com 'sha256-1BZg090jGX3IE781ejySRC+K2ASQSoNSOitZeU0/wM8='; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self' mailto:">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="theme-color" content="#fbfbfd">
   <title>Mayven & Co. — Automated Lead Booking & Revenue Systems</title>
@@ -18,436 +19,21 @@
   <link rel="apple-touch-icon" href="erasebg-transformed.png">
 
   <!-- Tailwind CSS -->
-  <link rel="preconnect" href="https://cdn.tailwindcss.com" crossorigin>
   <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
   <link rel="preconnect" href="https://unpkg.com" crossorigin>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="tailwind.css">
   <!-- GSAP -->
-  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" integrity="sha384-d+vyQ0dYcymoP8ndq2hW7FGC50nqGdXUEgoOUGxbbkAJwZqL7h+jKN0GGgn9hFDS" crossorigin="anonymous"></script>
   <!-- Lucide Icons -->
-  <script defer src="https://unpkg.com/lucide@1.49.0/dist/umd/lucide.min.js"></script>
+  <script defer src="https://unpkg.com/lucide@1.49.0/dist/umd/lucide.min.js" integrity="sha384-7mWwAGEOOlxvEBR+Mpy0eVhGL+9abGHkZtVoTs+dvrWkI5g00lyMaAxRIK+rqXGt" crossorigin="anonymous"></script>
 
   <!-- Typography -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
 
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: {
-            display: ['"SF Pro Display"', '-apple-system', 'BlinkMacSystemFont', '"Plus Jakarta Sans"', 'sans-serif'],
-            sans: ['-apple-system', 'BlinkMacSystemFont', '"SF Pro Text"', '"Plus Jakarta Sans"', 'sans-serif'],
-            mono: ['"Space Grotesk"', 'SFMono-Regular', 'Menlo', 'monospace'],
-          },
-          colors: {
-            appleWhite: '#fbfbfd',
-            appleCanvas: '#f5f5f7',
-            appleInk: '#1d1d1f',
-            appleMuted: '#6e6e73',
-            appleBorder: 'rgba(0, 0, 0, 0.08)',
-            appleBlue: '#0071e3',
-            appleBlueHover: '#0077ed'
-          }
-        }
-      }
-    }
-  </script>
 
-  <style>
-    /* Custom cursor only engages when JS confirms a fine-pointer desktop;
-       never hide the native cursor via CSS alone (JS may fail to load). */
-    #cursor-dot, #cursor-follower { display: none; }
-    body.custom-cursor #cursor-dot, body.custom-cursor #cursor-follower { display: block; }
-    @media (hover: hover) and (pointer: fine) {
-      body.custom-cursor * { cursor: none !important; }
-    }
-    @media (hover: none) and (pointer: coarse) {
-      #cursor-dot, #cursor-follower { display: none !important; }
-      * { cursor: auto !important; }
-    }
-
-    * {
-      box-sizing: border-box;
-      -webkit-tap-highlight-color: transparent;
-    }
-
-    html, body {
-      width: 100%;
-      max-width: 100vw;
-      overflow-x: hidden;
-    }
-
-    body {
-      background-color: #fbfbfd;
-      color: #1d1d1f;
-      -webkit-font-smoothing: antialiased;
-      padding-bottom: env(safe-area-inset-bottom, 0px);
-    }
-
-    /* Minimal Precision Cursor */
-    #cursor-dot {
-      pointer-events: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 5px;
-      height: 5px;
-      background: #1d1d1f;
-      border-radius: 50%;
-      z-index: 9999;
-      transform: translate(-50%, -50%);
-      transition: width 0.18s ease, height 0.18s ease, background-color 0.18s ease;
-    }
-
-    #cursor-follower {
-      pointer-events: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 24px;
-      height: 24px;
-      border: 1px solid rgba(0, 0, 0, 0.2);
-      border-radius: 50%;
-      z-index: 9998;
-      transform: translate(-50%, -50%);
-      transition: width 0.22s cubic-bezier(0.16, 1, 0.3, 1), 
-                  height 0.22s cubic-bezier(0.16, 1, 0.3, 1), 
-                  border-color 0.2s ease, 
-                  background-color 0.2s ease;
-    }
-
-    body.hovering #cursor-follower {
-      width: 34px;
-      height: 34px;
-      border-color: rgba(0, 113, 227, 0.9);
-      background-color: rgba(0, 113, 227, 0.08);
-    }
-    body.hovering #cursor-dot {
-      background: #0071e3;
-    }
-
-    /* Frosted Surface Base */
-    .apple-glass {
-      background: rgba(255, 255, 255, 0.88);
-      backdrop-filter: blur(28px) saturate(180%);
-      -webkit-backdrop-filter: blur(28px) saturate(180%);
-      border: 1px solid rgba(0, 0, 0, 0.08);
-      box-shadow: 0 18px 45px -10px rgba(0, 0, 0, 0.05),
-                  inset 0 1px 0 0 rgba(255, 255, 255, 0.95);
-    }
-
-    .apple-inset {
-      background: rgba(0, 0, 0, 0.025);
-      border: 1px solid rgba(0, 0, 0, 0.06);
-    }
-
-    /* Play Card Squeeze & Stretch Kinetics */
-    .play-card {
-      position: relative;
-      cursor: pointer;
-      will-change: transform, box-shadow;
-      transform-origin: center center;
-      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
-                  box-shadow 0.45s cubic-bezier(0.16, 1, 0.3, 1),
-                  border-color 0.3s ease;
-    }
-
-    @media (hover: hover) {
-      .play-card:hover {
-        transform: translateY(-8px) scale(1.025) !important;
-        z-index: 30;
-        background: rgba(255, 255, 255, 0.98);
-        border-color: rgba(0, 113, 227, 0.4);
-        box-shadow: 0 32px 75px -18px rgba(0, 113, 227, 0.22),
-                    0 10px 24px -6px rgba(0, 0, 0, 0.06),
-                    inset 0 1px 0 0 rgba(255, 255, 255, 1);
-      }
-    }
-
-    /* Bubbly Smooth Pop Buttons */
-    .btn-text, .pill-text {
-      display: inline-block;
-      font-family: inherit;
-      font-style: normal;
-      will-change: transform;
-      transition: transform 0.48s cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
-
-    .apple-btn-primary {
-      background: #0071e3;
-      color: #ffffff;
-      box-shadow: 0 4px 14px rgba(0, 113, 227, 0.25);
-      will-change: transform, box-shadow;
-      transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1),
-                  box-shadow 0.45s cubic-bezier(0.16, 1, 0.3, 1),
-                  background-color 0.25s ease;
-      touch-action: manipulation;
-    }
-    .apple-btn-primary:hover {
-      background: #0077ed;
-      transform: translateY(-3px) scale(1.055);
-      box-shadow: 0 12px 28px rgba(0, 113, 227, 0.4);
-    }
-    .apple-btn-primary:hover .btn-text {
-      transform: scale(1.05);
-    }
-    .apple-btn-primary:active {
-      transform: scale(0.96) translateY(0);
-      box-shadow: 0 2px 8px rgba(0, 113, 227, 0.2);
-    }
-
-    .apple-btn-secondary {
-      background: rgba(0, 0, 0, 0.04);
-      color: #1d1d1f;
-      border: 1px solid rgba(0, 0, 0, 0.08);
-      will-change: transform, box-shadow;
-      transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1),
-                  box-shadow 0.45s cubic-bezier(0.16, 1, 0.3, 1),
-                  background-color 0.25s ease;
-      touch-action: manipulation;
-    }
-    .apple-btn-secondary:hover {
-      background: rgba(0, 0, 0, 0.065);
-      transform: translateY(-3px) scale(1.055);
-      box-shadow: 0 8px 22px rgba(0, 0, 0, 0.08);
-    }
-    .apple-btn-secondary:hover .btn-text {
-      transform: scale(1.05);
-    }
-    .apple-btn-secondary:active {
-      transform: scale(0.96) translateY(0);
-    }
-
-    /* Desktop Navigation Pills */
-    .dock-pill-desktop {
-      font-size: 0.85rem;
-      letter-spacing: -0.01em;
-      font-weight: 500;
-      padding: 0.4rem 1.15rem;
-      border-radius: 9999px;
-      color: #6e6e73;
-      border: 1px solid transparent;
-      will-change: transform;
-      transition: all 0.42s cubic-bezier(0.34, 1.56, 0.64, 1);
-      white-space: nowrap;
-    }
-    .dock-pill-desktop:hover {
-      color: #1d1d1f;
-      background: rgba(0, 0, 0, 0.05);
-      transform: scale(1.055);
-    }
-    .dock-pill-desktop:hover .pill-text {
-      transform: scale(1.04);
-    }
-    .dock-pill-desktop.active {
-      color: #1d1d1f;
-      background: #ffffff;
-      border-color: rgba(0, 0, 0, 0.1);
-      box-shadow: 0 3px 12px rgba(0, 0, 0, 0.06);
-    }
-
-    /* Elevated & Enlarged Mobile Floating Thumb Dock */
-    .dock-pill-mobile {
-      font-size: 0.8rem;
-      letter-spacing: -0.015em;
-      font-weight: 600;
-      padding-top: 0.65rem;
-      padding-bottom: 0.65rem;
-      border-radius: 9999px;
-      color: #6e6e73;
-      border: 1px solid transparent;
-      transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
-      touch-action: manipulation;
-      text-align: center;
-      width: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .dock-pill-mobile:active {
-      transform: scale(0.94);
-    }
-    .dock-pill-mobile.active {
-      color: #0071e3;
-      background: #ffffff;
-      border-color: rgba(0, 113, 227, 0.15);
-      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
-    }
-
-    #content-stage {
-      will-change: transform, opacity;
-      transform: translateZ(0);
-    }
-
-    .view-section {
-      display: none;
-    }
-    .view-section.active {
-      display: block;
-    }
-
-    /* =========================================================================
-       HERO MONOLITH LOGO (COMPACT VERTICAL FOOTPRINT)
-       ========================================================================= */
-    .hero-logo-container {
-      position: relative;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      margin-top: 0.25rem;
-      margin-bottom: 0.75rem;
-      transform-style: preserve-3d;
-      will-change: transform;
-    }
-
-    .hero-logo-halo {
-      position: absolute;
-      inset: -30%;
-      background: radial-gradient(circle, rgba(0, 113, 227, 0.16) 0%, rgba(0, 0, 0, 0.03) 50%, transparent 75%);
-      filter: blur(35px);
-      pointer-events: none;
-    }
-
-    .hero-logo-img {
-      position: relative;
-      z-index: 1;
-      height: 200px;
-      width: auto;
-      max-width: 82vw;
-      object-fit: contain;
-      filter: invert(1) contrast(1.15) drop-shadow(0 14px 28px rgba(0, 0, 0, 0.12));
-      transition: transform 0.4s ease;
-    }
-
-    @media (min-width: 640px) {
-      .hero-logo-img { height: 240px; }
-      .hero-logo-container { margin-bottom: 1rem; }
-    }
-    @media (min-width: 1024px) {
-      .hero-logo-img { height: 280px; }
-    }
-
-    /* =========================================================================
-       SLEEK SLIM NAVBAR BAR WITH OVERFLOW LOGO
-       ========================================================================= */
-    .nav-logo-img {
-      height: 40px;
-      width: auto;
-      object-fit: contain;
-      filter: invert(1) contrast(1.2);
-      transition: transform 0.3s ease;
-    }
-
-    @media (min-width: 640px) {
-      .nav-logo-img {
-        height: 48px;
-      }
-    }
-
-    /* Workflow Graphics Animations */
-    @keyframes pipelineDash {
-      0% { stroke-dashoffset: 40; }
-      100% { stroke-dashoffset: 0; }
-    }
-    .flow-carrier-line {
-      stroke-dasharray: 6 6;
-      animation: pipelineDash 1.2s linear infinite;
-    }
-
-    @keyframes radarSpin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-    .radar-sweep-arm {
-      transform-origin: 36px 36px;
-      animation: radarSpin 3.2s linear infinite;
-    }
-
-    @keyframes synapsePulse {
-      0%, 100% { transform: scale(0.95); opacity: 0.85; }
-      50% { transform: scale(1.08); opacity: 1; }
-    }
-    .neural-processor-core {
-      transform-origin: 36px 36px;
-      animation: synapsePulse 2.2s ease-in-out infinite;
-    }
-
-    @keyframes codeStream {
-      0% { transform: translateY(-4px); opacity: 0.3; }
-      50% { opacity: 1; }
-      100% { transform: translateY(18px); opacity: 0.3; }
-    }
-    .web-code-crawler {
-      animation: codeStream 1.9s ease-in-out infinite;
-    }
-
-    @keyframes curveShift {
-      0%, 100% { stroke-dashoffset: 0; }
-      50% { stroke-dashoffset: 16; }
-    }
-    .growth-vector-path {
-      stroke-dasharray: 70;
-      animation: curveShift 3.2s ease-in-out infinite;
-    }
-
-    .service-pedestal {
-      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease, border-color 0.3s ease;
-    }
-    .service-pedestal.selected {
-      border-color: rgba(0, 113, 227, 0.6) !important;
-      box-shadow: 0 0 0 2px rgba(0, 113, 227, 0.2), 0 16px 32px -10px rgba(0, 113, 227, 0.25) !important;
-      transform: translateY(-4px);
-    }
-
-    /* Skip link (keyboard / screen-reader users) */
-    .skip-link {
-      position: fixed;
-      top: -100px;
-      left: 16px;
-      z-index: 200000;
-      background: #0071e3;
-      color: #fff;
-      padding: 0.6rem 1.1rem;
-      border-radius: 9999px;
-      font-size: 0.85rem;
-      font-weight: 600;
-      transition: top 0.2s ease;
-      text-decoration: none;
-    }
-    .skip-link:focus { top: 12px; }
-
-    /* FAQ accordion panels */
-    .faq-panel {
-      display: grid;
-      grid-template-rows: 0fr;
-      transition: grid-template-rows 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .faq-panel > div { overflow: hidden; }
-    .faq-item[data-open="true"] .faq-panel { grid-template-rows: 1fr; }
-    .faq-item .faq-chevron { transition: transform 0.3s ease; }
-    .faq-item[data-open="true"] .faq-chevron { transform: rotate(180deg); }
-
-    /* Respect users who prefer reduced motion */
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-      }
-    }
-
-    /* Modal Backdrop */
-    .legal-modal {
-      transition: opacity 0.3s ease, visibility 0.3s ease;
-    }
-    .legal-modal.hidden {
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
-    }
-  </style>
+  <link rel="stylesheet" href="styles.css">
 </head>
 
 <body class="font-sans antialiased overflow-x-hidden w-full">
@@ -480,12 +66,12 @@
   </svg>
 
   <!-- ELEVATED MOBILE FLOATING THUMB DOCK -->
-  <div class="md:hidden fixed inset-x-0 mx-auto w-full z-[99999] flex justify-center pointer-events-none px-4" style="bottom: max(1.75rem, env(safe-area-inset-bottom, 1.75rem));">
+  <div id="mobile-dock" class="md:hidden fixed inset-x-0 mx-auto w-full z-[99999] flex justify-center pointer-events-none px-4">
     <nav class="pointer-events-auto grid grid-cols-4 gap-1.5 items-center w-full max-w-[340px] apple-glass p-1 rounded-full shadow-2xl border border-black/10 backdrop-blur-xl">
-      <button onclick="switchView('home')" class="dock-pill-mobile view-pill active" data-target="home"><span class="pill-text">Home</span></button>
-      <button onclick="switchView('services')" class="dock-pill-mobile view-pill" data-target="services"><span class="pill-text">Systems</span></button>
-      <button onclick="switchView('solutions')" class="dock-pill-mobile view-pill" data-target="solutions"><span class="pill-text">Process</span></button>
-      <button onclick="switchView('contact')" class="dock-pill-mobile view-pill" data-target="contact"><span class="pill-text">Audit</span></button>
+      <button data-view="home" class="dock-pill-mobile view-pill active" data-target="home"><span class="pill-text">Home</span></button>
+      <button data-view="services" class="dock-pill-mobile view-pill" data-target="services"><span class="pill-text">Systems</span></button>
+      <button data-view="solutions" class="dock-pill-mobile view-pill" data-target="solutions"><span class="pill-text">Process</span></button>
+      <button data-view="contact" class="dock-pill-mobile view-pill" data-target="contact"><span class="pill-text">Audit</span></button>
     </nav>
   </div>
 
@@ -496,26 +82,26 @@
       <div class="w-full max-w-5xl mx-auto px-4 sm:px-6 h-14 sm:h-16 flex items-center justify-between overflow-visible">
         
         <!-- Navbar Logo & Brand Name -->
-        <a href="#" onclick="switchView('home'); return false;" class="flex items-center space-x-2.5 sm:space-x-3 shrink-0 group overflow-visible">
+        <a href="#" data-view="home" class="flex items-center space-x-2.5 sm:space-x-3 shrink-0 group overflow-visible">
           <img 
             src="erasebg-transformed (1).png" 
             alt="Mayven & Co. Logo" 
             class="nav-logo-img group-hover:scale-105 transition-transform" 
-            onerror="this.onerror=null; this.src='erasebg-transformed.png';"
+            data-fallback-src="erasebg-transformed.png"
           >
           <span class="font-display font-bold text-sm sm:text-lg tracking-tight text-appleInk">Mayven & Co.</span>
         </a>
 
         <!-- Desktop Dock -->
         <div class="hidden md:flex items-center space-x-1 apple-glass px-2.5 py-1.5 rounded-full">
-          <button onclick="switchView('home')" class="dock-pill-desktop view-pill active" data-target="home"><span class="pill-text">Home</span></button>
-          <button onclick="switchView('services')" class="dock-pill-desktop view-pill" data-target="services"><span class="pill-text">Systems</span></button>
-          <button onclick="switchView('solutions')" class="dock-pill-desktop view-pill" data-target="solutions"><span class="pill-text">How It Works</span></button>
-          <button onclick="switchView('contact')" class="dock-pill-desktop view-pill" data-target="contact"><span class="pill-text">Free Audit</span></button>
+          <button data-view="home" class="dock-pill-desktop view-pill active" data-target="home"><span class="pill-text">Home</span></button>
+          <button data-view="services" class="dock-pill-desktop view-pill" data-target="services"><span class="pill-text">Systems</span></button>
+          <button data-view="solutions" class="dock-pill-desktop view-pill" data-target="solutions"><span class="pill-text">How It Works</span></button>
+          <button data-view="contact" class="dock-pill-desktop view-pill" data-target="contact"><span class="pill-text">Free Audit</span></button>
         </div>
 
         <div class="shrink-0">
-          <button onclick="switchView('contact')" class="apple-btn-primary px-3.5 py-1.5 sm:px-5 sm:py-2 rounded-full text-[11px] sm:text-xs font-semibold tracking-tight shadow-md">
+          <button data-view="contact" class="apple-btn-primary px-3.5 py-1.5 sm:px-5 sm:py-2 rounded-full text-[11px] sm:text-xs font-semibold tracking-tight shadow-md">
             <span class="btn-text whitespace-nowrap">Claim Free Audit</span>
           </button>
         </div>
@@ -538,7 +124,7 @@
                 src="erasebg-transformed (1).png" 
                 alt="Mayven & Co. Emblem" 
                 class="hero-logo-img" 
-                onerror="this.onerror=null; this.src='erasebg-transformed.png';"
+                data-fallback-src="erasebg-transformed.png"
               >
             </div>
 
@@ -555,10 +141,10 @@
             </p>
 
             <div class="flex flex-col sm:flex-row items-center gap-3 sm:gap-4 w-full sm:w-auto">
-              <button onclick="switchView('contact')" class="apple-btn-primary w-full sm:w-auto px-7 py-3 rounded-full text-xs sm:text-sm font-medium tracking-tight">
+              <button data-view="contact" class="apple-btn-primary w-full sm:w-auto px-7 py-3 rounded-full text-xs sm:text-sm font-medium tracking-tight">
                 <span class="btn-text">Get Your Free 10-Min Systems Audit &rarr;</span>
               </button>
-              <button onclick="switchView('services')" class="apple-btn-secondary w-full sm:w-auto px-7 py-3 rounded-full text-xs sm:text-sm font-medium tracking-tight">
+              <button data-view="services" class="apple-btn-secondary w-full sm:w-auto px-7 py-3 rounded-full text-xs sm:text-sm font-medium tracking-tight">
                 <span class="btn-text">See What We Build</span>
               </button>
             </div>
@@ -624,7 +210,7 @@
 
             <div class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 relative z-10 text-center">
 
-              <button type="button" onclick="selectPipelineStation(0)" aria-pressed="true" class="flex flex-col items-center group cursor-pointer p-1 sm:p-2 bg-transparent border-0">
+              <button type="button" data-station="0" aria-pressed="true" class="flex flex-col items-center group cursor-pointer p-1 sm:p-2 bg-transparent border-0">
                 <span id="station-pedestal-0" class="service-pedestal selected w-14 h-14 sm:w-24 sm:h-24 rounded-2xl sm:rounded-3xl apple-glass bg-white flex items-center justify-center p-2.5 relative mb-2 sm:mb-3">
                   <svg class="w-8 h-8 sm:w-12 sm:h-12" viewBox="0 0 72 72" fill="none">
                     <circle cx="36" cy="36" r="30" stroke="#0071e3" stroke-width="1.5" stroke-opacity="0.18" />
@@ -646,7 +232,7 @@
                 <p class="text-[11px] text-appleMuted mt-0.5 hidden sm:block">Targeted prospect lists</p>
               </button>
 
-              <button type="button" onclick="selectPipelineStation(1)" aria-pressed="false" class="flex flex-col items-center group cursor-pointer p-1 sm:p-2 bg-transparent border-0">
+              <button type="button" data-station="1" aria-pressed="false" class="flex flex-col items-center group cursor-pointer p-1 sm:p-2 bg-transparent border-0">
                 <span id="station-pedestal-1" class="service-pedestal w-14 h-14 sm:w-24 sm:h-24 rounded-2xl sm:rounded-3xl apple-glass bg-white flex items-center justify-center p-2.5 relative mb-2 sm:mb-3">
                   <svg class="w-8 h-8 sm:w-12 sm:h-12" viewBox="0 0 72 72" fill="none">
                     <rect x="20" y="20" width="32" height="32" rx="7" stroke="#0071e3" stroke-width="1.5" stroke-opacity="0.3" />
@@ -663,7 +249,7 @@
                 <p class="text-[11px] text-appleMuted mt-0.5 hidden sm:block">Qualify within 60s</p>
               </button>
 
-              <button type="button" onclick="selectPipelineStation(2)" aria-pressed="false" class="flex flex-col items-center group cursor-pointer p-1 sm:p-2 bg-transparent border-0">
+              <button type="button" data-station="2" aria-pressed="false" class="flex flex-col items-center group cursor-pointer p-1 sm:p-2 bg-transparent border-0">
                 <span id="station-pedestal-2" class="service-pedestal w-14 h-14 sm:w-24 sm:h-24 rounded-2xl sm:rounded-3xl apple-glass bg-white flex items-center justify-center p-2.5 relative mb-2 sm:mb-3">
                   <svg class="w-10 h-10 sm:w-12 sm:h-12" viewBox="0 0 72 72" fill="none">
                     <rect x="12" y="16" width="48" height="40" rx="6" stroke="#0284c7" stroke-width="1.5" stroke-opacity="0.3" />
@@ -680,7 +266,7 @@
                 <p class="text-[11px] text-appleMuted mt-0.5 hidden sm:block">High-converting pages</p>
               </button>
 
-              <button type="button" onclick="selectPipelineStation(3)" aria-pressed="false" class="flex flex-col items-center group cursor-pointer p-1 sm:p-2 bg-transparent border-0">
+              <button type="button" data-station="3" aria-pressed="false" class="flex flex-col items-center group cursor-pointer p-1 sm:p-2 bg-transparent border-0">
                 <span id="station-pedestal-3" class="service-pedestal w-14 h-14 sm:w-24 sm:h-24 rounded-2xl sm:rounded-3xl apple-glass bg-white flex items-center justify-center p-2.5 relative mb-2 sm:mb-3">
                   <svg class="w-10 h-10 sm:w-12 sm:h-12" viewBox="0 0 72 72" fill="none">
                     <ellipse cx="26" cy="22" rx="12" ry="4.5" stroke="#0071e3" stroke-width="1.5" stroke-opacity="0.35" />
@@ -722,7 +308,7 @@
                   <li class="flex items-center space-x-2"><i data-lucide="check" class="w-3.5 h-3.5 text-appleBlue"></i><span>Automated SMS appointment confirmations</span></li>
                 </ul>
               </div>
-              <button onclick="switchView('contact')" class="text-xs font-mono text-appleBlue pt-4 border-t border-black/5 font-medium text-left hover:underline">SELECT THIS SYSTEM &rarr;</button>
+              <button data-view="contact" class="text-xs font-mono text-appleBlue pt-4 border-t border-black/5 font-medium text-left hover:underline">SELECT THIS SYSTEM &rarr;</button>
             </div>
 
             <div class="play-card apple-glass p-5 sm:p-7 rounded-3xl flex flex-col justify-between border-2 border-appleBlue/30">
@@ -738,7 +324,7 @@
                   <li class="flex items-center space-x-2"><i data-lucide="check" class="w-3.5 h-3.5 text-appleBlue"></i><span>Full 2-way CRM pipeline synchronization</span></li>
                 </ul>
               </div>
-              <button onclick="switchView('contact')" class="text-xs font-mono text-appleBlue pt-4 border-t border-black/5 font-medium text-left hover:underline">SELECT THIS SYSTEM &rarr;</button>
+              <button data-view="contact" class="text-xs font-mono text-appleBlue pt-4 border-t border-black/5 font-medium text-left hover:underline">SELECT THIS SYSTEM &rarr;</button>
             </div>
 
             <div class="play-card apple-glass p-5 sm:p-7 rounded-3xl flex flex-col justify-between">
@@ -754,7 +340,7 @@
                   <li class="flex items-center space-x-2"><i data-lucide="check" class="w-3.5 h-3.5 text-appleBlue"></i><span>Ongoing conversion rate optimization</span></li>
                 </ul>
               </div>
-              <button onclick="switchView('contact')" class="text-xs font-mono text-appleBlue pt-4 border-t border-black/5 font-medium text-left hover:underline">SELECT THIS SYSTEM &rarr;</button>
+              <button data-view="contact" class="text-xs font-mono text-appleBlue pt-4 border-t border-black/5 font-medium text-left hover:underline">SELECT THIS SYSTEM &rarr;</button>
             </div>
           </div>
         </section>
@@ -835,7 +421,7 @@
             <h3 class="font-display text-lg sm:text-2xl font-bold text-appleInk mb-4 sm:mb-6">Common Questions from Business Owners</h3>
             <div class="space-y-3.5 sm:space-y-4" id="faq-list">
               <div class="faq-item pb-3 border-b border-black/5" data-open="true">
-                <button type="button" class="w-full flex items-center justify-between gap-3 text-left py-1" aria-expanded="true" aria-controls="faq-panel-1" id="faq-button-1" onclick="toggleFaq(0)">
+                <button type="button" class="w-full flex items-center justify-between gap-3 text-left py-1" aria-expanded="true" aria-controls="faq-panel-1" id="faq-button-1" data-faq="0">
                   <span class="font-semibold text-appleInk text-xs sm:text-sm">Does this replace my existing sales team or front desk?</span>
                   <i data-lucide="chevron-down" class="faq-chevron w-4 h-4 text-appleMuted shrink-0"></i>
                 </button>
@@ -844,7 +430,7 @@
                 </div>
               </div>
               <div class="faq-item pb-3 border-b border-black/5" data-open="false">
-                <button type="button" class="w-full flex items-center justify-between gap-3 text-left py-1" aria-expanded="false" aria-controls="faq-panel-2" id="faq-button-2" onclick="toggleFaq(1)">
+                <button type="button" class="w-full flex items-center justify-between gap-3 text-left py-1" aria-expanded="false" aria-controls="faq-panel-2" id="faq-button-2" data-faq="1">
                   <span class="font-semibold text-appleInk text-xs sm:text-sm">What software or tools do I need to buy?</span>
                   <i data-lucide="chevron-down" class="faq-chevron w-4 h-4 text-appleMuted shrink-0"></i>
                 </button>
@@ -853,7 +439,7 @@
                 </div>
               </div>
               <div class="faq-item pb-3 border-b border-black/5" data-open="false">
-                <button type="button" class="w-full flex items-center justify-between gap-3 text-left py-1" aria-expanded="false" aria-controls="faq-panel-3" id="faq-button-3" onclick="toggleFaq(2)">
+                <button type="button" class="w-full flex items-center justify-between gap-3 text-left py-1" aria-expanded="false" aria-controls="faq-panel-3" id="faq-button-3" data-faq="2">
                   <span class="font-semibold text-appleInk text-xs sm:text-sm">What happens on the Free Systems Audit?</span>
                   <i data-lucide="chevron-down" class="faq-chevron w-4 h-4 text-appleMuted shrink-0"></i>
                 </button>
@@ -874,7 +460,7 @@
               Tell us where leads slip through the cracks. We'll review your current setup and reply with a concrete plan for automating it.
             </p>
 
-            <form id="contact-form" class="space-y-3 sm:space-y-4" onsubmit="handleContactSubmit(event)">
+            <form id="contact-form" class="space-y-3 sm:space-y-4" >
               <div>
                 <label for="form-name" class="block text-xs font-mono text-appleMuted uppercase mb-1">Your Name</label>
                 <input type="text" id="form-name" name="name" autocomplete="name" required placeholder="Alex Vance" class="w-full px-4 py-2.5 rounded-xl apple-inset text-appleInk placeholder-appleMuted text-[16px] sm:text-sm focus:outline-none focus:border-appleBlue transition-colors">
@@ -919,25 +505,25 @@
           <div>
             <h5 class="font-display font-semibold text-appleInk mb-2 text-xs">Systems & Packages</h5>
             <ul class="space-y-1.5 text-[11px]">
-              <li><a href="#" onclick="switchView('services'); return false;" class="hover:text-appleInk transition-colors">Instant AI Reply Bots</a></li>
-              <li><a href="#" onclick="switchView('services'); return false;" class="hover:text-appleInk transition-colors">Conversion Booking Sites</a></li>
-              <li><a href="#" onclick="switchView('services'); return false;" class="hover:text-appleInk transition-colors">Outbound Lead Engines</a></li>
+              <li><a href="#" data-view="services" class="hover:text-appleInk transition-colors">Instant AI Reply Bots</a></li>
+              <li><a href="#" data-view="services" class="hover:text-appleInk transition-colors">Conversion Booking Sites</a></li>
+              <li><a href="#" data-view="services" class="hover:text-appleInk transition-colors">Outbound Lead Engines</a></li>
             </ul>
           </div>
           <div>
             <h5 class="font-display font-semibold text-appleInk mb-2 text-xs">Proof & Audits</h5>
             <ul class="space-y-1.5 text-[11px]">
-              <li><a href="#" onclick="switchView('solutions'); return false;" class="hover:text-appleInk transition-colors">How The Pipeline Works</a></li>
-              <li><a href="#" onclick="switchView('home'); return false;" class="hover:text-appleInk transition-colors">Client Outcome Metrics</a></li>
-              <li><a href="#" onclick="switchView('contact'); return false;" class="hover:text-appleInk transition-colors">Free Blueprint Request</a></li>
+              <li><a href="#" data-view="solutions" class="hover:text-appleInk transition-colors">How The Pipeline Works</a></li>
+              <li><a href="#" data-view="home" class="hover:text-appleInk transition-colors">Client Outcome Metrics</a></li>
+              <li><a href="#" data-view="contact" class="hover:text-appleInk transition-colors">Free Blueprint Request</a></li>
             </ul>
           </div>
           <div>
             <h5 class="font-display font-semibold text-appleInk mb-2 text-xs">Legal & Governance</h5>
             <ul class="space-y-1.5 text-[11px]">
-              <li><button onclick="openModal('terms-modal')" class="hover:text-appleInk transition-colors">Terms of Service</button></li>
-              <li><button onclick="openModal('privacy-modal')" class="hover:text-appleInk transition-colors">Privacy Policy</button></li>
-              <li><button onclick="openModal('security-modal')" class="hover:text-appleInk transition-colors">Security Compliance</button></li>
+              <li><button data-open-modal="terms-modal" class="hover:text-appleInk transition-colors">Terms of Service</button></li>
+              <li><button data-open-modal="privacy-modal" class="hover:text-appleInk transition-colors">Privacy Policy</button></li>
+              <li><button data-open-modal="security-modal" class="hover:text-appleInk transition-colors">Security Compliance</button></li>
             </ul>
           </div>
           <div>
@@ -955,11 +541,11 @@
             Copyright &copy; 2026 Mayven & Co. All rights reserved.
           </div>
           <div class="flex items-center space-x-4">
-            <button onclick="openModal('privacy-modal')" class="hover:underline">Privacy</button>
+            <button data-open-modal="privacy-modal" class="hover:underline">Privacy</button>
             <span>•</span>
-            <button onclick="openModal('terms-modal')" class="hover:underline">Terms of Use</button>
+            <button data-open-modal="terms-modal" class="hover:underline">Terms of Use</button>
             <span>•</span>
-            <button onclick="openModal('security-modal')" class="hover:underline">Security</button>
+            <button data-open-modal="security-modal" class="hover:underline">Security</button>
           </div>
         </div>
 
@@ -973,7 +559,7 @@
     <div class="apple-glass max-w-2xl w-full max-h-[85vh] rounded-3xl p-6 sm:p-8 overflow-y-auto relative text-left">
       <div class="flex items-center justify-between pb-4 border-b border-black/5 mb-4">
         <h3 id="terms-title" class="font-display text-xl font-bold text-appleInk">Terms of Service</h3>
-        <button onclick="closeModal('terms-modal')" class="text-appleMuted hover:text-appleInk p-1 rounded-full hover:bg-black/5">
+        <button data-close-modal="terms-modal" class="text-appleMuted hover:text-appleInk p-1 rounded-full hover:bg-black/5">
           <i data-lucide="x" class="w-5 h-5"></i>
         </button>
       </div>
@@ -990,7 +576,7 @@
     <div class="apple-glass max-w-2xl w-full max-h-[85vh] rounded-3xl p-6 sm:p-8 overflow-y-auto relative text-left">
       <div class="flex items-center justify-between pb-4 border-b border-black/5 mb-4">
         <h3 id="privacy-title" class="font-display text-xl font-bold text-appleInk">Privacy Policy</h3>
-        <button onclick="closeModal('privacy-modal')" class="text-appleMuted hover:text-appleInk p-1 rounded-full hover:bg-black/5">
+        <button data-close-modal="privacy-modal" class="text-appleMuted hover:text-appleInk p-1 rounded-full hover:bg-black/5">
           <i data-lucide="x" class="w-5 h-5"></i>
         </button>
       </div>
@@ -1007,7 +593,7 @@
     <div class="apple-glass max-w-2xl w-full max-h-[85vh] rounded-3xl p-6 sm:p-8 overflow-y-auto relative text-left">
       <div class="flex items-center justify-between pb-4 border-b border-black/5 mb-4">
         <h3 id="security-title" class="font-display text-xl font-bold text-appleInk">Security Architecture & Compliance</h3>
-        <button onclick="closeModal('security-modal')" class="text-appleMuted hover:text-appleInk p-1 rounded-full hover:bg-black/5">
+        <button data-close-modal="security-modal" class="text-appleMuted hover:text-appleInk p-1 rounded-full hover:bg-black/5">
           <i data-lucide="x" class="w-5 h-5"></i>
         </button>
       </div>
@@ -1444,6 +1030,30 @@
       refreshIcons();
     }
 
+
+    // 9. CSP-safe event wiring (replaces inline onclick/onsubmit/onerror attributes)
+    (function wireEvents() {
+      const form = document.getElementById('contact-form');
+      if (form) form.addEventListener('submit', handleContactSubmit);
+      document.querySelectorAll('[data-view]').forEach((el) => {
+        el.addEventListener('click', (e) => { e.preventDefault(); switchView(el.dataset.view); });
+      });
+      document.querySelectorAll('[data-open-modal]').forEach((el) => {
+        el.addEventListener('click', () => openModal(el.dataset.openModal));
+      });
+      document.querySelectorAll('[data-close-modal]').forEach((el) => {
+        el.addEventListener('click', () => closeModal(el.dataset.closeModal));
+      });
+      document.querySelectorAll('[data-station]').forEach((el) => {
+        el.addEventListener('click', () => selectPipelineStation(Number(el.dataset.station)));
+      });
+      document.querySelectorAll('[data-faq]').forEach((el) => {
+        el.addEventListener('click', () => toggleFaq(Number(el.dataset.faq)));
+      });
+      document.querySelectorAll('img[data-fallback-src]').forEach((img) => {
+        img.addEventListener('error', () => { img.src = img.dataset.fallbackSrc; }, { once: true });
+      });
+    })();
   </script>
 </body>
 </html>
