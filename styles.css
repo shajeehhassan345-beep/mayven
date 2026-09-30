@@ -392,3 +392,6 @@
 
 /* Relocated from inline style attribute (CSP: no inline styles) */
 #mobile-dock { bottom: max(1.75rem, env(safe-area-inset-bottom, 1.75rem)); }
+
+/* Honeypot anti-spam field: invisible to humans, bots fill it */
+.hp-field{position:absolute!important;left:-9999px!important;top:auto!important;width:1px!important;height:1px!important;overflow:hidden!important;}
