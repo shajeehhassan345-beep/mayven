@@ -2,25 +2,35 @@
 <html lang="en" class="overflow-x-hidden w-full">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="theme-color" content="#fbfbfd">
-  <title>Mayven & Co. ® — Automated Lead Booking & Revenue Systems</title>
+  <title>Mayven & Co. — Automated Lead Booking & Revenue Systems</title>
+  <meta name="description" content="Mayven & Co. installs AI intake bots, automated booking calendars, and high-speed sales engines that turn clicks into confirmed appointments 24/7. Claim your free 10-minute systems audit.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Mayven & Co. — Automated Lead Booking & Revenue Systems">
+  <meta property="og:description" content="Never lose a paying client to slow follow-up again. AI intake, instant booking, and CRM automation — done for you in a 14-day sprint.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Mayven & Co. — Automated Lead Booking & Revenue Systems">
+  <meta name="twitter:description" content="Never lose a paying client to slow follow-up again. Claim your free 10-minute systems audit.">
 
   <!-- Favicon (Browser Tab Icon) -->
   <link rel="icon" type="image/png" href="erasebg-transformed.png">
   <link rel="apple-touch-icon" href="erasebg-transformed.png">
 
   <!-- Tailwind CSS -->
+  <link rel="preconnect" href="https://cdn.tailwindcss.com" crossorigin>
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+  <link rel="preconnect" href="https://unpkg.com" crossorigin>
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- GSAP -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <!-- Lucide Icons -->
-  <script src="https://unpkg.com/lucide@latest"></script>
+  <script defer src="https://unpkg.com/lucide@1.49.0/dist/umd/lucide.min.js"></script>
 
   <!-- Typography -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=SF+Pro+Display:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
 
   <script>
     tailwind.config = {
@@ -46,8 +56,12 @@
   </script>
 
   <style>
+    /* Custom cursor only engages when JS confirms a fine-pointer desktop;
+       never hide the native cursor via CSS alone (JS may fail to load). */
+    #cursor-dot, #cursor-follower { display: none; }
+    body.custom-cursor #cursor-dot, body.custom-cursor #cursor-follower { display: block; }
     @media (hover: hover) and (pointer: fine) {
-      * { cursor: none !important; }
+      body.custom-cursor * { cursor: none !important; }
     }
     @media (hover: none) and (pointer: coarse) {
       #cursor-dot, #cursor-follower { display: none !important; }
@@ -63,7 +77,6 @@
       width: 100%;
       max-width: 100vw;
       overflow-x: hidden;
-      touch-action: pan-y;
     }
 
     body {
@@ -388,6 +401,43 @@
       transform: translateY(-4px);
     }
 
+    /* Skip link (keyboard / screen-reader users) */
+    .skip-link {
+      position: fixed;
+      top: -100px;
+      left: 16px;
+      z-index: 200000;
+      background: #0071e3;
+      color: #fff;
+      padding: 0.6rem 1.1rem;
+      border-radius: 9999px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      transition: top 0.2s ease;
+      text-decoration: none;
+    }
+    .skip-link:focus { top: 12px; }
+
+    /* FAQ accordion panels */
+    .faq-panel {
+      display: grid;
+      grid-template-rows: 0fr;
+      transition: grid-template-rows 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .faq-panel > div { overflow: hidden; }
+    .faq-item[data-open="true"] .faq-panel { grid-template-rows: 1fr; }
+    .faq-item .faq-chevron { transition: transform 0.3s ease; }
+    .faq-item[data-open="true"] .faq-chevron { transform: rotate(180deg); }
+
+    /* Respect users who prefer reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
     /* Modal Backdrop */
     .legal-modal {
       transition: opacity 0.3s ease, visibility 0.3s ease;
@@ -401,16 +451,17 @@
 </head>
 
 <body class="font-sans antialiased overflow-x-hidden w-full">
+  <a href="#main-content" class="skip-link">Skip to content</a>
 
   <!-- Desktop Magnetic Cursor -->
   <div id="cursor-dot"></div>
   <div id="cursor-follower"></div>
 
   <!-- MONOCHROME ELECTRIC BLUE CAUSTIC WAVE CANVAS -->
-  <canvas id="chromatic-canvas" class="fixed inset-0 w-full h-full pointer-events-none z-0 opacity-80"></canvas>
+  <canvas id="chromatic-canvas" aria-hidden="true" class="fixed inset-0 w-full h-full pointer-events-none z-0 opacity-80"></canvas>
 
   <!-- Liquid Portal Curtain -->
-  <svg class="fixed inset-0 w-full h-full pointer-events-none z-50 overflow-hidden" preserveAspectRatio="none" viewBox="0 0 100 100">
+  <svg aria-hidden="true" class="fixed inset-0 w-full h-full pointer-events-none z-50 overflow-hidden" preserveAspectRatio="none" viewBox="0 0 100 100">
     <defs>
       <linearGradient id="portalSurge" x1="0%" y1="0%" x2="0%" y2="100%">
         <stop offset="0%" stop-color="#fbfbfd" />
@@ -433,7 +484,7 @@
     <nav class="pointer-events-auto grid grid-cols-4 gap-1.5 items-center w-full max-w-[340px] apple-glass p-1 rounded-full shadow-2xl border border-black/10 backdrop-blur-xl">
       <button onclick="switchView('home')" class="dock-pill-mobile view-pill active" data-target="home"><span class="pill-text">Home</span></button>
       <button onclick="switchView('services')" class="dock-pill-mobile view-pill" data-target="services"><span class="pill-text">Systems</span></button>
-      <button onclick="switchView('solutions')" class="dock-pill-mobile view-pill" data-target="solutions"><span class="pill-text">Proof</span></button>
+      <button onclick="switchView('solutions')" class="dock-pill-mobile view-pill" data-target="solutions"><span class="pill-text">Process</span></button>
       <button onclick="switchView('contact')" class="dock-pill-mobile view-pill" data-target="contact"><span class="pill-text">Audit</span></button>
     </nav>
   </div>
@@ -459,7 +510,7 @@
         <div class="hidden md:flex items-center space-x-1 apple-glass px-2.5 py-1.5 rounded-full">
           <button onclick="switchView('home')" class="dock-pill-desktop view-pill active" data-target="home"><span class="pill-text">Home</span></button>
           <button onclick="switchView('services')" class="dock-pill-desktop view-pill" data-target="services"><span class="pill-text">Systems</span></button>
-          <button onclick="switchView('solutions')" class="dock-pill-desktop view-pill" data-target="solutions"><span class="pill-text">Proof & Methodology</span></button>
+          <button onclick="switchView('solutions')" class="dock-pill-desktop view-pill" data-target="solutions"><span class="pill-text">How It Works</span></button>
           <button onclick="switchView('contact')" class="dock-pill-desktop view-pill" data-target="contact"><span class="pill-text">Free Audit</span></button>
         </div>
 
@@ -474,7 +525,7 @@
 
     <!-- CONTENT STAGE (Tightened Top Padding) -->
     <div id="content-stage" class="flex-grow flex items-center justify-center pb-32 md:pb-16 w-full max-w-full">
-      <main class="w-full pointer-events-auto px-4 sm:px-6 pt-12 sm:pt-16 max-w-full">
+      <main id="main-content" class="w-full pointer-events-auto px-4 sm:px-6 pt-12 sm:pt-16 max-w-full">
 
         <!-- ================= VIEW 1: HOME ================= -->
         <section id="view-home" class="view-section active w-full max-w-5xl mx-auto text-center">
@@ -500,7 +551,7 @@
             </h1>
 
             <p class="text-xs sm:text-lg md:text-xl text-appleMuted max-w-2xl font-normal leading-relaxed mb-6 sm:mb-8 px-2">
-              Most businesses lose 30% to 50% of qualified leads because nobody responds fast enough. We install custom AI intake bots, automated booking calendars, and high-speed sales engines that turn clicks into confirmed appointments 24/7.
+              Every missed call, slow reply, or after-hours inquiry is a deal walking to a competitor. We install AI intake bots, automated booking calendars, and follow-up engines that turn clicks into confirmed appointments 24/7.
             </p>
 
             <div class="flex flex-col sm:flex-row items-center gap-3 sm:gap-4 w-full sm:w-auto">
@@ -521,8 +572,8 @@
                   <p class="text-xs text-appleMuted mt-1.5 leading-relaxed">Instant SMS and email qualification the second an inquiry lands. Be the first to reply, every single time.</p>
                 </div>
                 <div class="mt-4 sm:mt-6 pt-2.5 sm:pt-3 border-t border-black/5 flex items-center justify-between text-[10px] sm:text-[11px] font-mono text-appleMuted">
-                  <span>CONVERSION LIFT</span>
-                  <span class="text-appleInk font-semibold">+38% Average</span>
+                  <span>CHANNELS</span>
+                  <span class="text-appleInk font-semibold">SMS + Email</span>
                 </div>
               </div>
 
@@ -533,8 +584,8 @@
                   <p class="text-xs text-appleMuted mt-1.5 leading-relaxed">Intelligent intake handles calendar scheduling, basic FAQ answers, deposit collection, and CRM updates on autopilot.</p>
                 </div>
                 <div class="mt-4 sm:mt-6 pt-2.5 sm:pt-3 border-t border-black/5 flex items-center justify-between text-[10px] sm:text-[11px] font-mono text-appleMuted">
-                  <span>HOURS SAVED</span>
-                  <span class="text-appleInk font-semibold">15+ hrs/week</span>
+                  <span>COVERAGE</span>
+                  <span class="text-appleInk font-semibold">24/7, weekends included</span>
                 </div>
               </div>
 
@@ -573,8 +624,8 @@
 
             <div class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 relative z-10 text-center">
 
-              <div onclick="selectPipelineStation(0)" class="flex flex-col items-center group cursor-pointer p-1 sm:p-2">
-                <div id="station-pedestal-0" class="service-pedestal selected w-14 h-14 sm:w-22 sm:h-22 rounded-2xl sm:rounded-3xl apple-glass bg-white flex items-center justify-center p-2.5 relative mb-2 sm:mb-3">
+              <button type="button" onclick="selectPipelineStation(0)" aria-pressed="true" class="flex flex-col items-center group cursor-pointer p-1 sm:p-2 bg-transparent border-0">
+                <span id="station-pedestal-0" class="service-pedestal selected w-14 h-14 sm:w-24 sm:h-24 rounded-2xl sm:rounded-3xl apple-glass bg-white flex items-center justify-center p-2.5 relative mb-2 sm:mb-3">
                   <svg class="w-8 h-8 sm:w-12 sm:h-12" viewBox="0 0 72 72" fill="none">
                     <circle cx="36" cy="36" r="30" stroke="#0071e3" stroke-width="1.5" stroke-opacity="0.18" />
                     <circle cx="36" cy="36" r="20" stroke="#0071e3" stroke-width="1.5" stroke-opacity="0.35" />
@@ -590,13 +641,13 @@
                       </linearGradient>
                     </defs>
                   </svg>
-                </div>
-                <h4 class="font-display font-semibold text-xs sm:text-sm text-appleInk">01 / Outbound Radar</h4>
-                <p class="text-[11px] text-appleMuted mt-0.5 hidden sm:block">Find verified buyers</p>
-              </div>
+                </span>
+                <span class="font-display font-semibold text-xs sm:text-sm text-appleInk block">01 / Outbound Radar</span>
+                <p class="text-[11px] text-appleMuted mt-0.5 hidden sm:block">Targeted prospect lists</p>
+              </button>
 
-              <div onclick="selectPipelineStation(1)" class="flex flex-col items-center group cursor-pointer p-1 sm:p-2">
-                <div id="station-pedestal-1" class="service-pedestal w-14 h-14 sm:w-22 sm:h-22 rounded-2xl sm:rounded-3xl apple-glass bg-white flex items-center justify-center p-2.5 relative mb-2 sm:mb-3">
+              <button type="button" onclick="selectPipelineStation(1)" aria-pressed="false" class="flex flex-col items-center group cursor-pointer p-1 sm:p-2 bg-transparent border-0">
+                <span id="station-pedestal-1" class="service-pedestal w-14 h-14 sm:w-24 sm:h-24 rounded-2xl sm:rounded-3xl apple-glass bg-white flex items-center justify-center p-2.5 relative mb-2 sm:mb-3">
                   <svg class="w-8 h-8 sm:w-12 sm:h-12" viewBox="0 0 72 72" fill="none">
                     <rect x="20" y="20" width="32" height="32" rx="7" stroke="#0071e3" stroke-width="1.5" stroke-opacity="0.3" />
                     <g class="neural-processor-core">
@@ -607,13 +658,13 @@
                     <line x1="36" y1="52" x2="36" y2="66" stroke="#0071e3" stroke-width="1.75" stroke-linecap="round" />
                     <circle cx="36" cy="11" r="2" fill="#0071e3" />
                   </svg>
-                </div>
-                <h4 class="font-display font-semibold text-xs sm:text-sm text-appleInk">02 / Instant AI Reply</h4>
+                </span>
+                <span class="font-display font-semibold text-xs sm:text-sm text-appleInk block">02 / Instant AI Reply</span>
                 <p class="text-[11px] text-appleMuted mt-0.5 hidden sm:block">Qualify within 60s</p>
-              </div>
+              </button>
 
-              <div onclick="selectPipelineStation(2)" class="flex flex-col items-center group cursor-pointer p-1 sm:p-2">
-                <div id="station-pedestal-2" class="service-pedestal w-14 h-14 sm:w-22 sm:h-22 rounded-2xl sm:rounded-3xl apple-glass bg-white flex items-center justify-center p-2.5 relative mb-2 sm:mb-3">
+              <button type="button" onclick="selectPipelineStation(2)" aria-pressed="false" class="flex flex-col items-center group cursor-pointer p-1 sm:p-2 bg-transparent border-0">
+                <span id="station-pedestal-2" class="service-pedestal w-14 h-14 sm:w-24 sm:h-24 rounded-2xl sm:rounded-3xl apple-glass bg-white flex items-center justify-center p-2.5 relative mb-2 sm:mb-3">
                   <svg class="w-10 h-10 sm:w-12 sm:h-12" viewBox="0 0 72 72" fill="none">
                     <rect x="12" y="16" width="48" height="40" rx="6" stroke="#0284c7" stroke-width="1.5" stroke-opacity="0.3" />
                     <line x1="12" y1="26" x2="60" y2="26" stroke="#0284c7" stroke-width="1.2" stroke-opacity="0.2" />
@@ -624,23 +675,23 @@
                     </g>
                     <path d="M49 35 L44 42 L48 42 L43 49" stroke="#0284c7" stroke-width="1.75" stroke-linecap="round" />
                   </svg>
-                </div>
-                <h4 class="font-display font-semibold text-xs sm:text-sm text-appleInk">03 / Booking Site</h4>
+                </span>
+                <span class="font-display font-semibold text-xs sm:text-sm text-appleInk block">03 / Booking Site</span>
                 <p class="text-[11px] text-appleMuted mt-0.5 hidden sm:block">High-converting pages</p>
-              </div>
+              </button>
 
-              <div onclick="selectPipelineStation(3)" class="flex flex-col items-center group cursor-pointer p-1 sm:p-2">
-                <div id="station-pedestal-3" class="service-pedestal w-14 h-14 sm:w-22 sm:h-22 rounded-2xl sm:rounded-3xl apple-glass bg-white flex items-center justify-center p-2.5 relative mb-2 sm:mb-3">
+              <button type="button" onclick="selectPipelineStation(3)" aria-pressed="false" class="flex flex-col items-center group cursor-pointer p-1 sm:p-2 bg-transparent border-0">
+                <span id="station-pedestal-3" class="service-pedestal w-14 h-14 sm:w-24 sm:h-24 rounded-2xl sm:rounded-3xl apple-glass bg-white flex items-center justify-center p-2.5 relative mb-2 sm:mb-3">
                   <svg class="w-10 h-10 sm:w-12 sm:h-12" viewBox="0 0 72 72" fill="none">
                     <ellipse cx="26" cy="22" rx="12" ry="4.5" stroke="#0071e3" stroke-width="1.5" stroke-opacity="0.35" />
                     <path d="M14 22 V30 C14 32.5 19.4 34.5 26 34.5 C32.6 34.5 38 32.5 38 30 V22" stroke="#0071e3" stroke-width="1.5" stroke-opacity="0.35" />
                     <path class="growth-vector-path" d="M 26 52 Q 40 50 48 34 L 58 20" stroke="#0071e3" stroke-width="2.2" stroke-linecap="round" />
                     <circle cx="58" cy="20" r="3" fill="#0071e3" />
                   </svg>
-                </div>
-                <h4 class="font-display font-semibold text-xs sm:text-sm text-appleInk">04 / CRM Sync</h4>
+                </span>
+                <span class="font-display font-semibold text-xs sm:text-sm text-appleInk block">04 / CRM Sync</span>
                 <p class="text-[11px] text-appleMuted mt-0.5 hidden sm:block">Automated reminders</p>
-              </div>
+              </button>
 
             </div>
           </div>
@@ -652,7 +703,7 @@
               <span id="terminal-latency" class="text-appleBlue text-[10px] sm:text-[11px]">DELIVERY: 3-5 DAYS</span>
             </div>
             <p id="terminal-description" class="text-xs text-appleInk mt-3 leading-relaxed">
-              We build dedicated verified outreach pools to identify high-intent local clients and route warm, interested replies straight to your team.
+              We build targeted prospect lists for your market and route warm, interested replies straight to your team.
             </p>
           </div>
 
@@ -679,7 +730,7 @@
                 <span class="text-xs font-mono text-appleBlue uppercase font-medium">Most Popular</span>
                 <h3 class="font-display text-lg sm:text-xl font-semibold text-appleInk mt-2 mb-2">AI Intake & Reactivation</h3>
                 <p class="text-appleMuted text-xs sm:text-sm leading-relaxed mb-5">
-                  Never miss an inquiry again. Qualify leads via SMS within 60 seconds and wake up dead contacts.
+                  Every missed call and form fill gets an instant SMS reply within 60 seconds, and old leads get re-engaged automatically.
                 </p>
                 <ul class="text-xs text-appleInk space-y-2 mb-6">
                   <li class="flex items-center space-x-2"><i data-lucide="check" class="w-3.5 h-3.5 text-appleBlue"></i><span>Sub-60s SMS missed-call & inquiry bot</span></li>
@@ -695,7 +746,7 @@
                 <span class="text-xs font-mono text-appleBlue uppercase font-medium">Full Scale</span>
                 <h3 class="font-display text-lg sm:text-xl font-semibold text-appleInk mt-2 mb-2">Turnkey Revenue Retainer</h3>
                 <p class="text-appleMuted text-xs sm:text-sm leading-relaxed mb-5">
-                  Complete end-to-end outbound client acquisition, dedicated support, and custom automations.
+                  We keep your pipeline fed and your systems tuned: ongoing outbound prospecting, new automations as you grow, and continuous optimization.
                 </p>
                 <ul class="text-xs text-appleInk space-y-2 mb-6">
                   <li class="flex items-center space-x-2"><i data-lucide="check" class="w-3.5 h-3.5 text-appleBlue"></i><span>Outbound prospecting pipeline & lists</span></li>
@@ -711,7 +762,7 @@
         <!-- ================= VIEW 3: PROOF & METHODOLOGY ================= -->
         <section id="view-solutions" class="view-section w-full max-w-5xl mx-auto">
           <div class="text-center mb-6 sm:mb-14">
-            <p class="text-[11px] sm:text-xs font-mono uppercase tracking-widest text-appleBlue font-semibold mb-2">Proof & Implementation</p>
+            <p class="text-[11px] sm:text-xs font-mono uppercase tracking-widest text-appleBlue font-semibold mb-2">How It Works</p>
             <h2 class="font-display text-2xl sm:text-5xl font-bold text-appleInk tracking-tight">How It Works in Practice.</h2>
           </div>
 
@@ -722,7 +773,7 @@
                 <span class="text-xs font-mono text-appleBlue uppercase font-medium">Architecture In Action</span>
                 <h3 class="font-display text-xl font-bold text-appleInk">The 60-Second Lead Capture Pipeline</h3>
               </div>
-              <span class="text-xs font-mono text-emerald-600 bg-emerald-50 px-3 py-1 rounded-full w-max">+42% Booked Call Retention</span>
+              <span class="text-xs font-mono text-emerald-600 bg-emerald-50 px-3 py-1 rounded-full w-max">Our Core Playbook</span>
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-6">
               <div>
@@ -782,18 +833,33 @@
           <!-- FAQ Accordion Matrix -->
           <div class="play-card apple-glass p-5 sm:p-10 rounded-3xl text-left">
             <h3 class="font-display text-lg sm:text-2xl font-bold text-appleInk mb-4 sm:mb-6">Common Questions from Business Owners</h3>
-            <div class="space-y-3.5 sm:space-y-4">
-              <div class="pb-3 border-b border-black/5">
-                <h4 class="font-semibold text-appleInk text-xs sm:text-sm">Does this replace my existing sales team or front desk?</h4>
-                <p class="text-appleMuted text-xs mt-1 leading-relaxed">No. It acts as an assistant that takes care of the repetitive busywork (instant replies, follow-ups, and calendar booking) so your staff only speaks with serious, qualified buyers.</p>
+            <div class="space-y-3.5 sm:space-y-4" id="faq-list">
+              <div class="faq-item pb-3 border-b border-black/5" data-open="true">
+                <button type="button" class="w-full flex items-center justify-between gap-3 text-left py-1" aria-expanded="true" aria-controls="faq-panel-1" id="faq-button-1" onclick="toggleFaq(0)">
+                  <span class="font-semibold text-appleInk text-xs sm:text-sm">Does this replace my existing sales team or front desk?</span>
+                  <i data-lucide="chevron-down" class="faq-chevron w-4 h-4 text-appleMuted shrink-0"></i>
+                </button>
+                <div class="faq-panel" id="faq-panel-1" role="region" aria-labelledby="faq-button-1">
+                  <div><p class="text-appleMuted text-xs mt-1 leading-relaxed pb-1">No. It acts as an assistant that takes care of the repetitive busywork (instant replies, follow-ups, and calendar booking) so your staff only speaks with serious, qualified buyers.</p></div>
+                </div>
               </div>
-              <div class="pb-3 border-b border-black/5">
-                <h4 class="font-semibold text-appleInk text-xs sm:text-sm">What software or tools do I need to buy?</h4>
-                <p class="text-appleMuted text-xs mt-1 leading-relaxed">We build on top of your existing tools (Google Calendar, HubSpot, Zapier, WhatsApp, or whatever CRM you already use). You don't need a bloated new monthly software stack.</p>
+              <div class="faq-item pb-3 border-b border-black/5" data-open="false">
+                <button type="button" class="w-full flex items-center justify-between gap-3 text-left py-1" aria-expanded="false" aria-controls="faq-panel-2" id="faq-button-2" onclick="toggleFaq(1)">
+                  <span class="font-semibold text-appleInk text-xs sm:text-sm">What software or tools do I need to buy?</span>
+                  <i data-lucide="chevron-down" class="faq-chevron w-4 h-4 text-appleMuted shrink-0"></i>
+                </button>
+                <div class="faq-panel" id="faq-panel-2" role="region" aria-labelledby="faq-button-2">
+                  <div><p class="text-appleMuted text-xs mt-1 leading-relaxed pb-1">We build on top of your existing tools (Google Calendar, HubSpot, Zapier, WhatsApp, or whatever CRM you already use). You don't need a bloated new monthly software stack.</p></div>
+                </div>
               </div>
-              <div>
-                <h4 class="font-semibold text-appleInk text-xs sm:text-sm">What happens on the Free Systems Audit?</h4>
-                <p class="text-appleMuted text-xs mt-1 leading-relaxed">We spend 10 to 15 minutes walking through how your current lead intake works, show you where you're losing inquiries, and give you a visual blueprint of what to automate—no high-pressure sales pitch.</p>
+              <div class="faq-item pb-3 border-b border-black/5" data-open="false">
+                <button type="button" class="w-full flex items-center justify-between gap-3 text-left py-1" aria-expanded="false" aria-controls="faq-panel-3" id="faq-button-3" onclick="toggleFaq(2)">
+                  <span class="font-semibold text-appleInk text-xs sm:text-sm">What happens on the Free Systems Audit?</span>
+                  <i data-lucide="chevron-down" class="faq-chevron w-4 h-4 text-appleMuted shrink-0"></i>
+                </button>
+                <div class="faq-panel" id="faq-panel-3" role="region" aria-labelledby="faq-button-3">
+                  <div><p class="text-appleMuted text-xs mt-1 leading-relaxed pb-1">We spend 10 to 15 minutes walking through how your current lead intake works, show you where you're losing inquiries, and give you a visual blueprint of what to automate—no high-pressure sales pitch.</p></div>
+                </div>
               </div>
             </div>
           </div>
@@ -805,33 +871,33 @@
             <p class="text-[11px] sm:text-xs font-mono uppercase tracking-widest text-appleBlue font-semibold mb-1">Free 10-Minute Systems Audit</p>
             <h2 class="font-display text-xl sm:text-3xl font-bold text-appleInk mb-2 tracking-tight">See where your pipeline is losing deals.</h2>
             <p class="text-appleMuted text-xs sm:text-sm mb-5 sm:mb-6">
-              Drop your business details below. We'll map out your current lead flow and deliver an actionable automation blueprint to increase your booking rate.
+              Tell us where leads slip through the cracks. We'll review your current setup and reply with a concrete plan for automating it.
             </p>
 
             <form id="contact-form" class="space-y-3 sm:space-y-4" onsubmit="handleContactSubmit(event)">
               <div>
-                <label class="block text-xs font-mono text-appleMuted uppercase mb-1">Your Name</label>
-                <input type="text" id="form-name" required placeholder="Alex Vance" class="w-full px-4 py-2.5 rounded-xl apple-inset text-appleInk placeholder-appleMuted text-[16px] sm:text-sm focus:outline-none focus:border-appleBlue transition-colors">
+                <label for="form-name" class="block text-xs font-mono text-appleMuted uppercase mb-1">Your Name</label>
+                <input type="text" id="form-name" name="name" autocomplete="name" required placeholder="Alex Vance" class="w-full px-4 py-2.5 rounded-xl apple-inset text-appleInk placeholder-appleMuted text-[16px] sm:text-sm focus:outline-none focus:border-appleBlue transition-colors">
               </div>
 
               <div>
-                <label class="block text-xs font-mono text-appleMuted uppercase mb-1">Work Email / Phone</label>
-                <input type="text" id="form-email" required placeholder="alex@company.com or phone number" class="w-full px-4 py-2.5 rounded-xl apple-inset text-appleInk placeholder-appleMuted text-[16px] sm:text-sm focus:outline-none focus:border-appleBlue transition-colors">
+                <label for="form-email" class="block text-xs font-mono text-appleMuted uppercase mb-1">Work Email / Phone</label>
+                <input type="text" id="form-email" name="contact" autocomplete="email" inputmode="email" required placeholder="alex@company.com or phone number" class="w-full px-4 py-2.5 rounded-xl apple-inset text-appleInk placeholder-appleMuted text-[16px] sm:text-sm focus:outline-none focus:border-appleBlue transition-colors">
               </div>
 
               <div>
-                <label class="block text-xs font-mono text-appleMuted uppercase mb-1">Primary Objective</label>
-                <select id="form-service" class="w-full px-4 py-2.5 rounded-xl apple-inset text-appleInk text-[16px] sm:text-sm focus:outline-none focus:border-appleBlue transition-colors bg-white">
+                <label for="form-service" class="block text-xs font-mono text-appleMuted uppercase mb-1">Primary Objective</label>
+                <select id="form-service" name="service" class="w-full px-4 py-2.5 rounded-xl apple-inset text-appleInk text-[16px] sm:text-sm focus:outline-none focus:border-appleBlue transition-colors bg-white">
                   <option value="Stop losing missed calls & inquiries">Stop losing missed calls & inquiries</option>
                   <option value="Modern conversion website & booking calendar">Modern conversion website & booking calendar</option>
                   <option value="Outbound B2B lead generation">Outbound B2B lead generation</option>
-                  <option value="Full end-to-end automation">Full end-to-end automation audit</option>
+                  <option value="Full end-to-end automation">Full end-to-end automation</option>
                 </select>
               </div>
 
               <div>
-                <label class="block text-xs font-mono text-appleMuted uppercase mb-1">Current Bottleneck (Optional)</label>
-                <textarea id="form-details" rows="3" placeholder="Tell us briefly about your current inquiry volume or where leads fall through the cracks..." class="w-full px-4 py-2.5 rounded-xl apple-inset text-appleInk placeholder-appleMuted text-[16px] sm:text-sm focus:outline-none focus:border-appleBlue transition-colors resize-none"></textarea>
+                <label for="form-details" class="block text-xs font-mono text-appleMuted uppercase mb-1">Current Bottleneck (Optional)</label>
+                <textarea id="form-details" name="details" rows="3" placeholder="Tell us briefly about your current inquiry volume or where leads fall through the cracks..." class="w-full px-4 py-2.5 rounded-xl apple-inset text-appleInk placeholder-appleMuted text-[16px] sm:text-sm focus:outline-none focus:border-appleBlue transition-colors resize-none"></textarea>
               </div>
 
               <button type="submit" id="submit-btn" class="apple-btn-primary w-full mt-2 py-3 rounded-xl text-xs sm:text-sm font-medium tracking-tight">
@@ -875,18 +941,18 @@
             </ul>
           </div>
           <div>
-            <h5 class="font-display font-semibold text-appleInk mb-2 text-xs">System Uptime</h5>
+            <h5 class="font-display font-semibold text-appleInk mb-2 text-xs">Service Standards</h5>
             <div class="text-[11px] text-appleBlue font-medium">
-              <span>All Client Pipelines Active</span>
+              <span>Response target: under 60 seconds</span>
             </div>
-            <p class="text-[10px] text-appleMuted mt-1">Average Response: &lt; 42s</p>
+            <p class="text-[10px] text-appleMuted mt-1">Build timeline: 14-day sprint</p>
           </div>
         </div>
 
         <!-- Bottom Copyright Row -->
         <div class="pt-6 border-t border-black/5 flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left text-[11px]">
           <div>
-            Copyright &copy; 2026 Mayven & Co. All rights reserved. Registered trademark.
+            Copyright &copy; 2026 Mayven & Co. All rights reserved.
           </div>
           <div class="flex items-center space-x-4">
             <button onclick="openModal('privacy-modal')" class="hover:underline">Privacy</button>
@@ -903,10 +969,10 @@
   </div>
 
   <!-- INTERACTIVE FROSTED LEGAL MODALS -->
-  <div id="terms-modal" class="legal-modal hidden fixed inset-0 z-[10000] flex items-center justify-center p-4 bg-black/30 backdrop-blur-sm">
+  <div id="terms-modal" role="dialog" aria-modal="true" aria-labelledby="terms-title" class="legal-modal hidden fixed inset-0 z-[100000] flex items-center justify-center p-4 bg-black/30 backdrop-blur-sm">
     <div class="apple-glass max-w-2xl w-full max-h-[85vh] rounded-3xl p-6 sm:p-8 overflow-y-auto relative text-left">
       <div class="flex items-center justify-between pb-4 border-b border-black/5 mb-4">
-        <h3 class="font-display text-xl font-bold text-appleInk">Terms of Service</h3>
+        <h3 id="terms-title" class="font-display text-xl font-bold text-appleInk">Terms of Service</h3>
         <button onclick="closeModal('terms-modal')" class="text-appleMuted hover:text-appleInk p-1 rounded-full hover:bg-black/5">
           <i data-lucide="x" class="w-5 h-5"></i>
         </button>
@@ -914,48 +980,59 @@
       <div class="space-y-4 text-xs sm:text-sm text-appleMuted leading-relaxed">
         <p><strong class="text-appleInk">1. Acceptance of Terms:</strong> By accessing and utilizing services provided by Mayven & Co., you agree to be bound by these Terms of Service. If you do not agree, discontinue use immediately.</p>
         <p><strong class="text-appleInk">2. Intellectual Property Rights:</strong> All custom software architectures, code packages, bespoke designs, and automation blueprints developed under client contract remain client property upon full disbursement of agreed-upon deliverables.</p>
-        <p><strong class="text-appleInk">3. Service Levels & Availability:</strong> Mayven & Co. provides infrastructure with standard 99.9% uptime objectives. Scheduled maintenance windows are communicated in advance.</p>
+        <p><strong class="text-appleInk">3. Service Levels & Availability:</strong> Mayven & Co. hosts client systems on managed cloud infrastructure. Scheduled maintenance windows are communicated in advance.</p>
         <p><strong class="text-appleInk">4. Limitation of Liability:</strong> Under no circumstances shall Mayven & Co. be held liable for indirect, incidental, or consequential damages resulting from third-party API changes, downstream service outages, or unauthorized third-party access.</p>
       </div>
     </div>
   </div>
 
-  <div id="privacy-modal" class="legal-modal hidden fixed inset-0 z-[10000] flex items-center justify-center p-4 bg-black/30 backdrop-blur-sm">
+  <div id="privacy-modal" role="dialog" aria-modal="true" aria-labelledby="privacy-title" class="legal-modal hidden fixed inset-0 z-[100000] flex items-center justify-center p-4 bg-black/30 backdrop-blur-sm">
     <div class="apple-glass max-w-2xl w-full max-h-[85vh] rounded-3xl p-6 sm:p-8 overflow-y-auto relative text-left">
       <div class="flex items-center justify-between pb-4 border-b border-black/5 mb-4">
-        <h3 class="font-display text-xl font-bold text-appleInk">Privacy Policy</h3>
+        <h3 id="privacy-title" class="font-display text-xl font-bold text-appleInk">Privacy Policy</h3>
         <button onclick="closeModal('privacy-modal')" class="text-appleMuted hover:text-appleInk p-1 rounded-full hover:bg-black/5">
           <i data-lucide="x" class="w-5 h-5"></i>
         </button>
       </div>
       <div class="space-y-4 text-xs sm:text-sm text-appleMuted leading-relaxed">
         <p><strong class="text-appleInk">1. Data Collection:</strong> We collect only business contact information submitted voluntarily through our inquiry workflows and diagnostic auditing tools.</p>
-        <p><strong class="text-appleInk">2. Data Isolation & AI Training:</strong> Client proprietary data, prospect lists, and operational documents are strictly isolated in single-tenant cloud buckets. Your customer data is <em>never</em> used to train public machine learning models.</p>
-        <p><strong class="text-appleInk">3. Cookies & Analytics:</strong> This website utilizes privacy-preserving session tokens and zero third-party behavioral trackers.</p>
-        <p><strong class="text-appleInk">4. Right to Deletion:</strong> You may request complete erasure of your corporate inquiries and contact logs at any time by contacting our engineering compliance office.</p>
+        <p><strong class="text-appleInk">2. Data Isolation & AI Training:</strong> Client proprietary data, prospect lists, and operational documents are kept separate per client. Your customer data is <em>never</em> used to train public machine learning models.</p>
+        <p><strong class="text-appleInk">3. Cookies & Analytics:</strong> We don't run behavioral advertising trackers. The site does load fonts and libraries from third-party CDNs (Google Fonts, cdnjs, unpkg).</p>
+        <p><strong class="text-appleInk">4. Right to Deletion:</strong> You may request complete erasure of your inquiries and contact logs at any time by emailing ayesha@mayvenco.com.</p>
       </div>
     </div>
   </div>
 
-  <div id="security-modal" class="legal-modal hidden fixed inset-0 z-[10000] flex items-center justify-center p-4 bg-black/30 backdrop-blur-sm">
+  <div id="security-modal" role="dialog" aria-modal="true" aria-labelledby="security-title" class="legal-modal hidden fixed inset-0 z-[100000] flex items-center justify-center p-4 bg-black/30 backdrop-blur-sm">
     <div class="apple-glass max-w-2xl w-full max-h-[85vh] rounded-3xl p-6 sm:p-8 overflow-y-auto relative text-left">
       <div class="flex items-center justify-between pb-4 border-b border-black/5 mb-4">
-        <h3 class="font-display text-xl font-bold text-appleInk">Security Architecture & Compliance</h3>
+        <h3 id="security-title" class="font-display text-xl font-bold text-appleInk">Security Architecture & Compliance</h3>
         <button onclick="closeModal('security-modal')" class="text-appleMuted hover:text-appleInk p-1 rounded-full hover:bg-black/5">
           <i data-lucide="x" class="w-5 h-5"></i>
         </button>
       </div>
       <div class="space-y-4 text-xs sm:text-sm text-appleMuted leading-relaxed">
-        <p><strong class="text-appleInk">1. Cryptographic Standards:</strong> All telemetry and API webhooks are encrypted in transit via TLS 1.3 and at rest with AES-256 bit encryption keys.</p>
-        <p><strong class="text-appleInk">2. Access Control:</strong> Strict role-based access control (RBAC) and hardware-based MFA are mandatory across all infrastructure clusters.</p>
-        <p><strong class="text-appleInk">3. Continuous Auditing:</strong> Automated penetration testing and dependency vulnerability scanning run on every codebase deployment.</p>
+        <p><strong class="text-appleInk">1. Cryptographic Standards:</strong> Client data is encrypted in transit and at rest using industry-standard encryption.</p>
+        <p><strong class="text-appleInk">2. Access Control:</strong> Infrastructure access is protected by role-based access controls and multi-factor authentication.</p>
+        <p><strong class="text-appleInk">3. Continuous Auditing:</strong> We keep dependencies updated and review security with every deployment.</p>
       </div>
     </div>
   </div>
 
   <!-- SCRIPT ENGINE -->
   <script>
-    lucide.createIcons();
+    /* ================= Mayven site engine ================= */
+    const REDUCED_MOTION = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    // Lead-capture endpoint: paste a JSON endpoint (e.g. https://formspree.io/f/xxxxxx).
+    // When empty, the form falls back to the visitor's email app so no lead is silently lost.
+    const FORM_ENDPOINT = "";
+    const FALLBACK_EMAIL = "ayesha@mayvenco.com";
+
+    function refreshIcons() { if (window.lucide) lucide.createIcons(); }
+
+    // Vendor scripts are deferred, so they run before DOMContentLoaded fires.
+    document.addEventListener('DOMContentLoaded', () => {
+      refreshIcons();
 
     // 1. Magnetic Precision Cursor (Desktop Only)
     const dot = document.getElementById('cursor-dot');
@@ -967,8 +1044,9 @@
     let normMouseX = 0, normMouseY = 0;
 
     if (!isTouchDevice()) {
+      document.body.classList.add('custom-cursor');
       window.addEventListener('mousemove', (e) => {
-        mouseX = e.clientX; 
+        mouseX = e.clientX;
         mouseY = e.clientY;
         normMouseX = (e.clientX / window.innerWidth) * 2.0 - 1.0;
         normMouseY = -(e.clientY / window.innerHeight) * 2.0 + 1.0;
@@ -982,6 +1060,7 @@
       });
 
       function animateCursor() {
+        if (document.hidden || REDUCED_MOTION) { requestAnimationFrame(animateCursor); return; }
         followerX += (mouseX - followerX) * 0.22;
         followerY += (mouseY - followerY) * 0.22;
         follower.style.left = `${followerX}px`;
@@ -1001,40 +1080,8 @@
       }, { passive: true });
     }
 
-    // 3. Squeeze & Stretch Scroll Physics
-    let lastScrollY = window.scrollY;
-    let scrollVelocity = 0;
-    let smoothedVelocity = 0;
 
-    window.addEventListener('scroll', () => {
-      const currentScrollY = window.scrollY;
-      scrollVelocity = currentScrollY - lastScrollY;
-      lastScrollY = currentScrollY;
-    }, { passive: true });
-
-    function applyCardScrollPhysics() {
-      smoothedVelocity += (scrollVelocity - smoothedVelocity) * 0.14;
-      scrollVelocity *= 0.88;
-
-      const clampedVel = Math.max(-28, Math.min(28, smoothedVelocity));
-      const absVel = Math.abs(clampedVel);
-      
-      const stretchY = 1 + (absVel * 0.0016);
-      const squeezeX = 1 - (absVel * 0.0009);
-      const skewY = clampedVel * 0.04;
-
-      const cards = document.querySelectorAll('.play-card');
-      cards.forEach(card => {
-        if (!card.matches(':hover')) {
-          card.style.transform = `scale(${squeezeX}, ${stretchY}) skewY(${skewY}deg)`;
-        }
-      });
-
-      requestAnimationFrame(applyCardScrollPhysics);
-    }
-    applyCardScrollPhysics();
-
-    // 4. Monochrome Electric Blue Caustic Wave Shader
+    // 3. Monochrome Electric Blue Caustic Wave Shader
     const canvas = document.getElementById('chromatic-canvas');
     const gl = canvas.getContext('webgl', { antialias: true, alpha: true, powerPreference: 'high-performance' });
 
@@ -1049,7 +1096,11 @@
       `;
 
       const fsSource = `
-        precision highp float;
+        #ifdef GL_FRAGMENT_PRECISION_HIGH
+          precision highp float;
+        #else
+          precision mediump float;
+        #endif
         varying vec2 vUv;
         uniform vec2 u_resolution;
         uniform float u_time;
@@ -1141,6 +1192,13 @@
       let smoothMouseX = 0, smoothMouseY = 0;
 
       function renderCaustics() {
+        if (document.hidden) { requestAnimationFrame(renderCaustics); return; }
+        if (REDUCED_MOTION) {
+          gl.uniform1f(uTime, 0.0);
+          gl.uniform2f(uMouse, 0.0, 0.0);
+          gl.drawArrays(gl.TRIANGLES, 0, 6);
+          return; // static frame only
+        }
         const currentTime = (performance.now() - startTime) * 0.001;
         smoothMouseX += (normMouseX - smoothMouseX) * 0.04;
         smoothMouseY += (normMouseY - smoothMouseY) * 0.04;
@@ -1152,13 +1210,14 @@
       }
       renderCaustics();
     }
+    }); // end DOMContentLoaded init
 
-    // 5. Interactive Pipeline Terminal Selector
+    // 4. Interactive Pipeline Terminal Selector
     const pipelineData = [
       {
         badge: "STAGE: 01 / OUTBOUND PROSPECTING",
         latency: "DEPLOYMENT: 3-5 DAYS",
-        desc: "We build dedicated verified outreach pools to identify high-intent local clients and route warm, interested replies straight to your team."
+        desc: "We build targeted prospect lists for your market and route warm, interested replies straight to your team."
       },
       {
         badge: "STAGE: 02 / INSTANT 60-SECOND REPLY",
@@ -1180,6 +1239,8 @@
     function selectPipelineStation(index) {
       document.querySelectorAll('.service-pedestal').forEach((el, i) => {
         el.classList.toggle('selected', i === index);
+        const btn = el.closest('button');
+        if (btn) btn.setAttribute('aria-pressed', i === index ? 'true' : 'false');
       });
 
       const badge = document.getElementById('terminal-step-badge');
@@ -1187,21 +1248,28 @@
       const desc = document.getElementById('terminal-description');
 
       if (badge && latency && desc) {
-        gsap.to([badge, latency, desc], {
-          opacity: 0,
-          y: -4,
-          duration: 0.15,
-          onComplete: () => {
-            badge.textContent = pipelineData[index].badge;
-            latency.textContent = pipelineData[index].latency;
-            desc.textContent = pipelineData[index].desc;
-            gsap.to([badge, latency, desc], { opacity: 1, y: 0, duration: 0.25 });
-          }
-        });
+        const swapText = () => {
+          badge.textContent = pipelineData[index].badge;
+          latency.textContent = pipelineData[index].latency;
+          desc.textContent = pipelineData[index].desc;
+        };
+        if (window.gsap && !REDUCED_MOTION) {
+          gsap.to([badge, latency, desc], {
+            opacity: 0,
+            y: -4,
+            duration: 0.15,
+            onComplete: () => {
+              swapText();
+              gsap.to([badge, latency, desc], { opacity: 1, y: 0, duration: 0.25 });
+            }
+          });
+        } else {
+          swapText();
+        }
       }
     }
 
-    // 6. Glitch-Free Liquid Page Transition
+    // 5. Glitch-Free Liquid Page Transition
     let currentView = 'home';
     let isTransitioning = false;
 
@@ -1223,102 +1291,159 @@
         btn.classList.toggle('active', btn.dataset.target === viewId);
       });
 
-      const tl = gsap.timeline({
-        onComplete: () => {
-          isTransitioning = false;
-          currentView = viewId;
-        }
-      });
+      const finishTransition = () => {
+        isTransitioning = false;
+        currentView = viewId;
+      };
+      const swapViews = () => {
+        currentEl.classList.remove('active');
+        targetEl.classList.add('active');
+        window.scrollTo(0, 0);
+        refreshIcons();
+      };
 
-      tl.set([layerBack, layerFront, rim], { opacity: 1 })
-        .to(contentStage, { opacity: 0, y: -8, duration: 0.28, ease: "power2.in" }, 0)
-        .fromTo(layerBack,
-          { attr: { d: "M 0 0 L 100 0 L 100 0 Q 50 0 0 0 Z" } },
-          { duration: 0.36, attr: { d: "M 0 0 L 100 0 L 100 100 Q 50 120 0 100 Z" }, ease: "power3.in" }, 0
-        )
-        .fromTo(layerFront,
-          { attr: { d: "M 0 0 L 100 0 L 100 0 Q 50 0 0 0 Z" } },
-          { duration: 0.38, attr: { d: "M 0 0 L 100 0 L 100 100 Q 50 110 0 100 Z" }, ease: "power3.in" }, 0.02
-        )
-        .add(() => {
-          currentEl.classList.remove('active');
-          targetEl.classList.add('active');
-          window.scrollTo({ top: 0, behavior: 'instant' });
-          lucide.createIcons();
-        })
-        .to(layerFront, { duration: 0.42, attr: { d: "M 0 100 L 100 100 L 100 100 Q 50 100 0 100 Z" }, ease: "power4.out" })
-        .to(layerBack, { duration: 0.46, attr: { d: "M 0 100 L 100 100 L 100 100 Q 50 100 0 100 Z" }, ease: "power4.out" }, "<0.02")
-        .fromTo(contentStage, { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.38, ease: "power3.out" }, "-=0.32")
-        .set([layerBack, layerFront, rim], { opacity: 0 });
+      if (window.gsap && !REDUCED_MOTION) {
+        const tl = gsap.timeline({ onComplete: finishTransition });
+
+        tl.set([layerBack, layerFront, rim], { opacity: 1 })
+          .to(contentStage, { opacity: 0, y: -8, duration: 0.28, ease: "power2.in" }, 0)
+          .fromTo(layerBack,
+            { attr: { d: "M 0 0 L 100 0 L 100 0 Q 50 0 0 0 Z" } },
+            { duration: 0.36, attr: { d: "M 0 0 L 100 0 L 100 100 Q 50 120 0 100 Z" }, ease: "power3.in" }, 0
+          )
+          .fromTo(layerFront,
+            { attr: { d: "M 0 0 L 100 0 L 100 0 Q 50 0 0 0 Z" } },
+            { duration: 0.38, attr: { d: "M 0 0 L 100 0 L 100 100 Q 50 110 0 100 Z" }, ease: "power3.in" }, 0.02
+          )
+          .add(swapViews)
+          .to(layerFront, { duration: 0.42, attr: { d: "M 0 100 L 100 100 L 100 100 Q 50 100 0 100 Z" }, ease: "power4.out" })
+          .to(layerBack, { duration: 0.46, attr: { d: "M 0 100 L 100 100 L 100 100 Q 50 100 0 100 Z" }, ease: "power4.out" }, "<0.02")
+          .fromTo(contentStage, { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.38, ease: "power3.out" }, "-=0.32")
+          .set([layerBack, layerFront, rim], { opacity: 0 });
+      } else {
+        swapViews();
+        finishTransition();
+      }
     }
 
-    // 7. Contact Form Handler
+    // 6. Contact Form Handler — posts to FORM_ENDPOINT when configured,
+    // otherwise hands the request to the visitor's email app so no lead is silently lost.
     async function handleContactSubmit(e) {
       e.preventDefault();
+      const form = document.getElementById('contact-form');
       const btn = document.getElementById('submit-btn');
       const label = document.getElementById('btn-text-content');
-      const orig = label.textContent;
+      const originalText = label.textContent;
 
-      label.textContent = "Transmitting Audit Request...";
+      const name = document.getElementById('form-name').value.trim();
+      const contact = document.getElementById('form-email').value.trim();
+      const service = document.getElementById('form-service').value;
+      const details = document.getElementById('form-details').value.trim();
+
+      const contactOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contact) ||
+                        contact.replace(/\D/g, '').length >= 7;
+      if (name.length < 2 || !contactOk) {
+        label.textContent = "Please add your name and a valid email or phone";
+        setTimeout(() => { label.textContent = originalText; }, 3200);
+        return;
+      }
+
+      label.textContent = "Sending audit request...";
       btn.disabled = true;
 
       const payload = {
-        name: document.getElementById('form-name').value,
-        email: document.getElementById('form-email').value,
-        service: document.getElementById('form-service').value,
-        details: document.getElementById('form-details').value
+        name, contact, service, details,
+        page: location.href,
+        submitted_at: new Date().toISOString()
       };
+      let delivered = false;
 
-      try {
-        const res = await fetch('/api/contact', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload)
-        });
-
-        if (res.ok) {
-          label.textContent = "Audit Blueprint Requested ✓";
-          document.getElementById('contact-form').reset();
-        } else {
-          label.textContent = "Request Received ✓";
-          document.getElementById('contact-form').reset();
+      if (FORM_ENDPOINT) {
+        try {
+          const res = await fetch(FORM_ENDPOINT, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+            body: JSON.stringify(payload)
+          });
+          delivered = res.ok;
+        } catch (err) {
+          delivered = false;
         }
-      } catch (err) {
-        label.textContent = "Request Received ✓";
-        document.getElementById('contact-form').reset();
       }
 
-      setTimeout(() => {
-        label.textContent = orig;
-        btn.disabled = false;
-      }, 4000);
-    }
+      if (delivered) {
+        label.textContent = "Audit request sent ✓ — we reply within one business day";
+        form.reset();
+      } else {
+        // No endpoint configured, or it failed: open the visitor's email app
+        // with the request pre-filled instead of pretending it was received.
+        const subject = encodeURIComponent("Free Systems Audit Request — " + name);
+        const body = encodeURIComponent(
+          "Name: " + name + "\n" +
+          "Contact: " + contact + "\n" +
+          "Objective: " + service + "\n" +
+          "Bottleneck: " + (details || "-") + "\n" +
+          "Page: " + payload.page
+        );
+        label.textContent = "Opening your email app to send the request...";
+        window.location.href = "mailto:" + FALLBACK_EMAIL + "?subject=" + subject + "&body=" + body;
+      }
 
-    // 8. Legal Modals Controller
+      setTimeout(() => { label.textContent = originalText; btn.disabled = false; }, 6000);
+    }
+    // 7. Legal Modals Controller (focus trapped, focus restored on close)
+    let lastFocusedEl = null;
     function openModal(id) {
       const modal = document.getElementById(id);
-      if (modal) {
-        modal.classList.remove('hidden');
-        lucide.createIcons();
-      }
+      if (!modal) return;
+      lastFocusedEl = document.activeElement;
+      modal.classList.remove('hidden');
+      refreshIcons();
+      const closeBtn = modal.querySelector('button');
+      if (closeBtn) closeBtn.focus();
+      document.body.style.overflow = 'hidden';
     }
-
     function closeModal(id) {
       const modal = document.getElementById(id);
-      if (modal) modal.classList.add('hidden');
+      if (!modal) return;
+      modal.classList.add('hidden');
+      document.body.style.overflow = '';
+      if (lastFocusedEl && typeof lastFocusedEl.focus === 'function') lastFocusedEl.focus();
     }
-
+    // Keep Tab inside the open modal
+    document.addEventListener('keydown', (e) => {
+      if (e.key !== 'Tab') return;
+      const open = document.querySelector('.legal-modal:not(.hidden)');
+      if (!open) return;
+      const focusables = open.querySelectorAll(
+        'button, a[href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+      if (!focusables.length) return;
+      const first = focusables[0], last = focusables[focusables.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    });
     window.addEventListener('click', (e) => {
       if (e.target.classList.contains('legal-modal')) {
-        e.target.classList.add('hidden');
+        closeModal(e.target.id);
+      }
+    });
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        document.querySelectorAll('.legal-modal:not(.hidden)').forEach((m) => closeModal(m.id));
       }
     });
 
-    window.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
-        document.querySelectorAll('.legal-modal').forEach(m => m.classList.add('hidden'));
-      }
-    });
+    // 8. FAQ accordion
+    function toggleFaq(index) {
+      document.querySelectorAll('.faq-item').forEach((item, i) => {
+        const open = i === index ? item.dataset.open !== 'true' : false;
+        item.dataset.open = open ? 'true' : 'false';
+        const btn = item.querySelector('.faq-toggle, button');
+        if (btn) btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+      refreshIcons();
+    }
+
   </script>
 </body>
 </html>
